@@ -1,0 +1,17 @@
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: "stocktrader"
+  labels:
+    app: {{ .Values.StockTraderLabel }}
+spec:
+  selector:
+    matchLabels:
+      app: ({{ .Values.PortfolioLabel }}, {{ .Values.TradrLabel }})
+  componentKinds:
+    - group: apps
+      kind: Application
+    - group: apps
+      kind: ApplicationDependency
+    - group: apps
+      kind: NetworkPolicy
