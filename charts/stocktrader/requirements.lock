@@ -1,0 +1,6 @@
+dependencies:
+- name: portfolio
+  repository: file://../../../portfolio/chart/portfolio
+  version: 1.0.0
+digest: sha256:934a390ed2aa815d108a35440a01c084e6e886ea038966a975eae6fc4c20df68
+generated: 2018-07-31T07:32:50.259237662-05:00
