@@ -1,3 +1,17 @@
 dependencies:
+- name: messaging
+  version: 1.0.0
+- name: notification-slack
+  version: 1.0.0
+  condition: route.slack.enabled
+- name: notification-twitter
+  version: 1.0.0
+  condition: route.twitter.enabled
 - name: portfolio
   version: 2.0.0
+- name: stock-quote
+  version: 1.0.0
+- name: trader
+  version: 2.0.0
+- name: tradr
+  version: 1.0.0
