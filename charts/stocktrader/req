@@ -1,0 +1,24 @@
+dependencies:
+- name: messaging
+  repository: https://raw.githubusercontent.com/IBMStockTrader/messaging/microclimate/chart
+  version: 1.0.0
+- name: notification-slack
+  repository: https://raw.githubusercontent.com/IBMStockTrader/notification-slack/microclimate/chart
+  version: 1.0.0
+  condition: route.slack.enabled
+- name: notification-twitter
+  repository: https://raw.githubusercontent.com/IBMStockTrader/notification-twitter/microclimate/charts
+  version: 1.0.0
+  condition: route.twitter.enabled
+- name: portfolio
+  repository: https://raw.githubusercontent.com/IBMStockTrader/portfolio/microclimate/chart/portfolio
+  version: 2.0.0
+- name: stock-quote
+  repository: hhttps://raw.githubusercontent.com/IBMStockTrader/stock-quote/microclimate/charts
+  version: 1.0.0
+- name: trader
+  repository: https://raw.githubusercontent.com/IBMStockTrader/trader/microclimate/charts
+  version: 2.0.0
+- name: tradr
+  repository: https://raw.githubusercontent.com/IBMStockTrader/tradr/microclimate/charts
+  version: 1.0.0

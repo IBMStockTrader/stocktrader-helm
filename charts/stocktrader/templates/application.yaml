@@ -1,17 +1,40 @@
 apiVersion: app.k8s.io/v1beta1
 kind: Application
 metadata:
-  name: "stocktrader"
+  name: "stock-trader"
   labels:
-    app: {{ .Values.StockTraderLabel }}
+    app.kubernetes.io/version: "3"
 spec:
   selector:
     matchLabels:
-      app: ({{ .Values.PortfolioLabel }}, {{ .Values.TradrLabel }})
+     solution: "stock-trader"
   componentKinds:
+    - group: core
+      kind: Service
     - group: apps
-      kind: Application
+      kind: Deployment
     - group: apps
-      kind: ApplicationDependency
-    - group: apps
-      kind: NetworkPolicy
+      kind: StatefulSet
+  descriptor:
+    type: "stock-trader"
+    version: "4.9.4"
+    description: "stock-trader is open source software you can use perform stock trades"
+    icons: 
+      - src: "https://example.com/stock-trader.png"
+        type: "image/png"
+    assemblyPhase: "Pending"
+    maintainers:
+      - name:  Bugs Bunny
+        email: bugsbunny@github.com
+    owners:
+      - name:  Bugs Bunny
+        email: bugsbunny@github.com
+    keywords:
+      - "stock-trader"
+    links:
+      - description: About
+        url: "https://stock-trader.org/"
+      - description: Web Server Dashboard
+        url: "https://metrics/internal/stock-trader/web-app"
+      - description: Mysql Dashboard
+        url: "https://metrics/internal/stock-trader/mysql"
