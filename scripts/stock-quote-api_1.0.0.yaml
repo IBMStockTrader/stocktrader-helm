@@ -1,0 +1,87 @@
+---
+swagger: "2.0"
+info:
+  x-ibm-name: "stock-quote-api"
+  title: "Stock Quote API"
+  version: "1.0.0"
+schemes:
+- "https"
+host: "$(catalog.host)"
+basePath: "/stocks"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+securityDefinitions:
+  clientIdHeader:
+    type: "apiKey"
+    in: "header"
+    name: "X-IBM-Client-Id"
+security:
+- {}
+x-ibm-configuration:
+  testable: true
+  enforced: true
+  cors:
+    enabled: true
+  assembly:
+    execute:
+    - invoke:
+        target-url: "https://api.iextrading.com/1.0/stock/{symbol}/quote"
+        title: "Get stock quote"
+    - gatewayscript:
+        title: "Mediate results"
+        version: "1.0.0"
+        source: "function formatDate(date) {\r\n    var d = new Date(date),\r\n  \
+          \      month = '' + (d.getMonth() + 1),\r\n        day = '' + d.getDate(),\r\
+          \n        year = d.getFullYear();\r\n\r\n    if (month.length < 2) month\
+          \ = '0' + month;\r\n    if (day.length < 2) day = '0' + day;\r\n\r\n   \
+          \ return [year, month, day].join('-');\r\n}\r\n\r\nvar json = apim.getvariable('message.body');\r\
+          \nconsole.error(\"json %s\", JSON.stringify(json));\r\n\r\nvar myOutput\
+          \ = {\r\n  \"symbol\" : json.symbol,\r\n  \"date\"   : formatDate(json.iexLastUpdated),\r\
+          \n  \"time\"   : json.iexLastUpdated,\r\n  \"price\"  : json.latestPrice\r\
+          \n};\r\n\r\napim.setvariable('message.body', myOutput);"
+        description: "Transform output"
+  phase: "realized"
+paths:
+  /{symbol}:
+    get:
+      responses:
+        200:
+          description: "Successful result"
+          schema:
+            $ref: "#/definitions/Quote"
+      operationId: "getStockQuote"
+      description: "Get a stock quote for the specified symbol"
+      parameters:
+      - name: "symbol"
+        type: "string"
+        required: true
+        in: "path"
+        description: "Stock symbol"
+definitions:
+  Quote:
+    properties:
+      symbol:
+        type: "string"
+        description: "The stock ticker symbol"
+      date:
+        type: "string"
+        description: "The date of the quote"
+      time:
+        type: "integer"
+        description: "The time of the quote"
+        format: "int64"
+      price:
+        type: "number"
+        format: "float"
+        description: "The closing price"
+    additionalProperties: false
+  Error:
+    properties:
+      code:
+        type: "string"
+      message:
+        type: "string"
+    additionalProperties: false
+tags: []
