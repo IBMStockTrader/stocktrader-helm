@@ -178,7 +178,7 @@ Run the following command.
 kubectl create secret generic openwhisk --from-literal=url=<URL> --from-literal=id=<ID> --from-literal=pwd=<PASSWORD> -n stocktrader
 ```
 
-where `<URL>` is the URL of the cloud function that was created and <ID> and <PASSWORD> are the id and password from the credentials.
+where `<URL>` is the URL of the cloud function that was created and `<ID>` and `<PASSWORD>` are the id and password from the credentials.
 
 ## Configure Twitter (optional)
 
