@@ -6,8 +6,8 @@ These are instructions for installing and configuring the stocktrader applicatio
 
 There are 2 notification microservices, notification-slack and notification-twitter.
 Both use the same service called `notification-service`.
-If you do not have Istio in your cluster, you need to choose which microservice to deploy. 
-If you have Istio in your cluster, you can deploy both.  
+If you do not have Istio in your cluster, you need to choose which microservice to deploy.
+If you have Istio in your cluster, you can deploy both.
 You must manually create the Istio routing rules (see the notification-slack and notification-twitter projects for samples).
 
 ## General preparation
@@ -19,22 +19,22 @@ You can do so by running `stocktrader/scripts/cloneProjects.sh` from the same wo
 where you cloned this project.
 
 You need to be logged in to your IBM Cloud Private instance via the CLI.
-See (these instructions)[https://www.ibm.com/support/knowledgecenter/en/SSBS6K_2.1.0.3/manage_cluster/cli_commands.html#pr_login].
+See [these instructions](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_2.1.0.3/manage_cluster/cli_commands.html#pr_login).
 
-These instructions and the configuration scripts assume that you will deploy the stocktrader application in the `stocktrader` Kubernetes namespace.
+The following instructions and the configuration scripts assume that you will deploy the stocktrader application in the `stocktrader` Kubernetes namespace.
 If you want to use a different namespace, then update your copy of the `variables.sh` file in the `scripts` folder to change the desired namespace.
 Also use that namespace in any kubectl commands provided below in place of `stocktrader`.
 
 ## Install and configure DB2
 
-1. Log in to your IBM Cloud Private management console.  
+1. Log in to your IBM Cloud Private management console.
 2. Click the `Catalog` button.
 3. Type `db2` into the search bar to find the IBM Db2 Developer-C Helm chart.  Click on the chart.
 4. Perform the prerequisites for DB2 installation as directed by the chart's instructions.
 5. Click the `Configure` button to display the chart's configuration parameters.
-<p>Review the parameters and complete required fields.
-<p>Set the database name to `trader`.
-<p>Click the `Install` button.
+Review the parameters and complete required fields.
+Set the database name to `trader`.
+Click the `Install` button.
 6. Monitor the deployment and verify that the DB2 pod starts.
 7. Edit the `variables.sh` file in your copy of the `scripts` folder.
 Review the variable settings in the DB2 section.
@@ -47,13 +47,13 @@ It also creates the DB2 tables for the application.
 
 ## Install and configure MQ
 
-1. Log in to your IBM Cloud Private management console.  
+1. Log in to your IBM Cloud Private management console.
 2. Click the `Catalog` button.
 3. Type `mq` into the search bar to find the IBM MQ Advanced for Developers Helm chart.  Click on the chart.
 4. Perform the prerequisites for MQ installation as directed by the chart's instructions.
 5. Click the `Configure` button to display the chart's configuration parameters.
-<p>Review the parameters and complete required fields.
-<p>Click the `Install` button.
+Review the parameters and complete required fields.
+Click the `Install` button.
 6. Monitor the deployment and verify that the MQ pod starts.
 7. Edit the `variables.sh` file in your copy of the `scripts` folder.
 Review the variable settings in the general section and the MQ section.
@@ -66,13 +66,13 @@ It also creates the MQ message queue for the application.
 
 ## Install and configure ODM
 
-1. Log in to your IBM Cloud Private management console.  
+1. Log in to your IBM Cloud Private management console.
 2. Click the `Catalog` button.
 3. Type `odm` into the search bar to find the IBM Operational Decision Manager (ODM) Helm chart.  Click on the chart.
 4. Perform the prerequisites for ODM installation as directed by the chart's instructions.
 5. Click the `Configure` button to display the chart's configuration parameters.
-<p>Review the parameters and complete required fields.
-<p>Click the `Install` button.
+Review the parameters and complete required fields.
+Click the `Install` button.
 6. Monitor the deployment and verify that the ODM pod starts.
 7. Install [curl](https://curl.haxx.se/download.html) and [jq](https://stedolan.github.io/jq/download/) on your workstation if you do not already have them.
 8. Edit the `variables.sh` file in your copy of the `scripts` folder.
@@ -86,13 +86,13 @@ It also creates the ODM decision service for the application and deploys it.
 
 ## Install and configure Redis
 
-1. Log in to your IBM Cloud Private management console.  
+1. Log in to your IBM Cloud Private management console.
 2. Click the `Catalog` button.
 3. Type `redis` into the search bar to find the Redis Helm chart.  Click on the chart.
 4. Perform the prerequisites for ODM installation as directed by the chart's instructions.
 5. Click the `Configure` button to display the chart's configuration parameters.
-<p>Review the parameters and complete required fields.
-<p>Click the `Install` button.
+Review the parameters and complete required fields.
+Click the `Install` button.
 6. Monitor the deployment and verify that the Redis pods start.
 7. Edit the `variables.sh` file in your copy of the `scripts` folder.
 Review the variable settings in the Redis section.
