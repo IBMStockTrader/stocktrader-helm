@@ -38,6 +38,9 @@ echo "Sending MQ command file to MQ pod $MQ_POD"
 SCRIPTDIR=`dirname ${BASH_SOURCE[0]}`
 kubectl cp ${SCRIPTDIR}/deleteStocktraderQueue.in $MQ_NAMESPACE/$MQ_POD:deleteStocktraderQueue.in
 
+# fix file permission
+kubectl exec -it $MQ_POD -n ${MQ_NAMESPACE} -- chmod 644 /deleteStocktraderQueue.in
+
 # delete queue (this will work only if the stocktrader messaging app, which has an active connection to the queue, is stopped/deleted)
 echo "Deleting MQ queue"
 kubectl exec -it $MQ_POD -n ${MQ_NAMESPACE} -- su - -c "runmqsc <deleteStocktraderQueue.in" admin

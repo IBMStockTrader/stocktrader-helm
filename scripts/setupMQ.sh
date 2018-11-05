@@ -72,6 +72,9 @@ echo "Sending MQ command file to MQ pod $MQ_POD"
 SCRIPTDIR=`dirname ${BASH_SOURCE[0]}`
 kubectl cp ${SCRIPTDIR}/defineStocktraderQueue.in $MQ_NAMESPACE/$MQ_POD:defineStocktraderQueue.in
 
+# fix file permission
+kubectl exec -it $MQ_POD -n ${MQ_NAMESPACE} -- chmod 644 /defineStocktraderQueue.in
+
 # create queue
 echo "Creating MQ queue"
 kubectl exec -it $MQ_POD -n ${MQ_NAMESPACE} -- su - -c "runmqsc <defineStocktraderQueue.in" admin

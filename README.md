@@ -157,6 +157,8 @@ If you want to install the stocktrader Slack notification project, follow these 
 1. Configure a [Slack incoming webhook](https://api.slack.com/incoming-webhooks) for your Slack workspace.
 2. Set up the [Cloud Functions CLI plug-in](https://console.bluemix.net/docs/openwhisk/bluemix_cli.html#cloudfunctions_cli) if you do not already have it.
 3. Open a command window on your workstation.
+Log in to your public IBM Cloud account using the `ibmcloud login` command.
+Set your Cloud Foundry org and space using the `ibmcloud target --cf` command.
 Set the current directory to the `scripts` folder.
 Run the `./setupCloudFunctions.sh` script.
 This script creates an IBM Cloud Function action sequence to post a message to your Slack workspace and tests it.

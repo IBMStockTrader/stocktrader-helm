@@ -61,6 +61,9 @@ echo "Sending ddl file to DB2 pod $DB2_POD"
 SCRIPTDIR=`dirname ${BASH_SOURCE[0]}`
 kubectl cp ${SCRIPTDIR}/createStocktraderTables.ddl $DB2_NAMESPACE/$DB2_POD:createStocktraderTables.ddl
 
+# fix file permission
+kubectl exec -it $DB2_POD -n ${DB2_NAMESPACE} -- chmod 644 /createStocktraderTables.ddl
+
 # create schema
 echo "Creating DB2 tables"
-kubectl exec -it $DB2_POD -- su - -c "db2 connect to $STOCKTRADER_DB && db2 -tf /createStocktraderTables.ddl" $DB2_USER
+kubectl exec -it $DB2_POD -n ${DB2_NAMESPACE} -- su - -c "db2 connect to $STOCKTRADER_DB && db2 -tf /createStocktraderTables.ddl" $DB2_USER
