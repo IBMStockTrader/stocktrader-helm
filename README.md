@@ -74,11 +74,11 @@ Change values if necessary.
 3. Type `mq` into the search bar to find the IBM MQ Advanced for Developers Helm chart.  Click on the chart.
 4. Perform the prerequisites for MQ installation as directed by the chart's instructions.
 5. Click the `Configure` button to display the chart's configuration parameters.
-    * Review the parameters and complete required fields.
+    * Review the parameters and complete all required fields.
     * Click the `Install` button.
 6. Monitor the deployment and verify that the MQ pod starts.
 7. Edit the `variables.sh` file in your copy of the `scripts` folder.
-Review the variable settings in the general section and the MQ section.
+Review the variable settings in the MQ section.
 Change values if necessary.
 8. Open a command window on your workstation.
     * Set the current directory to the `scripts` folder.
@@ -93,7 +93,7 @@ Change values if necessary.
 3. Type `odm` into the search bar to find the IBM Operational Decision Manager (ODM) Helm chart.  Click on the chart.
 4. Perform the prerequisites for ODM installation as directed by the chart's instructions.
 5. Click the `Configure` button to display the chart's configuration parameters.
-    * Review the parameters and complete required fields.
+    * Review the parameters and complete all required fields.
     * Click the `Install` button.
 6. Monitor the deployment and verify that the ODM pod starts.
 7. Install [curl](https://curl.haxx.se/download.html) and [jq](https://stedolan.github.io/jq/download/) on your workstation if you do not already have them.
@@ -113,16 +113,16 @@ Change values if necessary.
 3. Type `redis` into the search bar to find the Redis Helm chart.  Click on the chart.
 4. Perform the prerequisites for ODM installation as directed by the chart's instructions.
 5. Click the `Configure` button to display the chart's configuration parameters.
-Review the parameters and complete required fields.
-Click the `Install` button.
+    * Review the parameters and complete all required fields.
+    * Click the `Install` button.
 6. Monitor the deployment and verify that the Redis pods start.
 7. Edit the `variables.sh` file in your copy of the `scripts` folder.
-Review the variable settings in the Redis section.
-Change values if necessary.
+    * Review the variable settings in the Redis section.
+    * Change values if necessary.
 8. Open a command window on your workstation.
-Set the current directory to the `scripts` folder.
-Run the `./setupRedis.sh` script.
-This script configures a secret for the portfolio application to access Redis with the proper endpoint.
+    * Set the current directory to the `scripts` folder.
+    * Run the `./setupRedis.sh` script.
+    This script configures a secret for the portfolio application to access Redis with the proper endpoint.
 
 
 ## Install and configure Tone Analyzer
@@ -179,11 +179,11 @@ If you want to install the stocktrader Slack notification project, follow these 
 1. Configure a [Slack incoming webhook](https://api.slack.com/incoming-webhooks) for your Slack workspace.
 2. Set up the [Cloud Functions CLI plug-in](https://console.bluemix.net/docs/openwhisk/bluemix_cli.html#cloudfunctions_cli) if you do not already have it.
 3. Open a command window on your workstation.
-Log in to your public IBM Cloud account using the `ibmcloud login` command.
-Set your Cloud Foundry org and space using the `ibmcloud target --cf` command.
-Set the current directory to the `scripts` folder.
-Run the `./setupCloudFunctions.sh` script.
-This script creates an IBM Cloud Function action sequence to post a message to your Slack workspace and tests it.
+    * Log in to your public IBM Cloud account using the `ibmcloud login` command.
+    * Set your Cloud Foundry org and space using the `ibmcloud target --cf` command.
+    * Set the current directory to the `scripts` folder.
+    * Run the `./setupCloudFunctions.sh` script.
+    This script creates an IBM Cloud Function action sequence to post a message to your Slack workspace and tests it.
 4. Run the following commands.
 
 ```console
