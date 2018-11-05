@@ -54,18 +54,18 @@ Also use that namespace in any kubectl commands provided below in place of `stoc
 3. Type `db2` into the search bar to find the IBM Db2 Developer-C Helm chart.  Click on the chart.
 4. Perform the prerequisites for DB2 installation as directed by the chart's instructions.
 5. Click the `Configure` button to display the chart's configuration parameters.
-    * Review the parameters and complete required fields.
     * Set the database name to `trader`.
+    * Review the other parameters and complete all required fields.
     * Click the `Install` button.
 6. Monitor the deployment and verify that the DB2 pod starts.
 7. Edit the `variables.sh` file in your copy of the `scripts` folder.
 Review the variable settings in the DB2 section.
 Change values if necessary.
 8. Open a command window on your workstation.
-Set the current directory to the `scripts` folder.
-Run the `./setupDB2.sh` script.
-This script configures a secret for the portfolio application to access DB2 with the proper endpoint and credentials.
-It also creates the DB2 tables for the application.
+    * Set the current directory to the `scripts` folder.
+    * Run the `./setupDB2.sh` script.
+    This script configures a secret for the portfolio application to access DB2 with the proper endpoint and credentials.
+    It also creates the DB2 tables for the application.
 
 ## Install and configure MQ
 
@@ -74,17 +74,17 @@ It also creates the DB2 tables for the application.
 3. Type `mq` into the search bar to find the IBM MQ Advanced for Developers Helm chart.  Click on the chart.
 4. Perform the prerequisites for MQ installation as directed by the chart's instructions.
 5. Click the `Configure` button to display the chart's configuration parameters.
-Review the parameters and complete required fields.
-Click the `Install` button.
+    * Review the parameters and complete required fields.
+    * Click the `Install` button.
 6. Monitor the deployment and verify that the MQ pod starts.
 7. Edit the `variables.sh` file in your copy of the `scripts` folder.
 Review the variable settings in the general section and the MQ section.
 Change values if necessary.
 8. Open a command window on your workstation.
-Set the current directory to the `scripts` folder.
-Run the `./setupMQ.sh` script.
-This script configures a secret for the portfolio application to access MQ with the proper endpoint and credentials.
-It also creates the MQ message queue for the application.
+    * Set the current directory to the `scripts` folder.
+    * Run the `./setupMQ.sh` script.
+    This script configures a secret for the portfolio application to access MQ with the proper endpoint and credentials.
+    It also creates the MQ message queue for the application.
 
 ## Install and configure ODM
 
@@ -93,18 +93,18 @@ It also creates the MQ message queue for the application.
 3. Type `odm` into the search bar to find the IBM Operational Decision Manager (ODM) Helm chart.  Click on the chart.
 4. Perform the prerequisites for ODM installation as directed by the chart's instructions.
 5. Click the `Configure` button to display the chart's configuration parameters.
-Review the parameters and complete required fields.
-Click the `Install` button.
+    * Review the parameters and complete required fields.
+    * Click the `Install` button.
 6. Monitor the deployment and verify that the ODM pod starts.
 7. Install [curl](https://curl.haxx.se/download.html) and [jq](https://stedolan.github.io/jq/download/) on your workstation if you do not already have them.
 8. Edit the `variables.sh` file in your copy of the `scripts` folder.
 Review the variable settings in the ODM section.
 Change values if necessary.
 9. Open a command window on your workstation.
-Set the current directory to the `scripts` folder.
-Run the `./setupODM.sh` script.
-This script configures a secret for the portfolio application to access ODM with the proper endpoint and credentials.
-It also creates the ODM decision service for the application and deploys it.
+    * Set the current directory to the `scripts` folder.
+    * Run the `./setupODM.sh` script.
+    This script configures a secret for the portfolio application to access ODM with the proper endpoint and credentials.
+    It also creates the ODM decision service for the application and deploys it.
 
 ## Install and configure Redis
 
