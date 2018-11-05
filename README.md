@@ -36,11 +36,11 @@ stocktrader application.  After the dependent software is installed and configur
 
 Clone this project so that you can run the configuration scripts from your workstation.
 
-After cloning this project, clone the other stocktrader projects as siblings of this project.
-You can do so by running `stocktrader/scripts/cloneProjects.sh` from the same working directory
+After cloning this project, clone the other stocktrader projects as siblings of this project since they are needed by some of the configuration scripts.
+You can do so by running `./stocktrader/scripts/cloneProjects.sh` from the same working directory
 where you cloned this project.
 
-You need to be logged in to your IBM Cloud Private instance via the CLI.
+You need to be logged in to your IBM Cloud Private instance via the CLI when running any of the configuration scripts.
 See [these instructions](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_2.1.0.3/manage_cluster/cli_commands.html#pr_login).
 
 The following instructions and the configuration scripts assume that you will deploy the stocktrader application in the `stocktrader` Kubernetes namespace.
@@ -54,9 +54,9 @@ Also use that namespace in any kubectl commands provided below in place of `stoc
 3. Type `db2` into the search bar to find the IBM Db2 Developer-C Helm chart.  Click on the chart.
 4. Perform the prerequisites for DB2 installation as directed by the chart's instructions.
 5. Click the `Configure` button to display the chart's configuration parameters.
-Review the parameters and complete required fields.
-Set the database name to `trader`.
-Click the `Install` button.
+    * Review the parameters and complete required fields.
+    * Set the database name to `trader`.
+    * Click the `Install` button.
 6. Monitor the deployment and verify that the DB2 pod starts.
 7. Edit the `variables.sh` file in your copy of the `scripts` folder.
 Review the variable settings in the DB2 section.
