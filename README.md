@@ -1,19 +1,23 @@
 # Stock Trader
 
-The IBM Stock Trader application is a simple stock trading sample, where you can create various stock portfolios and add shares of stock to each for a commission.
-It keeps track of each porfolio’s total value and its loyalty level, notifying you of changes in level, which affect the commission charged per transaction.
+The IBM Stock Trader application is a simple stock trading sample where you can create various stock portfolios and add shares of stock to each for a commission.
+It keeps track of each porfolio's total value and its loyalty level which affects the commission charged per transaction.
+It sends notifications of changes in loyalty level.
 It also lets you submit feedback on the application which can result in earning free (zero commission) trades, based on the tone of the feedback.
 
 ![Architecural Diagram](stock-trader.png)
 
-The portfolio microservice sits at the center of the application, serving as the controller in a standard Model View Controller (MVC) architecture, 
-accessed by a choice of clients that provide the view.  This microservice takes care of persistence using JDBC, messaging using JMS,
-and makes REST calls to get stock quotes or to drive a business rule in IBM Operational Decision Manager (ODM); plus, it drives Watson
-and invokes APIs in API Connect in the public IBM Cloud.  
+The portfolio microservice sits at the center of the application.  This microservice 
+* persists portfolios using JDBC
+* drives a business rule in IBM Operational Decision Manager (ODM) to determine a portfolio's loyalty level
+* sends messages indicating changes to loyalty level using JMS
+* invokes an API defined in API Connect in the public IBM Cloud to get stock quotes
+* invokes the Tone Analyzer service in the public IBM Cloud to analyze the tone of submitted feedback
 
-There is also a Message Driven Bean (MDB) which listens for the messages sent from portfolio and which invokes a notification microservice.
-There are 2 notification microservices: notification-slack which sends the notification to a Slack channel (using a “serverless” IBM Cloud Functions action sequence),
-and notification-twitter which sends the notification as a tweet to a Twitter account.
+There is a Message Driven Bean (MDB) which listens for the messages sent from portfolio and which invokes a notification microservice.
+There are 2 notification microservices: 
+* notification-slack which sends the notification to a Slack channel (using a “serverless” IBM Cloud Functions action sequence)
+* notification-twitter which sends the notification as a tweet to a Twitter account
 Both use the same service called `notification-service`.
 If you do not have Istio in your cluster, you need to choose which microservice to deploy.
 If you have Istio in your cluster, you can deploy both.
