@@ -140,7 +140,7 @@ Enter the following command.
     kubectl create secret generic watson --from-literal=url=<Url>/v3/tone?version=2017-09-21 --from-literal=id=<Username> --from-literal=pwd=<Password> -n stocktrader
     ```
 
-where `<Url>`, `<Username>` and `<Password>` are the credentials that appear on the `Manage` tab of the tone analyzer service.
+    where `<Url>`, `<Username>` and `<Password>` are the credentials that appear on the `Manage` tab of the tone analyzer service.
 
 ## Install stock API with API Connect
 
@@ -170,7 +170,7 @@ Enter the following command.
     kubectl create secret generic stockquote --from-literal=url=<URL>/stocks -n stocktrader
     ```
 
-where `<URL>` is the value you copied to your clipboard.
+    where `<URL>` is the value you copied to your clipboard.
 
 ## Install and configure Slack cloud function (optional)
 
@@ -216,7 +216,7 @@ Run the following command.
     kubectl create secret generic twitter --from-literal=consumerKey=<CONSUMER_KEY> --from-literal=consumerSecret=<CONSUMER_SECRET> --from-literal=accessToken=<ACCESS_TOKEN> --from-literal=accessTokenSecret=<ACCESS_TOKEN_SECRET> -n stocktrader
     ```
 
-where `<CONSUMER_KEY>`, `<CONSUMER_SECRET>`, `<ACCESS_TOKEN>` and `<ACCESS_TOKEN_SECRET>` are obtained from Twitter following successful creation of your Twitter app.
+    where `<CONSUMER_KEY>`, `<CONSUMER_SECRET>`, `<ACCESS_TOKEN>` and `<ACCESS_TOKEN_SECRET>` are obtained from Twitter following successful creation of your Twitter app.
 
 ## Install stocktrader Helm chart
 
