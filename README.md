@@ -186,16 +186,16 @@ If you want to install the stocktrader Slack notification project, follow these 
     This script creates an IBM Cloud Function action sequence to post a message to your Slack workspace and tests it.
 4. Run the following commands.
 
-```console
-ibmcloud fn action get stocktrader/PostLoyaltyLevelToSlack --url
+    ```console
+    ibmcloud fn action get stocktrader/PostLoyaltyLevelToSlack --url
 
-ibmcloud fn property get --auth
-```
+    ibmcloud fn property get --auth
+    ```
 
-The first command displays the URL of the cloud function that was created.
-The second command displays your credentials (id and password) for invoking the cloud function.
+    The first command displays the URL of the cloud function that was created.
+    The second command displays your credentials (id and password) for invoking the cloud function.
 
-4. Change the kubectl context to your ICP instance.
+5. Change the kubectl context to your ICP instance.
 Run the following command.
 
 ```console
