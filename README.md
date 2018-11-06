@@ -136,9 +136,9 @@ Change values if necessary.
 Make sure your kubectl context is set to your ICP instance.
 Enter the following command.
 
-```console
-kubectl create secret generic watson --from-literal=url=<Url>/v3/tone?version=2017-09-21 --from-literal=id=<Username> --from-literal=pwd=<Password> -n stocktrader
-```
+    ```console
+    kubectl create secret generic watson --from-literal=url=<Url>/v3/tone?version=2017-09-21 --from-literal=id=<Username> --from-literal=pwd=<Password> -n stocktrader
+    ```
 
 where `<Url>`, `<Username>` and `<Password>` are the credentials that appear on the `Manage` tab of the tone analyzer service.
 
@@ -166,9 +166,9 @@ Copy the URL to your clipboard.
 Make sure your kubectl context is set to your ICP instance.
 Enter the following command.
 
-```console
-kubectl create secret generic stockquote --from-literal=url=<URL>/stocks -n stocktrader
-```
+    ```console
+    kubectl create secret generic stockquote --from-literal=url=<URL>/stocks -n stocktrader
+    ```
 
 where `<URL>` is the value you copied to your clipboard.
 
@@ -198,11 +198,11 @@ If you want to install the stocktrader Slack notification project, follow these 
 5. Change the kubectl context to your ICP instance.
 Run the following command.
 
-```console
-kubectl create secret generic openwhisk --from-literal=url=<URL> --from-literal=id=<ID> --from-literal=pwd=<PASSWORD> -n stocktrader
-```
+    ```console
+    kubectl create secret generic openwhisk --from-literal=url=<URL> --from-literal=id=<ID> --from-literal=pwd=<PASSWORD> -n stocktrader
+    ```
 
-where `<URL>` is the URL of the cloud function that was created and `<ID>` and `<PASSWORD>` are the id and password from the credentials.
+    where `<URL>` is the URL of the cloud function that was created and `<ID>` and `<PASSWORD>` are the id and password from the credentials.
 
 ## Configure Twitter (optional)
 
@@ -212,9 +212,9 @@ If you want to install the stocktrader Twitter notification project, follow thes
 2. Open a command window on your workstation.
 Run the following command.
 
-```console
-kubectl create secret generic twitter --from-literal=consumerKey=<CONSUMER_KEY> --from-literal=consumerSecret=<CONSUMER_SECRET> --from-literal=accessToken=<ACCESS_TOKEN> --from-literal=accessTokenSecret=<ACCESS_TOKEN_SECRET> -n stocktrader
-```
+    ```console
+    kubectl create secret generic twitter --from-literal=consumerKey=<CONSUMER_KEY> --from-literal=consumerSecret=<CONSUMER_SECRET> --from-literal=accessToken=<ACCESS_TOKEN> --from-literal=accessTokenSecret=<ACCESS_TOKEN_SECRET> -n stocktrader
+    ```
 
 where `<CONSUMER_KEY>`, `<CONSUMER_SECRET>`, `<ACCESS_TOKEN>` and `<ACCESS_TOKEN_SECRET>` are obtained from Twitter following successful creation of your Twitter app.
 
@@ -226,10 +226,9 @@ If you want to deploy any of those projects, you will need to request it via com
 3. Install the chart.
 Here is a sample helm install command.
 
-```console
-helm install stocktrader --tls --name stocktrader --namespace stocktrader --set notificationSlack.enabled=true
+    ```console
+    helm install stocktrader --tls --name stocktrader --namespace stocktrader --set notificationSlack.enabled=true
+    ```
 
-```
-
-This command creates a Helm release named `stocktrader`.  The Kubernetes resources are created in a namespace called `stocktrader`.
-The ``--set`` argument shows how to deploy an optional project, in this case notification-slack.
+    This command creates a Helm release named `stocktrader`.  The Kubernetes resources are created in a namespace called `stocktrader`.
+    The ``--set`` argument shows how to deploy an optional project, in this case notification-slack.
