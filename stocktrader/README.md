@@ -1,98 +1,90 @@
 # IBM Stock Trader Helm Chart (Beta Version)
 
-* Installs Stock Trader microservices 
+## Introduction
 
-Dependencies:
-The user is required to prepare their Kubernetes cloud with the following:
-- Create "stock-trader" namespace
-- Install Db2
-- Install MQ
-- Install Redis
-- Install ODM (if you deploy the version with ODM)
-- Create secrets
+This chart installs the IBM Stock Trader microservices.
 
-## TL;DR;
+## Prerequisites
 
-From stock-trader-helm/ directory, run the following:
+The user must install and configure the following dependencies:
+* IBM Db2 Developer-C
+* IBM MQ Advanced for Developers
+* IBM Operational Decision Manager
+* Redis
 
-```console
-$ helm install stocktrader/.  --namespace stock-trader
-```
+The user must create and configure the following services in the IBM Cloud:
+* Tone Analyzer
+* API Connect
+* Cloud Functions
 
+The [stocktrader project](../README.md) provides instructions for setting up these dependencies.
 
 ## Configuration
 
-This helm chart has optional parameters to deploy Stock Trader from different locations. Also, you can deploy different versions of stock trader:
+The following table lists the configurable parameters of this chart and their default values.
+The parameters allow you to:
+* change the image of any microservice from the one provided by IBM to one that you build (e.g. if you want to try to modify a service)
+* enable the deployment of optional microservices (tradr, notification-slack, notification-twitter)
 
-Install the "classic" Stock Trader from public DockerHub and uses the "classic" label with getting stock quotes, and sending loyalty level changes to Twitter or Slack, and uses Login/Password:   stock/trader
+| Parameter                           | Description                                         | Default                                                                         |
+| ----------------------------------- | ----------------------------------------------------| --------------------------------------------------------------------------------|
+| | | |
+| portfolio.image.repository | image repository |  ibmstocktrader/portfolio
+| portfolio.image.tag | image tag | latest
+| portfolio.image.pullPolicy | image pull policy | IfNotPresent
+| portfolio.image.pullSecrets | image pull secret (for protected repository) | `nil`
+| | | |
+| stockQuote.image.repository | image repository | ibmstocktrader/stock-quote
+| stockQuote.image.tag | image tag | latest
+| stockQuote.image.pullPolicy | image pull policy | IfNotPresent
+| stockQuote.image.pullSecrets | image pull secret (for protected repository) | `nil`
+| | | |
+| trader.enabled | Deploy trader microservice | true
+| trader.image.repository | image repository | ibmstocktrader/trader
+| trader.image.tag | image tag | basicregistry
+| trader.image.pullPolicy | image pull policy | IfNotPresent
+| trader.image.pullSecrets | image pull secret (for protected repository) | `nil`
+| | | |
+| tradr.enabled | Deploy tradr microservice | false
+| tradr.image.repository | image repository | ibmstocktrader/tradr
+| tradr.image.tag | image tag | latest
+| tradr.image.pullPolicy | image pull policy | IfNotPresent
+| tradr.image.pullSecrets | image pull secret (for protected repository) | `nil`
+| | | |
+| messaging.image.repository | image repository | ibmstocktrader/messaging
+| messaging.image.tag | image tag | latest
+| messaging.image.pullPolicy | image pull policy | IfNotPresent
+| messaging.image.pullSecrets | image pull secret (for protected repository) | `nil`
+| | | |
+| notificationSlack.enabled | Deploy notification-slack microservice | false
+| notificationSlack.image.repository | image repository | ibmstocktrader/notification-slack
+| notificationSlack.image.tag | image tag | latest
+| notificationSlack.image.pullPolicy | image pull policy | IfNotPresent
+| notificationSlack.image.pullSecrets | image pull secret (for protected repository) | `nil`
+| | | |
+| notificationTwitter.enabled | Deploy notification-twitter microservice | false
+| notificationTwitter.image.repository | image repository | ibmstocktrader/notification-twitter
+| notificationTwitter.image.tag | image tag | latest
+| notificationTwitter.image.pullPolicy | image pull policy | IfNotPresent
+| notificationTwitter.image.pullSecrets | image pull secret (for protected repository) | `nil`
+
+Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`.
+
+Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart.
+
+
+## Installing the Chart
+
+You can install the chart by setting the current directory to the folder where this chart is located and running the following command:
+
 ```console
-$ helm install stocktrader/.  --namespace stock-trader
+helm install --tls --name stocktrader --namespace stocktrader . 
 ```
 
-Install from public DockerHub and use the "IBMid" version with an IBM ID required
-```console
-$ helm install stocktrader/.  -f docker-secure.yaml  --namespace stock-trader
-```
+This sets the Helm release name to `stocktrader` and creates all Kubernetes resources in a namespace called `stocktrader`.
 
-Install from your private ICP docker registry and use the "IBMid" version with an IBM ID required
-```console
-$ helm install stocktrader/.  -f icp.yaml  --namespace stock-trader
-```
-
-## Secrets
-#Redis
-This uses the quandl key associated with an API key. Get your own from Quandl.
-# Need to enter first one to pull password into an env var.
-```console
-REDIS_PASSWORD=$(kubectl get secret --namespace default sartorial-quetzal-redis -o jsonpath="{.data.redis-password}" | base64 --decode)
-```
+## Uninstalling the Chart
 
 ```console
-kubectl create secret generic redis --from-literal=url=redis://x:$REDIS_PASSWORD@sartorial-quetzal-redis:6379 --from-literal=quandl-key=getYourQuandlKey
-```
-
-##MQ-dev
-```console
-kubectl create secret generic mq --from-literal=id=app  --from-literal=pwd= --from-literal=host=mq-dev-ibm-mqadvanced-se --from-literal=port=1414   --from-literal=channel=DEV.APP.SVRCONN   --from-literal=queue-manager=stocktrader  --from-literal=queue=NotificationQ         
-```
-
-
-##MQ-dev-External
-```console
-kubectl create secret generic mq --from-literal=id=app  --from-literal=pwd= --from-literal=host=9.42.24.89 --from-literal=port=32569   --from-literal=channel=DEV.APP.SVRCONN   --from-literal=queue-manager=stocktrader  --from-literal=queue=NotificationQ         
-```
-
-
-##DB2-dev
-```console
-kubectl create secret generic db2 --from-literal=id=db2inst1 --from-literal=pwd=password --from-literal=host=db2-dev-ibm-db2oltp-dev --from-literal=port=50000 --from-literal=db=trader
-```
-
-
-##OpenWhisk and Slack
-```console
-kubectl create secret generic openwhisk --from-literal=url=https://openwhisk.ng.bluemix.net/api/v1/namespaces/jalcorn%40us.ibm.com_dev/actions/PostLoyaltyLevelToSlack --from-literal=id=bc2b0a37-0554-4658-9ebe-ae068eb1aa22 --from-literal=pwd=45t2FZC1q1bv6OYUztZUjkYFaVNs5klaviHoE6gFvgEedu9akiE1YW6lChOxUgJb
-```
-
-
-##Twitter
-```console
-kubectl create secret generic twitter --from-literal=consumerKey=TFwa8ifAmxFmns02QEAm3qt2v --from-literal=consumerSecret=7B07ZCGUcM52bdpEuhkZG3EoP85iY69Ie9zUQwVG7Ll6Pvo0Hv --from-literal=accessToken=919153883989073920-vjMloUBKs8UG8O1O1zLQozFtyTQq9tL --from-literal=accessTokenSecret=d6UE1vjs1NKMJMaQ7ofWRElJxWh9ePJQjgOOdZmSf28XQ
-```
-
-
-##JWT
-```console
-kubectl create secret generic jwt -n stock-trader --from-literal=audience=stock-trader --from-literal=issuer=http://stock-trader.ibm.com
-```
-
-
-##OIDC
-```console
-kubectl create secret generic oidc -n stock-trader --from-literal=name=IBMid --from-literal=issuer=https://idaas.iam.ibm.com --from-literal=auth=https://idaas.iam.ibm.com/idaas/oidc/endpoint/default/authorize --from-literal=token=https://idaas.iam.ibm.com/idaas/oidc/endpoint/default/token --from-literal=id=ODllNjBlMDgtYzM5NS00 --from-literal=secret=MzhlZTY1ZjItM2IwNC00 --from-literal=key=blueidprod --from-literal=nodeport=https://9.42.84.151:32389
-```
-
-##ingress-host
-```console
-kubectl create secret generic ingress-host --from-literal=host=10.0.0.1:31007 -n stock-trader
+$ helm delete stocktrader --tls
 ```
