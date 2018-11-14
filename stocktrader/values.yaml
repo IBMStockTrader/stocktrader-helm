@@ -1,0 +1,49 @@
+# Default values for trader.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+portfolio:
+  image:
+    repository: ibmstocktrader/portfolio
+    tag: latest
+    pullPolicy: IfNotPresent
+    pullSecrets:
+stockQuote:
+  image:
+    repository: ibmstocktrader/stock-quote
+    tag: latest
+    pullPolicy: IfNotPresent
+    pullSecrets:
+trader:
+  enabled: true
+  image:
+    repository: ibmstocktrader/trader
+    tag: basicregistry
+    pullPolicy: IfNotPresent
+    pullSecrets:
+tradr:
+  enabled: false
+  image:
+    repository: ibmstocktrader/tradr
+    tag: latest
+    pullPolicy: IfNotPresent
+    pullSecrets:
+messaging:
+  image:
+    repository: ibmstocktrader/messaging
+    tag: latest
+    pullPolicy: IfNotPresent
+    pullSecrets:
+notificationSlack:
+  enabled: false
+  image:
+    repository: ibmstocktrader/notification-slack
+    tag: latest
+    pullPolicy: IfNotPresent
+    pullSecrets:
+notificationTwitter:
+  enabled: false
+  image:
+    repository: ibmstocktrader/notification-twitter
+    tag: latest
+    pullPolicy: IfNotPresent
+    pullSecrets:
