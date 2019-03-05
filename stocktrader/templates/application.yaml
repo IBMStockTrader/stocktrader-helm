@@ -20,3 +20,5 @@ spec:
       kind: Ingress
     - group: service
       kind: Service
+    - group: HPA
+      kind: HorizontalPodAutoscaler
