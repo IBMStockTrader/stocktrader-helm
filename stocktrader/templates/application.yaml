@@ -22,3 +22,5 @@ spec:
       kind: Service
     - group: HPA
       kind: HorizontalPodAutoscaler
+    - group: StatefulSet
+      kind: statefulset
