@@ -30,7 +30,7 @@ spec:
       labels:
         app: loyalty-level
         version: v1
-        appview: stock-trader
+#        appview: stock-trader
     spec:
       containers:
       - name: loyalty-level

@@ -1,0 +1,22 @@
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: "stock-trader"
+  labels:
+    app.kubernetes.io/name: "stock-trader"
+    app.kubernetes.io/version: "3"
+spec:
+  selector:
+    matchLabels:
+     solution: "stock-trader"
+  componentKinds:
+    - group: deployments
+      kind: Deployment
+    - group: TWAS
+      kind: WebSphere-Traditional
+    - group: Liberty
+      kind: WebSphere-Liberty
+    - group: ingress
+      kind: Ingress
+    - group: service
+      kind: Service
