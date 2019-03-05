@@ -17,7 +17,7 @@ The portfolio microservice sits at the center of the application.  This microser
 
 There is a Message Driven Bean (MDB) which listens for the messages sent from portfolio and which invokes a notification microservice.
 There are 2 notification microservices: 
-* notification-slack which sends the notification to a Slack channel (using a �serverless� IBM Cloud Functions action sequence)
+* notification-slack which sends the notification to a Slack channel (using a "serverless" IBM Cloud Functions action sequence)
 * notification-twitter which sends the notification as a tweet to a Twitter account
 
 Both use the same service called `notification-service`.
