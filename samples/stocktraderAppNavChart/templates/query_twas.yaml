@@ -1,0 +1,11 @@
+apiVersion: prism.io/v1beta1
+kind: WebSphere-Traditional
+metadata: 
+    name: query
+    labels:
+        solution: stock-trader-appnav
+    annotations: { 
+        prism.platform.kind: WebSphere-Cell,
+        prism.platform.name: Dev,
+        prism.platform.console-url: "http://zrock023.pok.ibm.com:9060/admin"
+    }

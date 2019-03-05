@@ -1,0 +1,39 @@
+# Default values for trader.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+loyaltyLevel:
+  image:
+    repository: ibmstocktrader/loyalty-level
+    tag: latest
+    pullPolicy: IfNotPresent
+portfolio:
+  image:
+    repository: ibmstocktrader/portfolio
+    tag: latest
+    pullPolicy: IfNotPresent
+stockQuote:
+  image:
+    repository: ibmstocktrader/stock-quote
+    tag: latest
+    pullPolicy: IfNotPresent
+trader:
+  image:
+    repository: ibmstocktrader/trader
+    tag: basicregistry
+    pullPolicy: IfNotPresent
+tradr:
+  image:
+    repository: ibmstocktrader/tradr
+    tag: latest
+    pullPolicy: IfNotPresent
+messaging:
+  image:
+    repository: ibmstocktrader/messaging
+    tag: latest
+    pullPolicy: IfNotPresent
+notificationTwitter:
+  image:
+    repository: ibmstocktrader/notification-twitter
+    tag: latest
+    pullPolicy: IfNotPresent
+

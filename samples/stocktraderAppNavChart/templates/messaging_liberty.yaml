@@ -1,0 +1,11 @@
+apiVersion: prism.io/v1beta1
+kind: WebSphere-Liberty
+metadata: 
+    name: messaging
+    labels:
+        solution: stock-trader-appnav
+    annotations: { 
+        prism.platform.kind: VM,
+        prism.platform.name: 9.42.19.239,
+        prism.platform.console-url: "http://9.42.19.239:9080/adminCenter/#serverConfig/${server.config.dir}/server.xml"
+    }
