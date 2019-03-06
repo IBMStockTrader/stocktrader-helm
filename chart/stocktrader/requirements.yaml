@@ -25,3 +25,7 @@ dependencies:
     repository: "@ibm-charts"
     version: 1.7.0
     alias: stockQuote
+  - name: ibm-websphere-liberty
+    repository: "@ibm-charts"
+    version: 1.7.0
+    alias: messaging

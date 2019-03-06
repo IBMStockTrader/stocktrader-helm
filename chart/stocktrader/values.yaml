@@ -1,4 +1,67 @@
 
+messaging:
+  image:
+    repository: ibmstocktrader/messaging  # Docker Hub
+    #repository: mycluster.icp:8500/stock-trader/messaging        # IBM Cloud Private
+    #repository: registry.ng.bluemix.net/stock_trader/messaging   # IBM Container Service
+    tag: latest
+    pullPolicy: Always
+    extraEnvs:
+      - name: MQ_ID
+        valueFrom:
+          secretKeyRef:
+            name: mq
+            key: id
+      - name: MQ_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: mq   
+            key: pwd
+      - name: MQ_HOST
+        valueFrom:
+          secretKeyRef:
+            name: mq
+            key: host
+      - name: MQ_PORT
+        valueFrom:
+          secretKeyRef:
+            name: mq
+            key: port
+      - name: MQ_CHANNEL
+        valueFrom:
+          secretKeyRef:
+            name: mq   
+            key: channel
+      - name: MQ_QUEUE_MANAGER
+        valueFrom:
+          secretKeyRef:
+            name: mq   
+            key: queue-manager
+      - name: MQ_QUEUE
+        valueFrom:
+          secretKeyRef:
+            name: mq   
+            key: queue
+      - name: JWT_AUDIENCE
+        valueFrom:
+          secretKeyRef:
+            name: jwt 
+            key: audience
+      - name: JWT_ISSUER
+        valueFrom:
+          secretKeyRef:
+            name: jwt
+            key: issuer
+
+  resourceNameOverride: stock-trader
+
+  pod:
+    labels:
+      solution: stock-trader
+
+  monitoring:
+    enabled: true
+
 portfolio:
   image:
     # repository: portfolio # Microservice Builder
@@ -181,6 +244,57 @@ portfolio:
   monitoring:
     enabled: true
 
+stockQuote:
+  image:
+    repository: ibmstocktrader/stock-quote  # Docker Hub
+    #repository: mycluster.icp:8500/stock-trader/stock-quote        # IBM Cloud Private
+    #repository: registry.ng.bluemix.net/stock_trader/stock-quote   # IBM Container Service
+    tag: latest
+    pullPolicy: Always
+    extraEnvs:
+      - name: REDIS_URL
+        valueFrom:
+          secretKeyRef:
+            name: redis
+            key: url
+      - name: JWT_AUDIENCE
+        valueFrom:
+          secretKeyRef:
+            name: jwt 
+            key: audience
+      - name: JWT_ISSUER
+        valueFrom:
+          secretKeyRef:
+            name: jwt
+            key: issuer
+      - name: STOCKQUOTE_URL
+        valueFrom:
+          secretKeyRef:
+            name: stockquote
+            key: url
+            optional: true
+
+  resourceNameOverride: stock-trader
+
+  pod:
+    labels:
+      solution: stock-trader
+
+  service:
+    enabled: true
+    name: stock-quote-service
+    port: 9443
+    targetPort: 9443
+    type: NodePort
+    extraPorts:
+      - name: stock-quote-service-http
+        protocol: TCP
+        port: 9080
+        targetPort: 9080
+
+  monitoring:
+    enabled: true
+
 trader:
   enabled: true
   image:
@@ -296,54 +410,3 @@ trader:
     enabled: true
 
   replicaCount: 2
-
-stockQuote:
-  image:
-    repository: ibmstocktrader/stock-quote  # Docker Hub
-    #repository: mycluster.icp:8500/stock-trader/stock-quote        # IBM Cloud Private
-    #repository: registry.ng.bluemix.net/stock_trader/stock-quote   # IBM Container Service
-    tag: latest
-    pullPolicy: Always
-    extraEnvs:
-      - name: REDIS_URL
-        valueFrom:
-          secretKeyRef:
-            name: redis
-            key: url
-      - name: JWT_AUDIENCE
-        valueFrom:
-          secretKeyRef:
-            name: jwt 
-            key: audience
-      - name: JWT_ISSUER
-        valueFrom:
-          secretKeyRef:
-            name: jwt
-            key: issuer
-      - name: STOCKQUOTE_URL
-        valueFrom:
-          secretKeyRef:
-            name: stockquote
-            key: url
-            optional: true
-
-  resourceNameOverride: stock-trader
-
-  pod:
-    labels:
-      solution: stock-trader
-
-  service:
-    enabled: true
-    name: stock-quote-service
-    port: 9443
-    targetPort: 9443
-    type: NodePort
-    extraPorts:
-      - name: stock-quote-service-http
-        protocol: TCP
-        port: 9080
-        targetPort: 9080
-
-  monitoring:
-    enabled: true
