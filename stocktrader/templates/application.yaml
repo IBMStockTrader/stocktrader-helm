@@ -24,3 +24,5 @@ spec:
       kind: HorizontalPodAutoscaler
     - group: StatefulSet
       kind: StatefulSet
+    - group: Watson-Tone-Analyzer
+      kind: Watson-Tone-Analyzer
