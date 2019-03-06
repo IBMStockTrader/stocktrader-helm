@@ -62,6 +62,62 @@ messaging:
   monitoring:
     enabled: true
 
+notification-slack:
+  image:
+    repository: ibmstocktrader/notification-slack   # Docker Hub
+    #repository: mycluster.icp:8500/stock-trader/notification-slack         # IBM Cloud Private
+    #repository: registry.ng.bluemix.net/stock_trader/notification-slack    # IBM Container Service
+    tag: latest
+    pullPolicy: Always
+    extraEnvs:
+      - name: OW_URL
+        valueFrom:
+          secretKeyRef:
+            name: openwhisk
+            key: url
+      - name: OW_ID
+        valueFrom:
+          secretKeyRef:
+            name: openwhisk
+            key: id
+      - name: OW_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: openwhisk   
+            key: pwd
+      - name: JWT_AUDIENCE
+        valueFrom:
+          secretKeyRef:
+            name: jwt 
+            key: audience
+      - name: JWT_ISSUER
+        valueFrom:
+          secretKeyRef:
+            name: jwt
+            key: issuer
+
+  resourceNameOverride: stock-trader
+
+  pod:
+    labels:
+      solution: stock-trader
+      version: slack
+
+  service:
+    enabled: true
+    name: notification-service
+    port: 9443
+    targetPort: 9443
+    type: NodePort
+    extraPorts:
+      - name: notification-service-http
+        protocol: TCP
+        port: 9080
+        targetPort: 9080
+
+  monitoring:
+    enabled: true
+
 portfolio:
   image:
     # repository: portfolio # Microservice Builder

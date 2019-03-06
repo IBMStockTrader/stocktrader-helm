@@ -29,3 +29,7 @@ dependencies:
     repository: "@ibm-charts"
     version: 1.7.0
     alias: messaging
+  - name: ibm-websphere-liberty
+    repository: "@ibm-charts"
+    version: 1.7.0
+    alias: notification-slack
