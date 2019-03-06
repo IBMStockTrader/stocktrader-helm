@@ -1,0 +1,349 @@
+
+portfolio:
+  image:
+    # repository: portfolio # Microservice Builder
+    # repository: mycluster.icp:8500/stock-trader/portfolio # IBM Cloud Private
+    # repository: registry.ng.bluemix.net/stock_trader/portfolio # IBM Container Service
+    repository: ibmstocktrader/portfolio # Docker Hub
+    tag: latest
+    pullPolicy: Always
+    extraEnvs:
+      - name: JDBC_HOST
+        valueFrom:
+          secretKeyRef:
+            name: db2
+            key: host
+      - name: JDBC_PORT
+        valueFrom:
+          secretKeyRef:
+            name: db2
+            key: port
+      - name: JDBC_DB
+        valueFrom:
+          secretKeyRef:
+            name: db2
+            key: db
+      - name: JDBC_ID
+        valueFrom:
+          secretKeyRef:
+            name: db2
+            key: id
+      - name: JDBC_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: db2
+            key: pwd
+      - name: MQ_ID
+        valueFrom:
+          secretKeyRef:
+            name: mq
+            key: id
+      - name: MQ_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: mq   
+            key: pwd
+      - name: MQ_HOST
+        valueFrom:
+          secretKeyRef:
+            name: mq
+            key: host
+      - name: MQ_PORT
+        valueFrom:
+          secretKeyRef:
+            name: mq   
+            key: port
+      - name: MQ_CHANNEL
+        valueFrom:
+          secretKeyRef:
+            name: mq   
+            key: channel
+      - name: MQ_QUEUE_MANAGER
+        valueFrom:
+          secretKeyRef:
+            name: mq   
+            key: queue-manager
+      - name: MQ_QUEUE
+        valueFrom:
+            secretKeyRef:
+              name: mq   
+              key: queue
+      - name: WATSON_URL
+        valueFrom:
+          secretKeyRef:
+            name: watson
+            key: url
+      - name: WATSON_ID
+        valueFrom:
+          secretKeyRef:
+            name: watson
+            key: id
+            optional: true
+      - name: WATSON_PWD
+        valueFrom:
+          secretKeyRef:
+            name: watson
+            key: pwd
+      - name: ODM_URL
+        valueFrom:
+          secretKeyRef:
+            name: odm
+            key: url
+            optional: true
+      - name: ODM_ID
+        valueFrom:
+          secretKeyRef:
+            name: odm
+            key: id
+            optional: true
+      - name: ODM_PWD
+        valueFrom:
+          secretKeyRef:
+            name: odm
+            key: pwd
+            optional: true
+      - name: KAFKA_TOPIC
+        valueFrom:
+          secretKeyRef:
+            name: kafka
+            key: topic
+            optional: true
+      - name: KAFKA_ADDRESS
+        valueFrom:
+          secretKeyRef:
+            name: kafka
+            key: address
+            optional: true
+      - name: KAFKA_USER
+        valueFrom:
+          secretKeyRef:
+            name: kafka
+            key: user
+            optional: true
+      - name: KAFKA_API_KEY
+        valueFrom:
+          secretKeyRef:
+            name: kafka
+            key: api-key
+            optional: true
+      - name: KAFKA_KEYSTORE # location of the keystore.  See below comments about volumeMount
+        valueFrom:
+          secretKeyRef:
+            name: kafka
+            key: keystore
+            optional: true
+      - name: JWT_AUDIENCE
+        valueFrom:
+          secretKeyRef:
+            name: jwt 
+            key: audience
+      - name: JWT_ISSUER
+        valueFrom:
+          secretKeyRef:
+            name: jwt
+            key: issuer
+    #  Uncomment the following lines to get the keystore from the secret
+    #  extraVolumeMounts:
+    #  - mountPath: /keystores
+    #    name: kafka-keystore-volume
+    #    readOnly: true
+
+  resourceNameOverride: stock-trader
+
+  pod:
+    labels:
+      solution: stock-trader
+    # Uncomment the following lines to get the keystore from the secret
+    #extraVolumes:
+    #- name: kafka-keystore-volume
+    #  secret:
+    #    secretName: kafka-keystore
+
+  service:
+    enabled: true
+    name: portfolio-service
+    port: 9443
+    targetPort: 9443
+    type: NodePort
+    extraPorts:
+      - name: portfolio-service-http
+        protocol: TCP
+        port: 9080
+        targetPort: 9080
+
+  ingress:
+    enabled: true 
+    path: "/portfolio"
+    annotations: 
+      ingress.kubernetes.io/app-root: "/portfolio"
+      nginx.ingress.kubernetes.io/app-root: "/portfolio"
+
+  monitoring:
+    enabled: true
+
+trader:
+  enabled: true
+  image:
+    # Docker Hub with basic registry sign in
+    repository: ibmstocktrader/trader
+    tag: basicregistry
+    # IBM Cloud Private
+    #repository: mycluster.icp:8500/stock-trader/trader
+    #tag: latest
+    # IBM Container Service
+    #repository: registry.ng.bluemix.net/stock_trader/trader
+    #tag: latest
+    pullPolicy: Always
+    extraEnvs:
+      - name: JWT_AUDIENCE
+        valueFrom:
+          secretKeyRef:
+            name: jwt 
+            key: audience
+      - name: JWT_ISSUER
+        valueFrom:
+          secretKeyRef:
+            name: jwt
+            key: issuer
+      - name: OIDC_NAME
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: name
+            optional: true
+      - name: OIDC_ISSUER
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: issuer
+            optional: true
+      - name: OIDC_AUTH
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: auth
+            optional: true
+      - name: OIDC_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: token
+            optional: true
+      - name: OIDC_ID
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: id
+            optional: true
+      - name: OIDC_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: secret
+            optional: true
+      - name: OIDC_KEY
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: key
+            optional: true
+      - name: OIDC_NODEPORT
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: nodeport
+            optional: true
+
+  resourceNameOverride: stock-trader
+
+  pod:
+    labels:
+      solution: stock-trader
+      version: v1
+
+  service:
+    enabled: true
+    name: trader-service
+    port: 9443
+    targetPort: 9443
+    type: NodePort
+    extraPorts:
+      - name: trader-service-http
+        protocol: TCP
+        port: 9080
+        targetPort: 9080
+
+  ingress:
+    enabled: true 
+    path: "/trader"
+    annotations: 
+      #kubernetes.io/ingress.class: "istio"
+      kubernetes.io/ingress.class: "nginx"
+      ingress.kubernetes.io/affinity: "cookie"
+      nginx.ingress.kubernetes.io/affinity: "cookie"
+      ingress.kubernetes.io/session-cookie-name: "route"
+      nginx.ingress.kubernetes.io/session-cookie-name: "route"
+      ingress.kubernetes.io/session-cookie-hash: "sha1"
+      nginx.ingress.kubernetes.io/session-cookie-hash: "sha1"
+      ingress.kubernetes.io/secure-backends: "true"
+      nginx.ingress.kubernetes.io/secure-backends: "true"
+      #ingress.kubernetes.io/app-root: "/trader"
+      #nginx.ingress.kubernetes.io/app-root: "/trader"
+      #ingress.kubernetes.io/rewrite-target: /trader
+      #nginx.ingress.kubernetes.io/rewrite-target: /trader
+
+  monitoring:
+    enabled: true
+
+  replicaCount: 2
+
+stockQuote:
+  image:
+    repository: ibmstocktrader/stock-quote  # Docker Hub
+    #repository: mycluster.icp:8500/stock-trader/stock-quote        # IBM Cloud Private
+    #repository: registry.ng.bluemix.net/stock_trader/stock-quote   # IBM Container Service
+    tag: latest
+    pullPolicy: Always
+    extraEnvs:
+      - name: REDIS_URL
+        valueFrom:
+          secretKeyRef:
+            name: redis
+            key: url
+      - name: JWT_AUDIENCE
+        valueFrom:
+          secretKeyRef:
+            name: jwt 
+            key: audience
+      - name: JWT_ISSUER
+        valueFrom:
+          secretKeyRef:
+            name: jwt
+            key: issuer
+      - name: STOCKQUOTE_URL
+        valueFrom:
+          secretKeyRef:
+            name: stockquote
+            key: url
+            optional: true
+
+  resourceNameOverride: stock-trader
+
+  pod:
+    labels:
+      solution: stock-trader
+
+  service:
+    enabled: true
+    name: stock-quote-service
+    port: 9443
+    targetPort: 9443
+    type: NodePort
+    extraPorts:
+      - name: stock-quote-service-http
+        protocol: TCP
+        port: 9080
+        targetPort: 9080
+
+  monitoring:
+    enabled: true
