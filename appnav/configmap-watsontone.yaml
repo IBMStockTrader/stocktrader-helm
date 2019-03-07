@@ -22,12 +22,5 @@ data:
           "description": "View service instance in IBM Cloud", 
           "url-pattern": "${resource.$.metadata.annotations['prism.platform.console-url']}",
           "open-window": "tab"
-        },
-        {  
-          "name": "logs", 
-          "text": "View Kibana Logs",
-          "description": "View Kibana logs", 
-          "url-pattern": "https://${builtin.kibana-url}/${builtin.liberty-log-dashboard}",
-          "open-window": "tab"
         }
       ] 
