@@ -1,0 +1,11 @@
+apiVersion: prism.io/v1beta1
+kind: Watson-Tone-Analyzer
+metadata: 
+    name: watson-tone-analyzer
+    labels:
+        solution: stock-trader
+    annotations: { 
+        prism.platform.kind: Public,
+        prism.platform.name: IBM-Cloud,
+        prism.platform.console-url: "https://cloud.ibm.com/services/tone-analyzer/crn:v1:bluemix:public:tone-analyzer:us-south:a%2fb71ac2564ef0b98f1032d189795994dc:195be178-5f78-467f-8355-99ee5772f4c2::?paneId=manage"
+    }
