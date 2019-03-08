@@ -11,7 +11,7 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-{{- if or (.Values.notificationSlack.enabled) (.Values.notificationTwitter.enabled)}}
+{{- if or (.Values.notification-slack.enabled) (.Values.notification-twitter.enabled)}}
 #Deploy the service
 apiVersion: v1
 kind: Service
@@ -32,20 +32,4 @@ spec:
       targetPort: 9443
   selector:
     app: notification
----   
-#Configure the ingress 
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-# annotations:
-#   ingress.kubernetes.io/rewrite-target: /notification
-  name: notification-slack-ingress
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /notification
-        backend:
-          serviceName: notification-service
-          servicePort: 9443
-{{- end }}
+

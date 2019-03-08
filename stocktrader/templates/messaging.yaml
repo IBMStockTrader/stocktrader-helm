@@ -12,6 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
+{{- if .Values.messaging.enabled }}
 #Deploy the pod
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -78,8 +79,5 @@ spec:
         ports:
           - containerPort: 9080
           - containerPort: 9443
-        imagePullPolicy: {{ .Values.messaging.image.pullPolicy }}
-      {{- if .Values.messaging.image.pullSecrets }}
-      imagePullSecrets:
-      - name: {{ .Values.messaging.image.pullSecrets }}
-      {{- end }}
+        imagePullPolicy: Always
+{{- end }}

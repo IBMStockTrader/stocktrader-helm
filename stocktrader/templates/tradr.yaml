@@ -32,7 +32,7 @@ spec:
         image: "{{ .Values.tradr.image.repository }}:{{ .Values.tradr.image.tag }}"
         ports:
           - containerPort: 3000
-        imagePullPolicy: {{ .Values.tradr.image.pullPolicy }}
+        imagePullPolicy: Always
         env:
           - name: JWT_ISSUER
             valueFrom:
@@ -84,10 +84,6 @@ spec:
               secretKeyRef:
                 name: ingress-host
                 key: host
-      {{- if .Values.tradr.image.pullSecrets }}
-      imagePullSecrets:
-      - name: {{ .Values.tradr.image.pullSecrets }}
-      {{- end }}
 ---
 #Deploy the service
 apiVersion: v1

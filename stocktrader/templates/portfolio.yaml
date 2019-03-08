@@ -160,11 +160,7 @@ spec:
         ports:
           - containerPort: 9080
           - containerPort: 9443
-        imagePullPolicy: {{ .Values.portfolio.image.pullPolicy }}
-      {{- if .Values.portfolio.image.pullSecrets }}
-      imagePullSecrets:
-      - name: {{ .Values.portfolio.image.pullSecrets }}
-      {{- end }}
+        imagePullPolicy: Always
 ---
 #Deploy the service
 apiVersion: v1

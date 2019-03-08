@@ -44,11 +44,7 @@ spec:
         ports:
           - containerPort: 9080
           - containerPort: 9443
-        imagePullPolicy: {{ .Values.trader.image.pullPolicy }}
-      {{- if .Values.trader.image.pullSecrets }}
-      imagePullSecrets:
-      - name: {{ .Values.trader.image.pullSecrets }}
-      {{- end }}
+        imagePullPolicy: Always
 ---
 #Deploy the service
 apiVersion: v1
@@ -78,7 +74,12 @@ metadata:
   name: trader-ingress
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/affinity: "cookie"
+    ingress.kubernetes.io/session-cookie-name: "route"
+    ingress.kubernetes.io/session-cookie-hash: "sha1"
+    #ingress.kubernetes.io/rewrite-target: /
     ingress.kubernetes.io/secure-backends: "true"
+    #ingress.kubernetes.io/app-root: "/trader"
 spec:
   rules:
   - host:

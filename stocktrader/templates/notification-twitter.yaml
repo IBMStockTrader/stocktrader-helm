@@ -12,7 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-{{- if .Values.notificationTwitter.enabled }}
+{{- if .Values.notification-twitter.enabled }}
 #Deploy the pod
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: notification-twitter
-        image: "{{ .Values.notificationTwitter.image.repository }}:{{ .Values.notificationTwitter.image.tag }}"
+        image: "{{ .Values.notification-twitter.image.repository }}:{{ .Values.notification-twitter.image.tag }}"
         env:
           - name: TWITTER_CONSUMER_KEY
             valueFrom:
@@ -64,9 +64,5 @@ spec:
         ports:
           - containerPort: 9080
           - containerPort: 9443
-        imagePullPolicy: {{ .Values.notificationTwitter.image.pullPolicy }}
-      {{- if .Values.notificationTwitter.image.pullSecrets }}
-      imagePullSecrets:
-      - name: {{ .Values.notificationTwitter.image.pullSecrets }}
-      {{- end }}
+        imagePullPolicy: Always
 {{- end }}
