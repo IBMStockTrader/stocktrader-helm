@@ -1,49 +1,113 @@
-# Default values for trader.
+#       Copyright 2017 IBM Corp All Rights Reserved
+
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+
+#       http://www.apache.org/licenses/LICENSE-2.0
+
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
+# Default values for stocktrader.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 portfolio:
   image:
     repository: ibmstocktrader/portfolio
     tag: latest
-    pullPolicy: IfNotPresent
-    pullSecrets:
-stockQuote:
+stock-quote:
   image:
     repository: ibmstocktrader/stock-quote
     tag: latest
-    pullPolicy: IfNotPresent
-    pullSecrets:
 trader:
   enabled: true
   image:
     repository: ibmstocktrader/trader
     tag: basicregistry
-    pullPolicy: IfNotPresent
-    pullSecrets:
 tradr:
   enabled: false
   image:
     repository: ibmstocktrader/tradr
     tag: latest
-    pullPolicy: IfNotPresent
-    pullSecrets:
 messaging:
+  enabled: false
   image:
     repository: ibmstocktrader/messaging
     tag: latest
-    pullPolicy: IfNotPresent
-    pullSecrets:
-notificationSlack:
+notification-slack:
   enabled: false
   image:
     repository: ibmstocktrader/notification-slack
     tag: latest
-    pullPolicy: IfNotPresent
-    pullSecrets:
-notificationTwitter:
+notification-twitter:
   enabled: false
   image:
     repository: ibmstocktrader/notification-twitter
     tag: latest
-    pullPolicy: IfNotPresent
-    pullSecrets:
+trade-history:
+  enabled: false
+  image:
+    repository: ibmstocktrader/trade-history
+    tag: latest
+looper:
+  enabled: false
+  image:
+    repository: ibmstocktrader/looper
+    tag: latest
+jwt:
+  issuer: http://stock-trader.ibm.com
+  audience: stock-trader
+oidc:
+  name: IBMid
+  issuer: https://idaas.iam.ibm.com
+  token: https://idaas.iam.ibm.com/idaas/oidc/endpoint/default/token
+  auth: https://idaas.iam.ibm.com/idaas/oidc/endpoint/default/authorize
+  id: <your client id>
+  secret: <your client secret>
+  key: blueidprod
+  nodeport: <your ingress URL>
+ingress:
+  address: <your proxy node IP>:443
+watson:
+  url: https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21&sentences=false
+  id: apikey
+  password: <your API key>
+db2:
+  host: db2trader1-ibm-db2oltp-dev
+  port: 50000
+  id: db2inst1
+  password: db2inst1
+  db: trader
+odm:
+  url: http://odmtrader1-ibm-odm-dev:9060/DecisionService/rest/ICP_Trader_Dev_1/determineLoyalty
+  id: odmAdmin
+  password: odmAdmin
+mq:
+  host: mqtrader1-mqtrader1
+  port: 1414
+  id: app
+  password: ""
+  queue-manager: stocktrader
+  queue: NotificationQ
+  channel: DEV.APP.SVRCONN
+redis:
+  url: redis://<your credentials>@redistrader1-ibm-redis-ha-dev-master-svc:6379
+  cache-interval: 60
+openwhisk:
+  url: https://openwhisk.ng.bluemix.net/api/v1/namespaces/jalcorn%40us.ibm.com_dev/actions/PostLoyaltyLevelToSlack
+  id: <your id>
+  password: <your password>
+twitter:
+  consumer-key: <your consumer key>
+  consumer-secret: <your consumer secret>
+  access-token: <your access token>
+  access-token-secret: <your access token secret>
+kakfa:
+  address: <your Kafka proxy service>:30000
+  topic: stocktrader
+  user: token
+  api-key: <your API key>
