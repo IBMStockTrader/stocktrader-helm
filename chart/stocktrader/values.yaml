@@ -53,8 +53,6 @@ messaging:
             name: jwt
             key: issuer
 
-  resourceNameOverride: stock-trader
-
   pod:
     labels:
       solution: stock-trader
@@ -96,8 +94,6 @@ notification-slack:
             name: jwt
             key: issuer
 
-  resourceNameOverride: stock-trader
-
   pod:
     labels:
       solution: stock-trader
@@ -106,9 +102,6 @@ notification-slack:
   service:
     enabled: true
     name: notification-service
-    port: 9443
-    targetPort: 9443
-    type: NodePort
     extraPorts:
       - name: notification-service-http
         protocol: TCP
@@ -267,8 +260,6 @@ portfolio:
     #    name: kafka-keystore-volume
     #    readOnly: true
 
-  resourceNameOverride: stock-trader
-
   pod:
     labels:
       solution: stock-trader
@@ -281,9 +272,6 @@ portfolio:
   service:
     enabled: true
     name: portfolio-service
-    port: 9443
-    targetPort: 9443
-    type: NodePort
     extraPorts:
       - name: portfolio-service-http
         protocol: TCP
@@ -330,8 +318,6 @@ stockQuote:
             key: url
             optional: true
 
-  resourceNameOverride: stock-trader
-
   pod:
     labels:
       solution: stock-trader
@@ -339,9 +325,6 @@ stockQuote:
   service:
     enabled: true
     name: stock-quote-service
-    port: 9443
-    targetPort: 9443
-    type: NodePort
     extraPorts:
       - name: stock-quote-service-http
         protocol: TCP
@@ -352,7 +335,6 @@ stockQuote:
     enabled: true
 
 trader:
-  enabled: true
   image:
     # Docker Hub with basic registry sign in
     repository: ibmstocktrader/trader
@@ -424,8 +406,6 @@ trader:
             key: nodeport
             optional: true
 
-  resourceNameOverride: stock-trader
-
   pod:
     labels:
       solution: stock-trader
@@ -434,9 +414,6 @@ trader:
   service:
     enabled: true
     name: trader-service
-    port: 9443
-    targetPort: 9443
-    type: NodePort
     extraPorts:
       - name: trader-service-http
         protocol: TCP

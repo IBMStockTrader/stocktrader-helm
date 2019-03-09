@@ -72,6 +72,7 @@ messaging:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     lifecycle:
       __metadata:
         name: "lifecycle"
@@ -144,6 +145,7 @@ messaging:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     extraInitContainers:
       __metadata:
         name: "extraInitContainers"
@@ -218,6 +220,7 @@ messaging:
         type: "boolean"
         immutable: false
         required: true
+        hidden: true
     annotations:
       __metadata:
         name: "annotations"
@@ -242,6 +245,7 @@ messaging:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     extraSelectors:
       __metadata:
         name: "extraSelectors"
@@ -408,6 +412,7 @@ messaging:
         type: "boolean"
         immutable: false
         required: true
+        hidden: true
     rewriteTarget:
       __metadata:
         name: "rewriteTarget"
@@ -448,6 +453,7 @@ messaging:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     labels:
       __metadata:
         name: "labels"
@@ -600,6 +606,7 @@ messaging:
         type: "boolean"
         immutable: false
         required: true
+        hidden: true
 
   replicaCount:
     __metadata:
@@ -894,6 +901,7 @@ notification-slack:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     lifecycle:
       __metadata:
         name: "lifecycle"
@@ -966,6 +974,7 @@ notification-slack:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     extraInitContainers:
       __metadata:
         name: "extraInitContainers"
@@ -1040,6 +1049,7 @@ notification-slack:
         type: "boolean"
         immutable: false
         required: true
+        hidden: true
     annotations:
       __metadata:
         name: "annotations"
@@ -1064,6 +1074,7 @@ notification-slack:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     extraSelectors:
       __metadata:
         name: "extraSelectors"
@@ -1230,6 +1241,7 @@ notification-slack:
         type: "boolean"
         immutable: false
         required: true
+        hidden: true
     rewriteTarget:
       __metadata:
         name: "rewriteTarget"
@@ -1270,6 +1282,7 @@ notification-slack:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     labels:
       __metadata:
         name: "labels"
@@ -1422,6 +1435,7 @@ notification-slack:
         type: "boolean"
         immutable: false
         required: true
+        hidden: true
 
   replicaCount:
     __metadata:
@@ -1716,6 +1730,7 @@ portfolio:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     lifecycle:
       __metadata:
         name: "lifecycle"
@@ -1788,6 +1803,7 @@ portfolio:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     extraInitContainers:
       __metadata:
         name: "extraInitContainers"
@@ -1862,6 +1878,7 @@ portfolio:
         type: "boolean"
         immutable: false
         required: true
+        hidden: true
     annotations:
       __metadata:
         name: "annotations"
@@ -1886,6 +1903,7 @@ portfolio:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     extraSelectors:
       __metadata:
         name: "extraSelectors"
@@ -2052,6 +2070,7 @@ portfolio:
         type: "boolean"
         immutable: false
         required: true
+        hidden: true
     rewriteTarget:
       __metadata:
         name: "rewriteTarget"
@@ -2092,6 +2111,7 @@ portfolio:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     labels:
       __metadata:
         name: "labels"
@@ -2244,6 +2264,7 @@ portfolio:
         type: "boolean"
         immutable: false
         required: true
+        hidden: true
 
   replicaCount:
     __metadata:
@@ -2538,6 +2559,7 @@ stockQuote:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     lifecycle:
       __metadata:
         name: "lifecycle"
@@ -2610,6 +2632,7 @@ stockQuote:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     extraInitContainers:
       __metadata:
         name: "extraInitContainers"
@@ -2684,6 +2707,7 @@ stockQuote:
         type: "boolean"
         immutable: false
         required: true
+        hidden: true
     annotations:
       __metadata:
         name: "annotations"
@@ -2708,6 +2732,7 @@ stockQuote:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     extraSelectors:
       __metadata:
         name: "extraSelectors"
@@ -2874,6 +2899,7 @@ stockQuote:
         type: "boolean"
         immutable: false
         required: true
+        hidden: true
     rewriteTarget:
       __metadata:
         name: "rewriteTarget"
@@ -2914,6 +2940,7 @@ stockQuote:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     labels:
       __metadata:
         name: "labels"
@@ -3066,6 +3093,7 @@ stockQuote:
         type: "boolean"
         immutable: false
         required: true
+        hidden: true
 
   replicaCount:
     __metadata:
@@ -3360,6 +3388,7 @@ trader:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     lifecycle:
       __metadata:
         name: "lifecycle"
@@ -3432,6 +3461,7 @@ trader:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     extraInitContainers:
       __metadata:
         name: "extraInitContainers"
@@ -3506,6 +3536,7 @@ trader:
         type: "boolean"
         immutable: false
         required: true
+        hidden: true
     annotations:
       __metadata:
         name: "annotations"
@@ -3530,6 +3561,7 @@ trader:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     extraSelectors:
       __metadata:
         name: "extraSelectors"
@@ -3696,6 +3728,7 @@ trader:
         type: "boolean"
         immutable: false
         required: true
+        hidden: true
     rewriteTarget:
       __metadata:
         name: "rewriteTarget"
@@ -3736,6 +3769,7 @@ trader:
         type: "string"
         immutable: false
         required: false
+        hidden: true
     labels:
       __metadata:
         name: "labels"
@@ -3888,6 +3922,7 @@ trader:
         type: "boolean"
         immutable: false
         required: true
+        hidden: true
 
   replicaCount:
     __metadata:
