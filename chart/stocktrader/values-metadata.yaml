@@ -39,6 +39,7 @@ messaging:
         type: "string"
         immutable: false
         required: true
+        hidden: true
         options:
         - label: "Always"
           value: "Always"
@@ -196,6 +197,7 @@ messaging:
         type: "string"
         immutable: false
         required: true
+        hidden: true
     port:
       __metadata:
         name: "port"
@@ -280,6 +282,7 @@ messaging:
         type: "string"
         immutable: false
         required: true
+        hidden: true
     port:
       __metadata:
         name: "port"
@@ -330,6 +333,7 @@ messaging:
         type: "string"
         immutable: false
         required: true
+        hidden: true
     nonSecurePort:
       __metadata:
         name: "nonSecurePort"
@@ -814,6 +818,7 @@ messaging:
             type: "string"
             immutable: false
             required: true
+            hidden: true
             options:
             - label: "Always"
               value: "Always"
@@ -867,6 +872,7 @@ notification-slack:
         description: "Defaults to 'Always' when the latest tag is specified. Otherwise the default is 'IfNotPresent'."
         type: "string"
         immutable: false
+        hidden: true
         required: true
         options:
         - label: "Always"
@@ -1025,6 +1031,7 @@ notification-slack:
         type: "string"
         immutable: false
         required: true
+        hidden: true
     port:
       __metadata:
         name: "port"
@@ -1109,6 +1116,7 @@ notification-slack:
         type: "string"
         immutable: false
         required: true
+        hidden: true
     port:
       __metadata:
         name: "port"
@@ -1159,6 +1167,7 @@ notification-slack:
         type: "string"
         immutable: false
         required: true
+        hidden: true
     nonSecurePort:
       __metadata:
         name: "nonSecurePort"
@@ -1642,6 +1651,7 @@ notification-slack:
             description: "Defaults to 'Always' when the latest tag is specified. Otherwise the default is 'IfNotPresent'."
             type: "string"
             immutable: false
+            hidden: true
             required: true
             options:
             - label: "Always"
@@ -1696,6 +1706,7 @@ portfolio:
         description: "Defaults to 'Always' when the latest tag is specified. Otherwise the default is 'IfNotPresent'."
         type: "string"
         immutable: false
+        hidden: true
         required: true
         options:
         - label: "Always"
@@ -1854,6 +1865,7 @@ portfolio:
         type: "string"
         immutable: false
         required: true
+        hidden: true
     port:
       __metadata:
         name: "port"
@@ -1938,6 +1950,7 @@ portfolio:
         type: "string"
         immutable: false
         required: true
+        hidden: true
     port:
       __metadata:
         name: "port"
@@ -1988,6 +2001,7 @@ portfolio:
         type: "string"
         immutable: false
         required: true
+        hidden: true
     nonSecurePort:
       __metadata:
         name: "nonSecurePort"
@@ -2525,6 +2539,7 @@ stockQuote:
         description: "Defaults to 'Always' when the latest tag is specified. Otherwise the default is 'IfNotPresent'."
         type: "string"
         immutable: false
+        hidden: true
         required: true
         options:
         - label: "Always"
@@ -2683,6 +2698,7 @@ stockQuote:
         type: "string"
         immutable: false
         required: true
+        hidden: true
     port:
       __metadata:
         name: "port"
@@ -2767,6 +2783,7 @@ stockQuote:
         type: "string"
         immutable: false
         required: true
+        hidden: true
     port:
       __metadata:
         name: "port"
@@ -2817,6 +2834,7 @@ stockQuote:
         type: "string"
         immutable: false
         required: true
+        hidden: true
     nonSecurePort:
       __metadata:
         name: "nonSecurePort"
@@ -3353,6 +3371,7 @@ trader:
         label: "Docker image pull policy"
         description: "Defaults to 'Always' when the latest tag is specified. Otherwise the default is 'IfNotPresent'."
         type: "string"
+        hidden: true
         immutable: false
         required: true
         options:
@@ -3512,6 +3531,7 @@ trader:
         type: "string"
         immutable: false
         required: true
+        hidden: true
     port:
       __metadata:
         name: "port"
@@ -3596,6 +3616,7 @@ trader:
         type: "string"
         immutable: false
         required: true
+        hidden: true
     port:
       __metadata:
         name: "port"
@@ -3646,6 +3667,7 @@ trader:
         type: "string"
         immutable: false
         required: true
+        hidden: true
     nonSecurePort:
       __metadata:
         name: "nonSecurePort"
