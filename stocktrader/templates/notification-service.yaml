@@ -1,4 +1,4 @@
-#       Copyright 2017 IBM Corp All Rights Reserved
+#       Copyright 2017-2019 IBM Corp All Rights Reserved
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -11,7 +11,7 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-{{- if or (.Values.notification-slack.enabled) (.Values.notification-twitter.enabled)}}
+{{- if or (.Values.notificationSlack.enabled) (.Values.notificationTwitter.enabled)}}
 #Deploy the service
 apiVersion: v1
 kind: Service
@@ -32,4 +32,3 @@ spec:
       targetPort: 9443
   selector:
     app: notification
-
