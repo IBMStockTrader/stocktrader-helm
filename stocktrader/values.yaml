@@ -15,11 +15,14 @@
 # Default values for stocktrader.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+global:
+  monitoring: true
+  replicas: 1
 portfolio:
   image:
     repository: ibmstocktrader/portfolio
     tag: latest
-stock-quote:
+stockQuote:
   image:
     repository: ibmstocktrader/stock-quote
     tag: latest
@@ -38,17 +41,17 @@ messaging:
   image:
     repository: ibmstocktrader/messaging
     tag: latest
-notification-slack:
+notificationSlack:
   enabled: false
   image:
     repository: ibmstocktrader/notification-slack
     tag: latest
-notification-twitter:
+notificationTwitter:
   enabled: false
   image:
     repository: ibmstocktrader/notification-twitter
     tag: latest
-trade-history:
+tradeHistory:
   enabled: false
   image:
     repository: ibmstocktrader/trade-history
@@ -91,23 +94,23 @@ mq:
   port: 1414
   id: app
   password: ""
-  queue-manager: stocktrader
+  queueManager: stocktrader
   queue: NotificationQ
   channel: DEV.APP.SVRCONN
 redis:
   url: redis://<your credentials>@redistrader1-ibm-redis-ha-dev-master-svc:6379
-  cache-interval: 60
+  cacheInterval: 60
 openwhisk:
   url: https://openwhisk.ng.bluemix.net/api/v1/namespaces/jalcorn%40us.ibm.com_dev/actions/PostLoyaltyLevelToSlack
   id: <your id>
   password: <your password>
 twitter:
-  consumer-key: <your consumer key>
-  consumer-secret: <your consumer secret>
-  access-token: <your access token>
-  access-token-secret: <your access token secret>
+  consumerKey: <your consumer key>
+  consumerSecret: <your consumer secret>
+  accessToken: <your access token>
+  accessTokenSecret: <your access token secret>
 kakfa:
   address: <your Kafka proxy service>:30000
   topic: stocktrader
   user: token
-  api-key: <your API key>
+  apiKey: <your API key>
