@@ -1,4 +1,4 @@
-#       Copyright 2017 IBM Corp All Rights Reserved
+#       Copyright 2017-2019 IBM Corp All Rights Reserved
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -12,14 +12,14 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-{{- if .Values.notification-slack.enabled }}
+{{- if .Values.notificationSlack.enabled }}
 #Deploy the pod
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: notification-slack
 spec:
-  replicas: 1
+  replicas: {{ .Values.global.replicas}}
   template:
     metadata:
       labels:
@@ -29,32 +29,32 @@ spec:
     spec:
       containers:
       - name: notification-slack
-        image: "{{ .Values.notification-slack.image.repository }}:{{ .Values.notification-slack.image.tag }}"
+        image: "{{ .Values.notificationSlack.image.repository }}:{{ .Values.notificationSlack.image.tag }}"
         env:
           - name: OW_URL
             valueFrom:
               secretKeyRef:
-                name: openwhisk
+                name: {{ .Release.Name}}-openwhisk
                 key: url
           - name: OW_ID
             valueFrom:
               secretKeyRef:
-                name: openwhisk
+                name: {{ .Release.Name}}-openwhisk
                 key: id
           - name: OW_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: openwhisk   
+                name: {{ .Release.Name}}-openwhisk
                 key: pwd
           - name: JWT_AUDIENCE
             valueFrom:
               secretKeyRef:
-                name: jwt 
+                name: {{ .Release.Name}}-jwt 
                 key: audience
           - name: JWT_ISSUER
             valueFrom:
               secretKeyRef:
-                name: jwt
+                name: {{ .Release.Name}}-jwt
                 key: issuer
         ports:
           - containerPort: 9080
