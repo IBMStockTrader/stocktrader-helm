@@ -1,4 +1,4 @@
-#       Copyright 2017 IBM Corp All Rights Reserved
+#       Copyright 2017-2019 IBM Corp All Rights Reserved
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -20,12 +20,16 @@ metadata:
   name: messaging
 # namespace: stock-trader
 spec:
-  replicas: 1
+  replicas: {{ .Values.global.replicas }}
   template:
     metadata:
       labels:
         app: messaging
         solution: stock-trader
+{{- if .Values.global.monitoring }}
+      annotations:
+        prometheus.io/scrape: 'true'
+{{- end }}
     spec:
       containers:
       - name: messaging
