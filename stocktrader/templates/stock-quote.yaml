@@ -1,4 +1,4 @@
-#       Copyright 2017 IBM Corp All Rights Reserved
+#       Copyright 2017-2019 IBM Corp All Rights Reserved
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -19,37 +19,41 @@ metadata:
   name: stock-quote
 # namespace: stock-trader
 spec:
-  replicas: 1
+  replicas: {{ Values.global.replicas }}
   template:
     metadata:
       labels:
         app: stock-quote
         solution: stock-trader
+{{- if .Values.global.monitoring }}
+      annotations:
+        prometheus.io/scrape: 'true'
+{{- end }}
     spec:
       containers:
       - name: stock-quote
-        image: "{{ .Values.stock-quote.image.repository }}:{{ .Values.stock-quote.image.tag }}"
+        image: "{{ .Values.stockQuote.image.repository }}:{{ .Values.stockQuote.image.tag }}"
         env:
           - name: REDIS_URL
             valueFrom:
               secretKeyRef:
-                name: redis
+                name: {{ .Release.Name }}-redis
                 key: url
           - name: CACHE_INTERVAL
             valueFrom:
               secretKeyRef:
-                name: redis
+                name: {{ .Release.Name }}-redis
                 key: cache-interval
                 optional: true
           - name: JWT_AUDIENCE
             valueFrom:
               secretKeyRef:
-                name: jwt 
+                name: {{ .Release.Name }}-jwt
                 key: audience
           - name: JWT_ISSUER
             valueFrom:
               secretKeyRef:
-                name: jwt
+                name: {{ .Release.Name }}-jwt
                 key: issuer
         ports:
           - containerPort: 9080
@@ -65,7 +69,6 @@ metadata:
   labels:
     app: stock-quote
 spec:
-  type: NodePort
   ports:
     - name: http
       protocol: TCP
@@ -77,4 +80,3 @@ spec:
       targetPort: 9443
   selector:
     app: stock-quote
-
