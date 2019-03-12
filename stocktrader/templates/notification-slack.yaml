@@ -19,7 +19,7 @@ kind: Deployment
 metadata:
   name: notification-slack
 spec:
-  replicas: {{ .Values.global.replicas}}
+  replicas: {{ .Values.global.replicas }}
   template:
     metadata:
       labels:
