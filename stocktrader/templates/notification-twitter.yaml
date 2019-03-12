@@ -12,14 +12,14 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-{{- if .Values.notification-twitter.enabled }}
+{{- if .Values.notificationTwitter.enabled }}
 #Deploy the pod
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: notification-twitter
 spec:
-  replicas: 1
+  replicas: {{ .Values.global.replicas }}
   template:
     metadata:
       labels:
@@ -29,37 +29,37 @@ spec:
     spec:
       containers:
       - name: notification-twitter
-        image: "{{ .Values.notification-twitter.image.repository }}:{{ .Values.notification-twitter.image.tag }}"
+        image: "{{ .Values.notificationTwitter.image.repository }}:{{ .Values.notificationTwitter.image.tag }}"
         env:
           - name: TWITTER_CONSUMER_KEY
             valueFrom:
               secretKeyRef:
-                name: twitter
+                name: {{ .Release.Name }}-twitter
                 key: consumerKey
           - name: TWITTER_CONSUMER_SECRET
             valueFrom:
               secretKeyRef:
-                name: twitter
+                name: {{ .Release.Name }}-twitter
                 key: consumerSecret
           - name: TWITTER_ACCESS_TOKEN
             valueFrom:
               secretKeyRef:
-                name: twitter
+                name: {{ .Release.Name }}-twitter
                 key: accessToken
           - name: TWITTER_ACCESS_TOKEN_SECRET
             valueFrom:
               secretKeyRef:
-                name: twitter
+                name: {{ .Release.Name }}-twitter
                 key: accessTokenSecret
           - name: JWT_AUDIENCE
             valueFrom:
               secretKeyRef:
-                name: jwt 
+                name: {{ .Release.Name }}-jwt
                 key: audience
           - name: JWT_ISSUER
             valueFrom:
               secretKeyRef:
-                name: jwt
+                name: {{ .Release.Name }}-jwt
                 key: issuer
         ports:
           - containerPort: 9080
