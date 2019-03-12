@@ -26,6 +26,10 @@ spec:
         app: notification
         solution: stock-trader
         version: slack
+{{- if .Values.global.monitoring }}
+      annotations:
+        prometheus.io/scrape: 'true'
+{{- end }}
     spec:
       containers:
       - name: notification-slack
