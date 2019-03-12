@@ -20,7 +20,6 @@ metadata:
   labels:
     app: notification
 spec:
-  type: NodePort
   ports:
     - name: http
       protocol: TCP
@@ -32,3 +31,4 @@ spec:
       targetPort: 9443
   selector:
     app: notification
+{{- end }}
