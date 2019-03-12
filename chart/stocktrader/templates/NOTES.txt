@@ -1,0 +1,6 @@
+Stocktrader is deployed.
+
+{{- if .Values.trader.enabled }}
+The Java web application is available at
+  https://<ingress-host>>/trader
+{{- end }}

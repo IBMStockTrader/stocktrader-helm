@@ -107,4 +107,6 @@ target/
 build/
 
 .DS_Store
+.DS_STORE
+requirements.lock
 
