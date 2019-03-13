@@ -1,10 +1,8 @@
-# IBM Stock Trader Helm Chart (Beta Version)
+# IBM Stock Trader Helm Chart
 
 ## Introduction
 
 This chart installs the IBM Stock Trader microservices.
-
-![Architecural Diagram](stock-trader.png)
 
 ## Prerequisites
 
