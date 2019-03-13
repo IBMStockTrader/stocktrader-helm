@@ -4,6 +4,8 @@
 
 This chart installs the IBM Stock Trader microservices.
 
+![Architecural Diagram](stock-trader.png)
+
 ## Prerequisites
 
 The user must install and configure the following dependencies:
