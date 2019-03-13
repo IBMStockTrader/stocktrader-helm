@@ -1,4 +1,4 @@
-#       Copyright 2017 IBM Corp All Rights Reserved
+#       Copyright 2017-2019 IBM Corp All Rights Reserved
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -18,12 +18,16 @@ kind: Deployment
 metadata:
   name: portfolio
 spec:
-  replicas: 1
+  replicas: {{ .Values.global.replicas }}
   template:
     metadata:
       labels:
         app: portfolio
         solution: stock-trader
+{{- if .Values.global.monitoring }}
+      annotations:
+        prometheus.io/scrape: 'true'
+{{- end }}
     spec:
       containers:
       - name: portfolio
@@ -32,130 +36,130 @@ spec:
           - name: JDBC_HOST
             valueFrom:
               secretKeyRef:
-                name: db2
+                name: {{ .Release.Name }}-db2
                 key: host
           - name: JDBC_PORT
             valueFrom:
               secretKeyRef:
-                name: db2
+                name: {{ .Release.Name }}-db2
                 key: port
           - name: JDBC_DB
             valueFrom:
               secretKeyRef:
-                name: db2
+                name: {{ .Release.Name }}-db2
                 key: db
           - name: JDBC_ID
             valueFrom:
               secretKeyRef:
-                name: db2
+                name: {{ .Release.Name }}-db2
                 key: id
           - name: JDBC_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: db2
+                name: {{ .Release.Name }}-db2
                 key: pwd
           - name: MQ_ID
             valueFrom:
               secretKeyRef:
-                name: mq
+                name: {{ .Release.Name }}-mq
                 key: id
           - name: MQ_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: mq   
+                name: {{ .Release.Name }}-mq
                 key: pwd
           - name: MQ_HOST
             valueFrom:
               secretKeyRef:
-                name: mq
+                name: {{ .Release.Name }}-mq
                 key: host
           - name: MQ_PORT
             valueFrom:
               secretKeyRef:
-                name: mq   
+                name: {{ .Release.Name }}-mq
                 key: port
           - name: MQ_CHANNEL
             valueFrom:
               secretKeyRef:
-                name: mq   
+                name: {{ .Release.Name }}-mq
                 key: channel
           - name: MQ_QUEUE_MANAGER
             valueFrom:
               secretKeyRef:
-                name: mq   
+                name: {{ .Release.Name }}-mq
                 key: queue-manager
           - name: MQ_QUEUE
             valueFrom:
                secretKeyRef:
-                 name: mq   
+                 name: {{ .Release.Name }}-mq
                  key: queue
           - name: WATSON_URL
             valueFrom:
               secretKeyRef:
-                name: watson
+                name: {{ .Release.Name }}-watson
                 key: url
           - name: WATSON_ID
             valueFrom:
               secretKeyRef:
-                name: watson
+                name: {{ .Release.Name }}-watson
                 key: id
                 optional: true
           - name: WATSON_PWD
             valueFrom:
               secretKeyRef:
-                name: watson
+                name: {{ .Release.Name }}-watson
                 key: pwd
           - name: ODM_URL
             valueFrom:
               secretKeyRef:
-                name: odm
+                name: {{ .Release.Name }}-odm
                 key: url
                 optional: true
           - name: ODM_ID
             valueFrom:
               secretKeyRef:
-                name: odm
+                name: {{ .Release.Name }}-odm
                 key: id
                 optional: true
           - name: ODM_PWD
             valueFrom:
               secretKeyRef:
-                name: odm
+                name: {{ .Release.Name }}-odm
                 key: pwd
                 optional: true
           - name: KAFKA_TOPIC
             valueFrom:
               secretKeyRef:
-                name: kafka
+                name: {{ .Release.Name }}-kafka
                 key: topic
                 optional: true
           - name: KAFKA_ADDRESS
             valueFrom:
               secretKeyRef:
-                name: kafka
+                name: {{ .Release.Name }}-kafka
                 key: address
                 optional: true
           - name: KAFKA_USER
             valueFrom:
               secretKeyRef:
-                name: kafka
+                name: {{ .Release.Name }}-kafka
                 key: user
                 optional: true
           - name: KAFKA_API_KEY
             valueFrom:
               secretKeyRef:
-                name: kafka
+                name: {{ .Release.Name }}-kafka
                 key: api-key
                 optional: true
           - name: JWT_AUDIENCE
             valueFrom:
               secretKeyRef:
-                name: jwt 
+                name: {{ .Release.Name }}-jwt
                 key: audience
           - name: JWT_ISSUER
             valueFrom:
               secretKeyRef:
-                name: jwt
+                name: {{ .Release.Name }}-jwt
                 key: issuer
         ports:
           - containerPort: 9080
@@ -202,6 +206,5 @@ spec:
       paths:
       - path: /portfolio
         backend:
-          serviceName: portfolio-service
+          serviceName: {{ .Release.Name }}-portfolio-service
           servicePort: 9443
-
