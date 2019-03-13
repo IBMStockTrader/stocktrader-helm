@@ -1,4 +1,4 @@
-#       Copyright 2018 IBM Corp All Rights Reserved
+#       Copyright 2017-2019 IBM Corp All Rights Reserved
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -19,13 +19,16 @@ kind: Deployment
 metadata:
   name: tradr
 spec:
-  replicas: 1
+  replicas: {{ .Values.global.replicas }}
   template:
     metadata:
       labels:
         app: tradr
         solution: stock-trader
-        version: v1
+{{- if .Values.global.monitoring }}
+      annotations:
+        prometheus.io/scrape: 'true'
+{{- end }}
     spec:
       containers:
       - name: tradr
@@ -37,52 +40,52 @@ spec:
           - name: JWT_ISSUER
             valueFrom:
               secretKeyRef:
-                name: jwt
+                name: {{ .Release.Name }}-jwt
                 key: issuer
           - name: JWT_AUDIENCE
             valueFrom:
               secretKeyRef:
-                name: jwt
+                name: {{ .Release.Name }}-jwt
                 key: audience
           - name: OIDC_NAME
             valueFrom:
               secretKeyRef:
-                name: oidc
+                name: {{ .Release.Name }}-oidc
                 key: name
           - name: OIDC_ISSUER
             valueFrom:
               secretKeyRef:
-                name: oidc
+                name: {{ .Release.Name }}-oidc
                 key: issuer
           - name: OIDC_AUTH
             valueFrom:
               secretKeyRef:
-                name: oidc
+                name: {{ .Release.Name }}-oidc
                 key: auth
           - name: OIDC_TOKEN
             valueFrom:
               secretKeyRef:
-                name: oidc
+                name: {{ .Release.Name }}-oidc
                 key: token
           - name: OIDC_ID
             valueFrom:
               secretKeyRef:
-                name: oidc
+                name: {{ .Release.Name }}-oidc
                 key: id
           - name: OIDC_SECRET
             valueFrom:
               secretKeyRef:
-                name: oidc
+                name: {{ .Release.Name }}-oidc
                 key: secret
           - name: OIDC_KEY
             valueFrom:
               secretKeyRef:
-                name: oidc
+                name: {{ .Release.Name }}-oidc
                 key: key
           - name: PROXY_HOST
             valueFrom:
               secretKeyRef:
-                name: ingress-host
+                name: {{ .Release.Name }}-ingress-host
                 key: host
 ---
 #Deploy the service
@@ -121,6 +124,6 @@ spec:
       paths:
       - path: /tradr
         backend:
-          serviceName: tradr-service
+          serviceName: {{ .Release.Name }}-tradr-service
           servicePort: 3000
 {{- end }}
