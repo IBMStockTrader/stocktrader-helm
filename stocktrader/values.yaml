@@ -1,4 +1,4 @@
-#       Copyright 2017 IBM Corp All Rights Reserved
+#       Copyright 2017-2019 IBM Corp All Rights Reserved
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -86,9 +86,9 @@ db2:
   password: db2inst1
   db: trader
 odm:
-  url: http://odmtrader1-ibm-odm-dev:9060/DecisionService/rest/ICP_Trader_Dev_1/determineLoyalty
   id: odmAdmin
   password: odmAdmin
+  url: http://odmtrader1-ibm-odm-dev:9060/DecisionService/rest/ICP_Trader_Dev_1/determineLoyalty
 mq:
   host: mqtrader1-mqtrader1
   port: 1414
@@ -101,9 +101,9 @@ redis:
   url: redis://<your credentials>@redistrader1-ibm-redis-ha-dev-master-svc:6379
   cacheInterval: 60
 openwhisk:
-  url: https://openwhisk.ng.bluemix.net/api/v1/namespaces/jalcorn%40us.ibm.com_dev/actions/PostLoyaltyLevelToSlack
   id: <your id>
   password: <your password>
+  url: https://openwhisk.ng.bluemix.net/api/v1/namespaces/jalcorn%40us.ibm.com_dev/actions/PostLoyaltyLevelToSlack
 twitter:
   consumerKey: <your consumer key>
   consumerSecret: <your consumer secret>
