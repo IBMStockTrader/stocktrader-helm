@@ -20,12 +20,12 @@ type: Opaque
 data:
   portfolio.url: {{ .Values.portfolio.url }}
   stockQuote.url: {{ .Values.stockQuote.url }}
+  watson.url: {{ .Values.watson.url }}
   tradeHistory.url: {{ .Values.tradeHistory.url }}
   messaging.notification.url: {{ .Values.messaging.notification.url }}
   looper.url: {{ .Values.looper.url }}
-  apic.url: {{ .Values.apic.url }}
-  iex.url: {{ .Values.iex.url }}
-  watson.url: {{ .Values.watson.url }}
+  apic.url: {{ .Values.stockQuote.apiConnect }}
+  iex.url: {{ .Values.stockQuote.iexTrading }}
   odm.url: {{ .Values.odm.url }}
   openwhisk.url: {{ .Values.openwhisk.url }}
   ingress.address: {{ .Values.ingress.address }}
