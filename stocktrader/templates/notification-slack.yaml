@@ -17,7 +17,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: notification-slack
+  name: {{ .Release.Name }}-notification-slack
 spec:
   replicas: {{ .Values.global.replicas }}
   template:
@@ -37,28 +37,28 @@ spec:
         env:
           - name: OW_URL
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-openwhisk
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
                 key: url
           - name: OW_ID
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-openwhisk
+                name: {{ .Release.Name }}-credentials
                 key: id
           - name: OW_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-openwhisk
+                name: {{ .Release.Name }}-credentials
                 key: pwd
           - name: JWT_AUDIENCE
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-jwt 
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config 
                 key: audience
           - name: JWT_ISSUER
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-jwt
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
                 key: issuer
         ports:
           - containerPort: 9080
