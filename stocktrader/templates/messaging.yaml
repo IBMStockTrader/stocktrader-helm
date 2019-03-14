@@ -17,8 +17,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: messaging
-# namespace: stock-trader
+  name: {{ .Release.Name }}-messaging
 spec:
   replicas: {{ .Values.global.replicas }}
   template:
@@ -38,48 +37,48 @@ spec:
           - name: MQ_ID
             valueFrom:
               secretKeyRef:
-                name: mq
+                name: {{ .Release.Name }}-credentials
                 key: id
           - name: MQ_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: mq   
+                name: {{ .Release.Name }}-credentials
                 key: pwd
           - name: MQ_HOST
             valueFrom:
-              secretKeyRef:
-                name: mq
-                key: host
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: mq.host
           - name: MQ_PORT
             valueFrom:
-              secretKeyRef:
-                name: mq
-                key: port
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: mq.port
           - name: MQ_CHANNEL
             valueFrom:
-              secretKeyRef:
-                name: mq   
-                key: channel
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: mq.channel
           - name: MQ_QUEUE_MANAGER
             valueFrom:
-              secretKeyRef:
-                name: mq   
-                key: queue-manager
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: mq.queueManager
           - name: MQ_QUEUE
             valueFrom:
-              secretKeyRef:
-                name: mq   
-                key: queue
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: mq.queue
           - name: JWT_AUDIENCE
             valueFrom:
-              secretKeyRef:
-                name: jwt 
-                key: audience
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
-              secretKeyRef:
-                name: jwt
-                key: issuer
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: jwt.issuer
         ports:
           - containerPort: 9080
           - containerPort: 9443
