@@ -20,4 +20,26 @@ type: Opaque
 data:
   jwt.issuer: {{ .Values.jwt.issuer }}
   jwt.audience: {{ .Values.jwt.audience }}
-
+  watson.url: {{ .Values.watson.url }}
+  odm.url: {{ .Values.odm.url }}
+  openwhisk.url: {{ .Values.openwhisk.url }}
+  ingress.address: {{ .Values.ingress.address }}
+  kafka.address: {{ .Values.kafka.address }}
+  kafka.topic: {{ .Values.kafka.topic }}
+  db2.host: {{ .Values.db2.host }}
+  db2.port: {{ .Values.db2.port }}
+  db2.db: {{ .Values.db2.db }}
+  mq.host: {{ .Values.mq.host }}
+  mq.port: {{ .Values.mq.port }}
+  mq.queueManager: {{ .Values.mq.queueManager }}
+  mq.queue: {{ .Values.mq.queue }}
+  mq.channel: {{ .Values.mq.channel }}
+  oidc.name: {{ .Values.oidc.name }}
+  oidc.issuer: {{ .Values.oidc.issuer }}
+  oidc.token: {{ .Values.oidc.token }}
+  oidc.auth: {{ .Values.oidc.auth }}
+  oidc.key: {{ .Values.oidc.key }}
+  oidc.nodeport: {{ .Values.oidc.nodeport }}
+  redis.cacheInterval: {{ .Values.redis.cacheInterval }}
+  
+  
