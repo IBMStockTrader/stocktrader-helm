@@ -17,7 +17,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: tradr
+  name: {{ .Release.Name }}-tradr
 spec:
   replicas: {{ .Values.global.replicas }}
   template:
@@ -39,60 +39,60 @@ spec:
         env:
           - name: JWT_ISSUER
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-jwt
-                key: issuer
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: jwt.issuer
           - name: JWT_AUDIENCE
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-jwt
-                key: audience
+                name: {{ .Release.Name }}-config
+                key: jwt.audience
           - name: OIDC_NAME
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-oidc
-                key: name
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: oidc.name
           - name: OIDC_ISSUER
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-oidc
-                key: issuer
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: oidc.issuer
           - name: OIDC_AUTH
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-oidc
-                key: auth
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: oidc.auth
           - name: OIDC_TOKEN
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-oidc
-                key: token
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: oidc.token
           - name: OIDC_ID
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-oidc
-                key: id
+                name: {{ .Release.Name }}-credentials
+                key: oidc.id
           - name: OIDC_SECRET
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-oidc
-                key: secret
+                name: {{ .Release.Name }}-credentials
+                key: oidc.secret
           - name: OIDC_KEY
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-oidc
-                key: key
+                name: {{ .Release.Name }}-config
+                key: oidc.key
           - name: PROXY_HOST
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-ingress-host
-                key: host
+                name: {{ .Release.Name }}-config
+                key: ingress.address
 ---
 #Deploy the service
 apiVersion: v1
 kind: Service
 metadata:
-  name: tradr-service
+  name: {{ .Release.Name }}-tradr-service
   labels:
     app: tradr
 spec:
@@ -116,7 +116,7 @@ metadata:
     #ingress.kubernetes.io/rewrite-target: /
     ingress.kubernetes.io/secure-backends: "true"
     #ingress.kubernetes.io/app-root: "/tradr"
-  name: tradr-ingress
+  name: {{ .Release.Name }}-tradr-ingress
 spec:
   rules:
   - host:
