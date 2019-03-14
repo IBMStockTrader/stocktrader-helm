@@ -38,12 +38,12 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: {{ .Release.Name }}-credentials
-                key: id
+                key: mq.id
           - name: MQ_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: {{ .Release.Name }}-credentials
-                key: pwd
+                key: mq.pwd
           - name: MQ_HOST
             valueFrom:
               configMapKeyRef:
