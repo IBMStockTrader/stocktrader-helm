@@ -22,6 +22,7 @@ data:
   stockQuote.url: {{ .Values.stockQuote.url }}
   tradeHistory.url: {{ .Values.tradeHistory.url }}
   notification.url: {{ .Values.notification.url }}
+  looper.url: {{ .Values.looper.url }}
   apic.url: {{ .Values.apic.url }}
   iex.url: {{ .Values.iex.url }}
   watson.url: {{ .Values.watson.url }}
