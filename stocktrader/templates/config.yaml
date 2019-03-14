@@ -18,8 +18,12 @@ metadata:
   name: {{ .Release.Name }}-config
 type: Opaque
 data:
-  jwt.issuer: {{ .Values.jwt.issuer }}
-  jwt.audience: {{ .Values.jwt.audience }}
+  portfolio.url: {{ .Values.portfolio.url }}
+  stockQuote.url: {{ .Values.stockQuote.url }}
+  tradeHistory.url: {{ .Values.tradeHistory.url }}
+  notification.url: {{ .Values.notification.url }}
+  apic.url: {{ .Values.apic.url }}
+  iex.url: {{ .Values.iex.url }}
   watson.url: {{ .Values.watson.url }}
   odm.url: {{ .Values.odm.url }}
   openwhisk.url: {{ .Values.openwhisk.url }}
@@ -40,6 +44,7 @@ data:
   oidc.auth: {{ .Values.oidc.auth }}
   oidc.key: {{ .Values.oidc.key }}
   oidc.nodeport: {{ .Values.oidc.nodeport }}
+  jwt.issuer: {{ .Values.jwt.issuer }}
+  jwt.audience: {{ .Values.jwt.audience }}
   redis.cacheInterval: {{ .Values.redis.cacheInterval }}
-  
-  
+
