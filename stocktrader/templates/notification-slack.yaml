@@ -39,27 +39,27 @@ spec:
             valueFrom:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config
-                key: url
+                key: openwhisk.url
           - name: OW_ID
             valueFrom:
               secretKeyRef:
                 name: {{ .Release.Name }}-credentials
-                key: id
+                key: openwhisk.id
           - name: OW_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: {{ .Release.Name }}-credentials
-                key: pwd
+                key: openwhisk.pwd
           - name: JWT_AUDIENCE
             valueFrom:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config 
-                key: audience
+                key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config
-                key: issuer
+                key: jwt.issuer
         ports:
           - containerPort: 9080
           - containerPort: 9443
