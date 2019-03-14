@@ -38,12 +38,18 @@ spec:
             valueFrom:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config 
-                key: audience
+                key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config
-                key: issuer
+                key: jwt.issuer
+          - name: PORTFOLIO_URL
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: portfolio.url
+                optional: true
         ports:
           - containerPort: 9080
           - containerPort: 9443
