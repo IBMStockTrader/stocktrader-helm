@@ -17,7 +17,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: notification-twitter
+  name: {{ .Release.Name }}-notification-twitter
 spec:
   replicas: {{ .Values.global.replicas }}
   template:
