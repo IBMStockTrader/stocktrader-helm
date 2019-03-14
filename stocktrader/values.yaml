@@ -98,7 +98,7 @@ mq:
   queue: NotificationQ
   channel: DEV.APP.SVRCONN
 redis:
-  url: redis://<your credentials>@redistrader1-ibm-redis-ha-dev-master-svc:6379
+  urlWithCredentials: redis://<your credentials>@redistrader1-ibm-redis-ha-dev-master-svc:6379
   cacheInterval: 60
 openwhisk:
   id: <your id>
