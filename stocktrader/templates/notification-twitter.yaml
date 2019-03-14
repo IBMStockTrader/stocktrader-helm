@@ -38,33 +38,33 @@ spec:
           - name: TWITTER_CONSUMER_KEY
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-twitter
-                key: consumerKey
+                name: {{ .Release.Name }}-credentials
+                key: twitter.consumerKey
           - name: TWITTER_CONSUMER_SECRET
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-twitter
-                key: consumerSecret
+                name: {{ .Release.Name }}-credentials
+                key: twitter.consumerSecret
           - name: TWITTER_ACCESS_TOKEN
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-twitter
-                key: accessToken
+                name: {{ .Release.Name }}-credentials
+                key: twitter.accessToken
           - name: TWITTER_ACCESS_TOKEN_SECRET
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-twitter
-                key: accessTokenSecret
+                name: {{ .Release.Name }}-credentials
+                key: twitter.accessTokenSecret
           - name: JWT_AUDIENCE
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-jwt
-                key: audience
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-jwt
-                key: issuer
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: jwt.issuer
         ports:
           - containerPort: 9080
           - containerPort: 9443
