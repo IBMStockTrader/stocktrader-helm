@@ -13,11 +13,11 @@
 #   limitations under the License.
 
 apiVersion: v1
-kind: Secret
+kind: ConfigMap
 metadata:
-  name: jwt
+  name: {{ .Release.Name }}-config
 type: Opaque
-stringData:
-  issuer: {{ .Values.jwt.issuer }}
-  audience: {{ .Values.jwt.audience }}
+data:
+  jwt.issuer: {{ .Values.jwt.issuer }}
+  jwt.audience: {{ .Values.jwt.audience }}
 
