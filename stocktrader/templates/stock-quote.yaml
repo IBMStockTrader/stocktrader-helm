@@ -16,7 +16,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: stock-quote
+  name: {{ .Release.Name }}-stock-quote
 # namespace: stock-trader
 spec:
   replicas: {{ .Values.global.replicas }}
@@ -37,24 +37,24 @@ spec:
           - name: REDIS_URL
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-redis
-                key: url
+                name: {{ .Release.Name }}-credentials
+                key: redis.url
           - name: CACHE_INTERVAL
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-redis
-                key: cache-interval
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: redis.cacheInterval
                 optional: true
           - name: JWT_AUDIENCE
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-jwt
-                key: audience
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-jwt
-                key: issuer
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: jwt.issuer
         ports:
           - containerPort: 9080
           - containerPort: 9443
@@ -64,7 +64,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: stock-quote-service
+  name: {{ .Release.Name }}-stock-quote-service
   labels:
     app: stock-quote
 spec:
