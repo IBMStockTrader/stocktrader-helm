@@ -22,10 +22,14 @@ portfolio:
   image:
     repository: ibmstocktrader/portfolio
     tag: latest
+  url: http://{{ Release.Name }}-portfolio-service:9080
 stockQuote:
   image:
     repository: ibmstocktrader/stock-quote
     tag: latest
+  url: http://{{ Release.Name }}-stock-quote-service:9080
+  iexTrading: https://api.iextrading.com/1.0/stock
+  apiConnect: https://api.us.apiconnect.ibmcloud.com/jalcornusibmcom-dev/sb/stocks
 trader:
   enabled: true
   image:
@@ -41,6 +45,8 @@ messaging:
   image:
     repository: ibmstocktrader/messaging
     tag: latest
+  notification:
+    url: http://{{ Release.Name }}-notification-service:9080
 notificationSlack:
   enabled: false
   image:
@@ -56,11 +62,13 @@ tradeHistory:
   image:
     repository: ibmstocktrader/trade-history
     tag: latest
+  url: http://{{ Release.Name }}-trade-history-service:9080
 looper:
   enabled: false
   image:
     repository: ibmstocktrader/looper
     tag: latest
+  url: http://{{ Release.Name }}-looper-service:9080
 jwt:
   issuer: http://stock-trader.ibm.com
   audience: stock-trader
