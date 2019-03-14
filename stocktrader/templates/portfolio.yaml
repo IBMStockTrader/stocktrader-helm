@@ -16,7 +16,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: portfolio
+  name: {{ .Release.Name }}-portfolio
 spec:
   replicas: {{ .Values.global.replicas }}
   template:
@@ -35,132 +35,132 @@ spec:
         env:
           - name: JDBC_HOST
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-db2
-                key: host
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: db2.host
           - name: JDBC_PORT
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-db2
-                key: port
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: db2.port
           - name: JDBC_DB
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-db2
-                key: db
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: db2.db
           - name: JDBC_ID
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-db2
-                key: id
+                name: {{ .Release.Name }}-credentials
+                key: db2.id
           - name: JDBC_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-db2
-                key: pwd
+                name: {{ .Release.Name }}-credentials
+                key: db2.password
           - name: MQ_ID
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-mq
-                key: id
+                name: {{ .Release.Name }}-credentials
+                key: mq.id
           - name: MQ_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-mq
-                key: pwd
+                name: {{ .Release.Name }}-credentials
+                key: mq.password
           - name: MQ_HOST
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-mq
-                key: host
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: mq.host
           - name: MQ_PORT
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-mq
-                key: port
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: mq.port
           - name: MQ_CHANNEL
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-mq
-                key: channel
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: mq.channel
           - name: MQ_QUEUE_MANAGER
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-mq
-                key: queue-manager
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: mq.queue-manager
           - name: MQ_QUEUE
             valueFrom:
-               secretKeyRef:
-                 name: {{ .Release.Name }}-mq
-                 key: queue
+               configMapKeyRef:
+                 name: {{ .Release.Name }}-config
+                 key: mq.queue
           - name: WATSON_URL
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-watson
-                key: url
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: watson.url
           - name: WATSON_ID
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-watson
-                key: id
+                name: {{ .Release.Name }}-credentials
+                key: watson.id
                 optional: true
           - name: WATSON_PWD
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-watson
-                key: pwd
+                name: {{ .Release.Name }}-credentials
+                key: watson.pwd
           - name: ODM_URL
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-odm
-                key: url
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: odm.url
                 optional: true
           - name: ODM_ID
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-odm
-                key: id
+                name: {{ .Release.Name }}-credentials
+                key: odm.id
                 optional: true
           - name: ODM_PWD
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-odm
-                key: pwd
+                name: {{ .Release.Name }}-credentials
+                key: odm.pwd
                 optional: true
           - name: KAFKA_TOPIC
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-kafka
-                key: topic
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: kafka.topic
                 optional: true
           - name: KAFKA_ADDRESS
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-kafka
-                key: address
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: kafka.address
                 optional: true
           - name: KAFKA_USER
             valueFrom:
               secretKeyRef:
                 name: {{ .Release.Name }}-kafka
-                key: user
+                key: kafka.user
                 optional: true
           - name: KAFKA_API_KEY
             valueFrom:
               secretKeyRef:
                 name: {{ .Release.Name }}-kafka
-                key: api-key
+                key: kafka.api-key
                 optional: true
           - name: JWT_AUDIENCE
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-jwt
-                key: audience
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-jwt
-                key: issuer
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: jwt.issuer
         ports:
           - containerPort: 9080
           - containerPort: 9443
@@ -170,7 +170,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: portfolio-service
+  name: {{ .Release.Name }}-portfolio-service
   labels:
     app: portfolio
 spec:
@@ -198,7 +198,7 @@ metadata:
     ingress.kubernetes.io/session-cookie-hash: "sha1"
     ingress.kubernetes.io/secure-backends: "true"
     ingress.kubernetes.io/app-root: "/portfolio"
-  name: portfolio-ingress
+  name: {{ .Release.Name }}-portfolio-ingress
 spec:
   rules:
   - host:
