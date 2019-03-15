@@ -86,7 +86,7 @@ ingress:
 watson:
   url: https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21&sentences=false
   id: apikey
-  password: <your API key>
+  passwordOrApiKey: <your API key>
 db2:
   host: db2trader1-ibm-db2oltp-dev
   port: 50000
