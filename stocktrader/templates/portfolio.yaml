@@ -161,6 +161,12 @@ spec:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config
                 key: jwt.issuer
+          - name: STOCK_QUOTE_URL
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: stockQuote.url
+                optional: true
         ports:
           - containerPort: 9080
           - containerPort: 9443
