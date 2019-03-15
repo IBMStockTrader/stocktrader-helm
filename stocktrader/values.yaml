@@ -84,9 +84,9 @@ oidc:
 ingress:
   address: <your proxy node IP>:443
 watson:
-  url: https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21&sentences=false
   id: apikey
   passwordOrApiKey: <your API key>
+  url: https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21&sentences=false
 db2:
   host: db2trader1-ibm-db2oltp-dev
   port: 50000
