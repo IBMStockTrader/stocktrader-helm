@@ -55,6 +55,18 @@ spec:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config
                 key: jwt.issuer
+          - name: APIC_URL
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: apic.url
+                optional: true
+          - name: IEX_URL
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: iex.url
+                optional: true
         ports:
           - containerPort: 9080
           - containerPort: 9443
