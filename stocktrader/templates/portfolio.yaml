@@ -87,7 +87,7 @@ spec:
             valueFrom:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config
-                key: mq.queue-manager
+                key: mq.queueManager
           - name: MQ_QUEUE
             valueFrom:
                configMapKeyRef:
@@ -149,7 +149,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: {{ .Release.Name }}-kafka
-                key: kafka.api-key
+                key: kafka.apiKey
                 optional: true
           - name: JWT_AUDIENCE
             valueFrom:
