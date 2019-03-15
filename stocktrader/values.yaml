@@ -117,7 +117,7 @@ twitter:
   consumerSecret: <your consumer secret>
   accessToken: <your access token>
   accessTokenSecret: <your access token secret>
-kakfa:
+kafka:
   address: <your Kafka proxy service>:30000
   topic: stocktrader
   user: token
