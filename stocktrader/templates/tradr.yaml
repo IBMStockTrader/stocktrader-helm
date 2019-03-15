@@ -44,7 +44,7 @@ spec:
                 key: jwt.issuer
           - name: JWT_AUDIENCE
             valueFrom:
-              secretKeyRef:
+              configMapKeyRef:
                 name: {{ .Release.Name }}-config
                 key: jwt.audience
           - name: OIDC_NAME
@@ -79,12 +79,12 @@ spec:
                 key: oidc.secret
           - name: OIDC_KEY
             valueFrom:
-              secretKeyRef:
+              configMapKeyRef:
                 name: {{ .Release.Name }}-config
                 key: oidc.key
           - name: PROXY_HOST
             valueFrom:
-              secretKeyRef:
+              configMapKeyRef:
                 name: {{ .Release.Name }}-config
                 key: ingress.address
 ---
