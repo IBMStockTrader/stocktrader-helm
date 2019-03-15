@@ -43,7 +43,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: {{ .Release.Name }}-credentials
-                key: mq.pwd
+                key: mq.password
           - name: MQ_HOST
             valueFrom:
               configMapKeyRef:
