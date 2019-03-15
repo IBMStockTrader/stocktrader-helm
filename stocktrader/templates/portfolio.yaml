@@ -108,7 +108,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: {{ .Release.Name }}-credentials
-                key: watson.pwd
+                key: watson.password
           - name: ODM_URL
             valueFrom:
               configMapKeyRef:
