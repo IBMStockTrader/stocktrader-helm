@@ -18,12 +18,12 @@ metadata:
   name: {{ .Release.Name }}-config
 type: Opaque
 data:
-  portfolio.url: {{ tpl .Values.portfolio.url }}
-  stockQuote.url: {{ tpl .Values.stockQuote.url }}
+  portfolio.url: {{ tpl .Values.portfolio.url . }}
+  stockQuote.url: {{ tpl .Values.stockQuote.url . }}
   watson.url: {{ .Values.watson.url }}
-  tradeHistory.url: {{ tpl .Values.tradeHistory.url }}
-  messaging.notification.url: {{ tpl .Values.messaging.notification.url }}
-  looper.url: {{ tpl .Values.looper.url }}
+  tradeHistory.url: {{ tpl .Values.tradeHistory.url . }}
+  messaging.notification.url: {{ tpl .Values.messaging.notification.url . }}
+  looper.url: {{ tpl .Values.looper.url . }}
   apic.url: {{ .Values.stockQuote.apiConnect }}
   iex.url: {{ .Values.stockQuote.iexTrading }}
   odm.url: {{ .Values.odm.url }}
