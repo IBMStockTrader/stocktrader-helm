@@ -73,12 +73,12 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: {{ .Release.Name }}-credentials
-                key: oidc.id
+                key: oidc.clientId
           - name: OIDC_SECRET
             valueFrom:
               secretKeyRef:
                 name: {{ .Release.Name }}-credentials
-                key: oidc.password
+                key: oidc.clientSecret
           - name: OIDC_KEY
             valueFrom:
               configMapKeyRef:
