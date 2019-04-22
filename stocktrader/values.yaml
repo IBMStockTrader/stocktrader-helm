@@ -122,3 +122,10 @@ kafka:
   topic: stocktrader
   user: token
   apiKey: <your API key>
+mongo:
+  ip: <your Mongo IP>
+  port: <your Mongo port>
+  user: <your Mongo user>
+  password: <your Mongo password>
+  database: <your Mongo database>
+  authDB: <your Mongo auth database>
