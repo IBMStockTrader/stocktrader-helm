@@ -18,16 +18,21 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-trader
+  labels:
+    app: stock-trader
+  annotations: { 
+    prism.subkind: Liberty
+  }
 spec:
   replicas: {{ .Values.global.replicas }}
   template:
     metadata:
       labels:
         app: trader
-        solution: stock-trader
 {{- if .Values.global.monitoring }}
-      annotations:
+      annotations: { 
         prometheus.io/scrape: 'true'
+      }
 {{- end }}
     spec:
       containers:
@@ -54,6 +59,41 @@ spec:
           - containerPort: 9080
           - containerPort: 9443
         imagePullPolicy: Always
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9080
+          initialDelaySeconds: 30
+          periodSeconds: 6
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 9080
+          initialDelaySeconds: 60
+          periodSeconds: 6
+        resources:
+          limits:
+            cpu: 500m
+            memory: 500Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+---
+#Deploy the autoscaler
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ .Release.Name }}-trader-hpa
+  labels:
+    app: stock-trader
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Release.Name }}-trader
+  maxReplicas: 10
+  minReplicas: {{ .Values.global.replicas }}
+  targetCPUUtilizationPercentage: 60
 ---
 #Deploy the service
 apiVersion: v1

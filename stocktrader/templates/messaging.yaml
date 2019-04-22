@@ -18,16 +18,21 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-messaging
+  labels:
+    app: stock-trader
+  annotations: { 
+    prism.subkind: Liberty
+  }
 spec:
   replicas: {{ .Values.global.replicas }}
   template:
     metadata:
       labels:
         app: messaging
-        solution: stock-trader
 {{- if .Values.global.monitoring }}
-      annotations:
+      annotations: { 
         prometheus.io/scrape: 'true'
+      }
 {{- end }}
     spec:
       containers:
@@ -89,4 +94,11 @@ spec:
           - containerPort: 9080
           - containerPort: 9443
         imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: 500m
+            memory: 500Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
 {{- end }}

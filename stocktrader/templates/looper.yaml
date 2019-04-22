@@ -12,12 +12,12 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-{{- if .Values.notificationTwitter.enabled }}
+{{- if .Values.trader.enabled }}
 #Deploy the pod
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-notification-twitter
+  name: {{ .Release.Name }}-looper
   labels:
     app: stock-trader
   annotations: { 
@@ -28,7 +28,7 @@ spec:
   template:
     metadata:
       labels:
-        app: notification-twitter
+        app: looper
 {{- if .Values.global.monitoring }}
       annotations: { 
         prometheus.io/scrape: 'true'
@@ -36,39 +36,25 @@ spec:
 {{- end }}
     spec:
       containers:
-      - name: notification-twitter
-        image: "{{ .Values.notificationTwitter.image.repository }}:{{ .Values.notificationTwitter.image.tag }}"
+      - name: looper
+        image: "{{ .Values.looper.image.repository }}:{{ .Values.looper.image.tag }}"
         env:
-          - name: TWITTER_CONSUMER_KEY
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-credentials
-                key: twitter.consumerKey
-          - name: TWITTER_CONSUMER_SECRET
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-credentials
-                key: twitter.consumerSecret
-          - name: TWITTER_ACCESS_TOKEN
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-credentials
-                key: twitter.accessToken
-          - name: TWITTER_ACCESS_TOKEN_SECRET
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-credentials
-                key: twitter.accessTokenSecret
           - name: JWT_AUDIENCE
             valueFrom:
-              configMapKeyRef:
-                name: {{ .Release.Name }}-config
+              secretKeyRef:
+                name: {{ .Release.Name }}-config 
                 key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
-              configMapKeyRef:
+              secretKeyRef:
                 name: {{ .Release.Name }}-config
                 key: jwt.issuer
+          - name: PORTFOLIO_URL
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: portfolio.url
+                optional: true
         ports:
           - containerPort: 9080
           - containerPort: 9443
@@ -97,15 +83,52 @@ spec:
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ .Release.Name }}-notification-twitter-hpa
+  name: {{ .Release.Name }}-looper-hpa
   labels:
     app: stock-trader
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ .Release.Name }}-notification-twitter
+    name: {{ .Release.Name }}-looper
   maxReplicas: 10
   minReplicas: {{ .Values.global.replicas }}
   targetCPUUtilizationPercentage: 60
+---
+#Deploy the service
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-looper-service
+  labels:
+    app: looper
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      protocol: TCP
+      port: 9080
+      targetPort: 9080
+    - name: https
+      protocol: TCP
+      port: 9443
+      targetPort: 9443
+  selector:
+    app: looper
+---
+#Configure the ingress
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+# annotations:
+#   ingress.kubernetes.io/rewrite-target: /looper
+  name: {{ .Release.Name }}-looper-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /looper
+        backend:
+          serviceName: {{ .Release.Name }}-looper-service
+          servicePort: 9080
 {{- end }}

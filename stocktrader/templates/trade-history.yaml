@@ -12,11 +12,12 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
+{{- if .Values.trader.enabled }}
 #Deploy the pod
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-stock-quote
+  name: {{ .Release.Name }}-trade-history
   labels:
     app: stock-trader
   annotations: { 
@@ -27,7 +28,9 @@ spec:
   template:
     metadata:
       labels:
-        app: stock-quote
+        app: trade-history
+      annotations:
+        prometheus.io/scrape: 'true'
 {{- if .Values.global.monitoring }}
       annotations: { 
         prometheus.io/scrape: 'true'
@@ -35,42 +38,73 @@ spec:
 {{- end }}
     spec:
       containers:
-      - name: stock-quote
-        image: "{{ .Values.stockQuote.image.repository }}:{{ .Values.stockQuote.image.tag }}"
+      - name: trade-history
+        image: "{{ .Values.tradeHistory.image.repository }}:{{ .Values.tradeHistory.image.tag }}"
         env:
-          - name: REDIS_URL
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-credentials
-                key: redis.url
-          - name: CACHE_INTERVAL
-            valueFrom:
-              configMapKeyRef:
-                name: {{ .Release.Name }}-config
-                key: redis.cacheInterval
-                optional: true
           - name: JWT_AUDIENCE
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Release.Name }}-config 
                 key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config
                 key: jwt.issuer
-          - name: APIC_URL
+          - name: MONGO_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-credentials
+                key: mongo.user
+                optional: false
+          - name: MONGO_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-credentials
+                key: mongo.password
+                optional: false
+          - name: MONGO_AUTH_DB
             valueFrom:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config
-                key: apic.url
-                optional: true
-          - name: IEX_URL
+                key: mongo.authDB
+                optional: false
+          - name: MONGO_DATABASE
             valueFrom:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config
-                key: iex.url
-                optional: true
+                key: mongo.database
+                optional: false
+          - name: MONGO_IP
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: mongo.ip
+                optional: false
+          - name: MONGO_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: mongo.port
+                optional: false
+          - name: BOOTSTRAP_SERVER
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: kafka.address
+                optional: false
+          - name: CONSUMER_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-credentials
+                key: kafka.apiKey
+                optional: false
+          - name: TOPIC
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: kafka.topic 
+                optional: false
         ports:
           - containerPort: 9080
           - containerPort: 9443
@@ -99,14 +133,14 @@ spec:
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ .Release.Name }}-stock-quote-hpa
+  name: {{ .Release.Name }}-trade-history-hpa
   labels:
     app: stock-trader
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ .Release.Name }}-stock-quote
+    name: trade-history
   maxReplicas: 10
   minReplicas: {{ .Values.global.replicas }}
   targetCPUUtilizationPercentage: 60
@@ -115,18 +149,19 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-stock-quote-service
-  labels:
-    app: stock-quote
+  name: {{ .Release.Name }}-trade-history-service
 spec:
+  # if your cluster supports it, uncomment the following to automatically create
+  # an external load-balanced IP for the frontend service.
+  #type: LoadBalancer
+  #type: NodePort
   ports:
-    - name: http
-      protocol: TCP
-      port: 9080
-      targetPort: 9080
-    - name: https
-      protocol: TCP
-      port: 9443
-      targetPort: 9443
+  # the port that this service should serve on
+  - name: http
+    port: 9080
+  - name: https
+    port: 9443
   selector:
-    app: stock-quote
+    app: trade-history
+---
+{{- end }}
