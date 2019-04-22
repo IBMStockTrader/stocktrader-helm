@@ -48,4 +48,8 @@ data:
   jwt.issuer: {{ .Values.jwt.issuer }}
   jwt.audience: {{ .Values.jwt.audience }}
   redis.cacheInterval: "{{ .Values.redis.cacheInterval }}"
+  mongo.ip: {{ .Values.mongo.ip }}
+  mongo.port: "{{ .Values.mongo.ip }}"
+  mongo.database: {{ .Values.mongo.database }}
+  mongo.authDB: {{ .Values.mongo.authDB }}
 
