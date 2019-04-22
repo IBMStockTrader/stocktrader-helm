@@ -77,10 +77,10 @@ oidc:
   issuer: https://idaas.iam.ibm.com
   token: https://idaas.iam.ibm.com/idaas/oidc/endpoint/default/token
   auth: https://idaas.iam.ibm.com/idaas/oidc/endpoint/default/authorize
-  id: <your client id>
-  secret: <your client secret>
+  clientId: <your client id>
+  clientSecret: <your client secret>
   key: blueidprod
-  nodeport: <your ingress URL>
+  nodePort: <your ingress URL>
 ingress:
   address: <your proxy node IP>:443
 watson:
