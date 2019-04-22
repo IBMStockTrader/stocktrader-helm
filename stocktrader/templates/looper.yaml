@@ -41,12 +41,12 @@ spec:
         env:
           - name: JWT_AUDIENCE
             valueFrom:
-              secretKeyRef:
+              configMapKeyRef:
                 name: {{ .Release.Name }}-config 
                 key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
-              secretKeyRef:
+              configMapKeyRef:
                 name: {{ .Release.Name }}-config
                 key: jwt.issuer
           - name: PORTFOLIO_URL
