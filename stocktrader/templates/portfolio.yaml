@@ -222,27 +222,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-trader-service
-  labels:
-    app: trader
-spec:
-  type: NodePort
-  ports:
-    - name: http
-      protocol: TCP
-      port: 9080
-      targetPort: 9080
-    - name: https
-      protocol: TCP
-      port: 9443
-      targetPort: 9443
-  selector:
-    app: trader
----
-#Deploy the service
-apiVersion: v1
-kind: Service
-metadata:
   name: {{ .Release.Name }}-portfolio-service
   labels:
     app: portfolio
