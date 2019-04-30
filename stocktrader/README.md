@@ -62,9 +62,9 @@ Alternatively, a YAML file that specifies the values for the parameters can be p
 
 ## Building and Deploying the Chart
 
-After cloing this repository and changing directory into it, just run `helm package stocktrader` to produce the stocktrader-0.1.1.tgz file.
+After cloing this repository and changing directory into it, just run `helm package stocktrader` to produce the stocktrader-0.1.2.tgz file.
 
-To load it into ICP, first do a `cloudctl login`, then a `cloudctl catalog load-chart --archive stocktrader-0.1.1.tgz --repo local-charts`.
+To load it into ICP, first do a `cloudctl login`, then a `cloudctl catalog load-chart --archive stocktrader-0.1.2.tgz --repo local-charts`.
 
 ## Installing the Chart
 
