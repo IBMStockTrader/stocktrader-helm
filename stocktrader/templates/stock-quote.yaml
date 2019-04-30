@@ -18,7 +18,7 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-stock-quote
   labels:
-    app: stock-trader
+    app: {{ .Release.Name }}-stock-trader
   annotations: { 
     prism.subkind: Liberty
   }
