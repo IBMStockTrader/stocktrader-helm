@@ -25,6 +25,13 @@ spec:
         app: trader
         solution: stock-trader
         version: v1
+        prism.app.auto-create: true
+    annotations:
+        prism.app.auto-create.name: stocktrader
+        prism.app.auto-create.kinds: “Deployment, Ingress, Service”
+        prism.app.auto-create.version: v1
+        prism.app.auto-create.label: app
+        prism.app.auto-create.labels-values: “trader, tradr, portfolio, stock-quote, messaging, notification"
     spec:
       containers:
       - name: trader
