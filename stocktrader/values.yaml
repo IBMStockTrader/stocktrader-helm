@@ -16,20 +16,25 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 global:
-  monitoring: true
   replicas: 1
+  autoscale: false
+  monitoring: true
+  ingress: true
+  healthCheck: true
+  jsonLogging: false
 portfolio:
   image:
     repository: ibmstocktrader/portfolio
     tag: latest
-  url: http://{{ .Release.Name }}-portfolio-service:9080/portfolio
+  url: http://{{ .Release.Name }}-portfolio-service:9080
 stockQuote:
   image:
     repository: ibmstocktrader/stock-quote
     tag: latest
-  url: http://{{ .Release.Name }}-stock-quote-service:9080/stock-quote
-  iexTrading: https://api.iextrading.com/1.0/stock
+  url: http://{{ .Release.Name }}-stock-quote-service:9080
   apiConnect: https://api.us.apiconnect.ibmcloud.com/jalcornusibmcom-dev/sb/stocks
+  iexTrading: https://cloud.iexapis.com/stable/stock
+  iexApiKey: <your IEX API key>
 trader:
   enabled: true
   image:
@@ -46,7 +51,7 @@ messaging:
     repository: ibmstocktrader/messaging
     tag: latest
   notification:
-    url: http://{{ .Release.Name }}-notification-service:9080/notification
+    url: http://{{ .Release.Name }}-notification-service:9080
 notificationSlack:
   enabled: false
   image:
@@ -62,13 +67,13 @@ tradeHistory:
   image:
     repository: ibmstocktrader/trade-history
     tag: latest
-  url: http://{{ .Release.Name }}-trade-history-service:9080/trade-history
+  url: http://{{ .Release.Name }}-trade-history-service:9080
 looper:
   enabled: false
   image:
     repository: ibmstocktrader/looper
     tag: latest
-  url: http://{{ .Release.Name }}-looper-service:9080/looper
+  url: http://{{ .Release.Name }}-looper-service:9080
 jwt:
   issuer: http://stock-trader.ibm.com
   audience: stock-trader

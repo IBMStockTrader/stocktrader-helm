@@ -1,0 +1,265 @@
+#       Copyright 2019 IBM Corp All Rights Reserved
+
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+
+#       http://www.apache.org/licenses/LICENSE-2.0
+
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
+# Default values for stocktrader.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+global:
+  __metadata:
+    label: "Global Settings"
+    description: "Settings that apply to all of the Stock Trader microservices"
+  replicas:
+    __metadata:
+      label: "Initial number of pods per microservice"
+      description: "If auto-scaling is enabled, more may get created if needed"
+      type: number
+  autoscale:
+    __metadata:
+      label: "Enable Auto-scaling"
+      description: "Enable a Horizontal Pod Autoscaler for each microservice"
+      type: boolean
+  monitoring:
+    __metadata:
+      label: "Enable Prometheus monitoring"
+      description: "Register a Prometheus scraper for the metrics endpoint for each microservice"
+      type: boolean
+  ingress:
+    __metadata:
+      label: "Enable Ingress"
+      description: "Enable an Ingress for each front-end microservice"
+      type: boolean
+  healthCheck:
+    __metadata:
+      label: "Enable Readiness and Liveness probes"
+      description: "Configure Kubernetes to periodically probe each microservice to determine its health"
+      type: boolean
+  jsonLogging:
+    __metadata:
+      label: "Output pod logs in JSON format"
+      description: "Enable to send logs to ElasticSearch so they can be viewed in Kibana"
+      type: boolean
+db2:
+  __metadata:
+    label: "IBM DB2 Settings.  Mandatory - required by the portfolio microservice"
+    description: "Settings that apply to accessing the DB2 database (can be in-cluster, or external)"
+    required: true
+  host:
+    __metadata:
+      label: "Host name (or IP address)"
+      description: "Use the Kubernetes service DNS name if using an in-cluster DB2"
+      type: string
+  port:
+    __metadata:
+      label: "Port number"
+      description: "This usually defaults to 50000"
+      type: number
+  id:
+    __metadata:
+      label: "User ID"
+      description: "Login ID"
+      type: number
+  password:
+    __metadata:
+      label: "Password"
+      description: "Will be stored in a Kubernetes secret"
+      type: password
+  db:
+    __metadata:
+      label: "Database name"
+      description: "Name of the database"
+      type: number
+portfolio:
+  __metadata:
+    label: "Portfolio microservice"
+    description: "Settings that apply to the Portfolio microservice"
+  image:
+    __metadata:
+      label: "Docker image settings"
+      description: "How to locate the Docker image for the portfolio microservice"
+    repository:
+      __metadata:
+        label: "Docker image registry"
+        description: "Path to locate the Docker image for the portfolio microservice"
+        type: string
+    tag:
+      __metadata:
+        label: "Docker image tag"
+        description: "Tag for the Docker image for the portfolio microservice"
+        type: string
+  url:
+    __metadata:
+      label: "Portfolio URL"
+      description: "URL at which this microservice can be accessed by other microservices"
+      type: string
+stockQuote:
+  __metadata:
+    label: "Stock Quote microservice"
+    description: "Settings that apply to the Stock Quote microservice"
+  image:
+    __metadata:
+      label: "Docker image settings"
+      description: "How to locate the Docker image for the stock quote microservice"
+    repository:
+      __metadata:
+        label: "Docker image registry"
+        description: "Path to locate the Docker image for the stock quote microservice"
+        type: string
+    tag:
+      __metadata:
+        label: "Docker image tag"
+        description: "Tag for the Docker image for the stock quote microservice"
+        type: string
+  url:
+    __metadata:
+      label: "Stock Quote URL"
+      description: "URL at which this microservice can be accessed by other microservices"
+      type: string
+  apiConnect:
+    __metadata:
+      label: "API Connect URL"
+      description: "URL for contacting the stock quote service in API Connect"
+      type: string
+  iexTrading:
+    __metadata:
+      label: "IEX Trading URL"
+      description: "URL for contacting IEX directly (used as fallback if API Connect isn't working)"
+      type: string
+  iexApiKey:
+    __metadata:
+      label: "IEX API Key"
+      description: "Your API Key for the IEX Cloud.  Optional: Only used if API Connect isn't working"
+      type: password
+trader:
+  __metadata:
+    label: "Trader simple UI microservice"
+    description: "Settings that apply to the Java servlet-based Trader microservice"
+  enabled:
+    __metadata:
+      label: "Enable the basic UI microservice"
+      description: "This is a simple form-based browser client for IBM Stock Trader"
+      type: boolean
+  image:
+    __metadata:
+      label: "Docker image settings"
+      description: "How to locate the Docker image for the trader microservice"
+    repository:
+      __metadata:
+        label: "Docker image registry"
+        description: "Path to locate the Docker image for the trader microservice"
+        type: string
+    tag:
+      __metadata:
+        label: "Docker image tag"
+        description: "Tag for the Docker image for the trader microservice"
+        type: string
+tradr:
+  __metadata:
+    label: "Tradr fancy UI microservice"
+    description: "Settings that apply to the Node.js/Vue.js-based Tradr microservice (the only non-Liberty one in IBM Stock Trader)"
+  enabled:
+    __metadata:
+      label: "Enable the fancy UI microservice"
+      description: "This is a sophisticated JavaScript-based browser client for IBM Stock Trader, which requires configuring OpenID Connect (OIDC) for authentication"
+      type: boolean
+  image:
+    __metadata:
+      label: "Docker image settings"
+      description: "How to locate the Docker image for the tradr microservice"
+    repository:
+      __metadata:
+        label: "Docker image registry"
+        description: "Path to locate the Docker image for the tradr microservice"
+        type: string
+    tag:
+      __metadata:
+        label: "Docker image tag"
+        description: "Tag for the Docker image for the tradr microservice"
+        type: string
+messaging:
+  __metadata:
+    label: "Messaging microservice (optional - requires MQ)"
+    description: "Settings that apply to the Messaging microservice (enables notifications about changes in loyalty levels)"
+  enabled:
+    __metadata:
+      label: "Enable the messaging microservice"
+      description: "This optional service responds to JMS messages sent to MQ by Portfolio when your loyalty level changes, and invokes the Notification service"
+      type: boolean
+  image:
+    __metadata:
+      label: "Docker image settings"
+      description: "How to locate the Docker image for the messaging microservice"
+    repository:
+      __metadata:
+        label: "Docker image registry"
+        description: "Path to locate the Docker image for the messaging microservice"
+        type: string
+    tag:
+      __metadata:
+        label: "Docker image tag"
+        description: "Tag for the Docker image for the messaging microservice"
+        type: string
+  notification:
+    __metadata:
+      label: "Notification service settings"
+      description: "How the messaging microservice calls the notification microservice"
+    url:
+      __metadata:
+        label: "URL for the Notification microservice"
+        description: "Use the Kubernetes service DNS name in the URL when both are deployed to the same cluster"
+notificationSlack:
+  __metadata:
+    label: "Slack-based Notification microservice (optional - requires Messaging microservice)"
+    description: "Settings that apply to the Slack-based notification microservice (posts to a Slack channel when your loyalty level changes)"
+  enabled:
+    __metadata:
+      label: "Enable the Slack-based notification microservice (choose this or the Twitter-based one, not both)"
+      description: "This optional service posts to a Slack channel when your loyalty level changes"
+      type: boolean
+  image:
+    __metadata:
+      label: "Docker image settings"
+      description: "How to locate the Docker image for the Slack-based notification microservice"
+    repository:
+      __metadata:
+        label: "Docker image registry"
+        description: "Path to locate the Docker image for the Slack-based notification microservice"
+        type: string
+    tag:
+      __metadata:
+        label: "Docker image tag"
+        description: "Tag for the Docker image for the Slack-based notification microservice"
+        type: string
+notificationTwitter:
+  __metadata:
+    label: "Twitter-based Notification microservice (optional - requires Messaging microservice)"
+    description: "Settings that apply to the Twitter-based notification microservice (posts to a Slack channel when your loyalty level changes)"
+  enabled:
+    __metadata:
+      label: "Enable the Twitter-based notification microservice (choose this or the Slack-based one, not both)"
+      description: "This optional service sends a tweet as @IBMStockTrader when your loyalty level changes"
+      type: boolean
+  image:
+    __metadata:
+      label: "Docker image settings"
+      description: "How to locate the Docker image for the Twitter-based notification microservice"
+    repository:
+      __metadata:
+        label: "Docker image registry"
+        description: "Path to locate the Docker image for the Twitter-based notification microservice"
+        type: string
+    tag:
+      __metadata:
+        label: "Docker image tag"
+        description: "Tag for the Docker image for the Twitter-based notification microservice"
+        type: string
