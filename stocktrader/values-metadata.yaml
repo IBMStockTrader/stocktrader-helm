@@ -68,7 +68,7 @@ db2:
     __metadata:
       label: "User ID"
       description: "Login ID"
-      type: number
+      type: string
   password:
     __metadata:
       label: "Password"
@@ -78,7 +78,7 @@ db2:
     __metadata:
       label: "Database name"
       description: "Name of the database"
-      type: number
+      type: string
 portfolio:
   __metadata:
     label: "Portfolio microservice"
@@ -263,3 +263,123 @@ notificationTwitter:
         label: "Docker image tag"
         description: "Tag for the Docker image for the Twitter-based notification microservice"
         type: string
+tradeHistory:
+  __metadata:
+    label: "Trade History microservice"
+    description: "Settings that apply to the Trade History microservice"
+  enabled:
+    __metadata:
+      label: "Enable the Trade History microservice"
+      description: "This optional service maintains a history of all stock trades for your portfolio"
+      type: boolean
+  image:
+    __metadata:
+      label: "Docker image settings"
+      description: "How to locate the Docker image for the trade history microservice"
+    repository:
+      __metadata:
+        label: "Docker image registry"
+        description: "Path to locate the Docker image for the trade history microservice"
+        type: string
+    tag:
+      __metadata:
+        label: "Docker image tag"
+        description: "Tag for the Docker image for the trade history microservice"
+        type: string
+  url:
+    __metadata:
+      label: "Trade History URL"
+      description: "URL at which this microservice can be accessed by other microservices"
+      type: string
+looper:
+  __metadata:
+    label: "Looper microservice"
+    description: "Settings that apply to the Looper microservice"
+  enabled:
+    __metadata:
+      label: "Enable the Looper microservice"
+      description: "This optional service drives performance and stress tests against the Portfolio microservice"
+      type: boolean
+  image:
+    __metadata:
+      label: "Docker image settings"
+      description: "How to locate the Docker image for the looper microservice"
+    repository:
+      __metadata:
+        label: "Docker image registry"
+        description: "Path to locate the Docker image for the looper microservice"
+        type: string
+    tag:
+      __metadata:
+        label: "Docker image tag"
+        description: "Tag for the Docker image for the looper microservice"
+        type: string
+  url:
+    __metadata:
+      label: "Looper URL"
+      description: "URL at which this microservice can be accessed by other microservices"
+      type: string
+jwt:
+  __metadata:
+    label: "JSON Web Token (JWT) settings"
+    description: "Settings that apply to the JWT used for Single Sign-On between microservices"
+  issuer:
+    __metadata:
+      label: "JWT Issuer URL"
+      description: "The default value is usually sufficient"
+      type: string
+  audience:
+      label: "JWT Audience"
+      description: "The default value is usually sufficient"
+      type: string
+oidc:
+  __metadata:
+    label: "OpenID Connect (OIDC) settings"
+    description: "Settings to authenticate against the OIDC provider, such as IBMid.  Only needed by the tradr client"
+  name:
+      label: "Name of the OIDC provider"
+      description: "Name by which you refer to the provider.  Not actually sent to the provider"
+      type: string
+  issuer:
+    __metadata:
+      label: "JWT Issuer URL"
+      description: "The URL of the JWT issuer for this OIDC provider"
+      type: string
+  token:
+    __metadata:
+      label: "OIDC Token URL"
+      description: "The URL of the token issuer for this OIDC provider"
+      type: string
+  auth: https://idaas.iam.ibm.com/idaas/oidc/endpoint/default/authorize
+    __metadata:
+      label: "Auth URL"
+      description: "The URL of the authorization endpoint for this OIDC provider"
+      type: string
+  clientId:
+    __metadata:
+      label: "Client ID"
+      description: "The client ID issued to you by the OIDC provider"
+      type: password
+  clientSecret:
+    __metadata:
+      label: "Client Secret"
+      description: "The client secret issued to you by the OIDC provider"
+      type: password
+  key:
+    __metadata:
+      label: "Key name"
+      description: "Name of the public key for this OIDC provider, in the keystore for this microservice"
+      type: string
+  nodePort:
+    __metadata:
+      label: "Redirect URL"
+      description: "URL that the OIDC provider should call after authentication success"
+      type: string
+ingress:
+  __metadata:
+    label: "Ingress settings"
+    description: "Ingress configuration.  Only needed by the tradr client"
+  address:
+      label: "Ingress address"
+      description: "Specify in ip:port or hostname:port format"
+      type: string
