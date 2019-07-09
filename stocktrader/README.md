@@ -7,11 +7,13 @@ This chart installs the IBM Stock Trader microservices.
 ## Prerequisites
 
 The user must install and configure the following dependencies:
-* IBM Db2 Developer-C
-* IBM MQ Advanced for Developers
-* IBM Operational Decision Manager
-* IBM Event Streams
-* Redis
+* IBM DB2 Developer-C
+
+The following dependencies are optional:
+* IBM MQ Advanced for Developers (enables notifications)
+* IBM Operational Decision Manager (enables loyalty level determination)
+* IBM Event Streams (enables Trade History and its return-on-investment calculation)
+* Redis (enables stock quote caching)
 
 The user must create and configure the following services in the IBM Cloud:
 * Watson Tone Analyzer
