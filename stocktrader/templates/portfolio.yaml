@@ -19,9 +19,8 @@ metadata:
   name: {{ .Release.Name }}-portfolio
   labels:
     app: {{ .Release.Name }}-stock-trader
-  annotations: { 
+  annotations:
     prism.subkind: Liberty
-  }
 spec:
   replicas: {{ .Values.global.replicas }}
   template:
@@ -29,9 +28,9 @@ spec:
       labels:
         app: portfolio
 {{- if .Values.global.monitoring }}
-      annotations: { 
+      annotations:
         prometheus.io/scrape: 'true'
-      }
+        prometheus.io/port: "9080"
 {{- end }}
     spec:
       containers:
@@ -178,10 +177,17 @@ spec:
                 name: {{ .Release.Name }}-config
                 key: tradeHistory.url
                 optional: true
+{{- if .Values.global.jsonLogging }}
+          - name: WLP_LOGGING_CONSOLE_FORMAT
+            value: json
+          - name: WLP_LOGGING_CONSOLE_SOURCE
+            value: message,ffdc
+{{- end }}
         ports:
           - containerPort: 9080
           - containerPort: 9443
         imagePullPolicy: Always
+{{- if .Values.global.healthCheck }}
         readinessProbe:
           httpGet:
             path: /health
@@ -194,6 +200,7 @@ spec:
             port: 9080
           initialDelaySeconds: 60
           periodSeconds: 6
+{{- end }}
         resources:
           limits:
             cpu: 500m
@@ -202,6 +209,7 @@ spec:
             cpu: 100m
             memory: 128Mi
 ---
+{{- if .Values.global.autoscale }}
 #Deploy the autoscaler
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -218,6 +226,7 @@ spec:
   minReplicas: {{ .Values.global.replicas }}
   targetCPUUtilizationPercentage: 60
 ---
+{{- end }}
 #Deploy the service
 apiVersion: v1
 kind: Service
@@ -239,6 +248,7 @@ spec:
   selector:
     app: portfolio
 ---   
+{{- if .Values.global.ingress }}
 #Configure the ingress 
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -260,3 +270,4 @@ spec:
         backend:
           serviceName: {{ .Release.Name }}-portfolio-service
           servicePort: 9443
+{{- end }}
