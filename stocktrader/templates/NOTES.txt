@@ -1,4 +1,4 @@
-Stocktrader is deployed.
+The IBM Stock Trader application is deployed.
 
 {{- if .Values.trader.enabled }}
 The Java web application is available at
@@ -6,6 +6,6 @@ The Java web application is available at
 {{- end }}
 
 {{- if .Values.tradr.enabled }}
-The node.js web application is available at
+The Node.js web application is available at
   https://<ingress-host>>/tradr
 {{- end }}
