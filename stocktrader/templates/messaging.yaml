@@ -20,20 +20,14 @@ metadata:
   name: {{ .Release.Name }}-messaging
   labels:
     app: {{ .Release.Name }}-stock-trader
-  annotations: { 
+  annotations:
     prism.subkind: Liberty
-  }
 spec:
   replicas: {{ .Values.global.replicas }}
   template:
     metadata:
       labels:
         app: messaging
-{{- if .Values.global.monitoring }}
-      annotations: { 
-        prometheus.io/scrape: 'true'
-      }
-{{- end }}
     spec:
       containers:
       - name: messaging
@@ -90,9 +84,6 @@ spec:
                 name: {{ .Release.Name }}-config
                 key: messaging.notification.url
                 optional: true
-        ports:
-          - containerPort: 9080
-          - containerPort: 9443
         imagePullPolicy: Always
         resources:
           limits:
