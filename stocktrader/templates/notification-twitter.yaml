@@ -20,9 +20,8 @@ metadata:
   name: {{ .Release.Name }}-notification-twitter
   labels:
     app: {{ .Release.Name }}-stock-trader
-  annotations: { 
+  annotations:
     prism.subkind: Liberty
-  }
 spec:
   replicas: {{ .Values.global.replicas }}
   template:
@@ -30,9 +29,9 @@ spec:
       labels:
         app: notification-twitter
 {{- if .Values.global.monitoring }}
-      annotations: { 
+      annotations:
         prometheus.io/scrape: 'true'
-      }
+        prometheus.io/port: "9080"
 {{- end }}
     spec:
       containers:
@@ -69,10 +68,17 @@ spec:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config
                 key: jwt.issuer
+{{- if .Values.global.jsonLogging }}
+          - name: WLP_LOGGING_CONSOLE_FORMAT
+            value: json
+          - name: WLP_LOGGING_CONSOLE_SOURCE
+            value: message,ffdc
+{{- end }}
         ports:
           - containerPort: 9080
           - containerPort: 9443
         imagePullPolicy: Always
+{{- if .Values.global.healthCheck }}
         readinessProbe:
           httpGet:
             path: /health
@@ -85,6 +91,7 @@ spec:
             port: 9080
           initialDelaySeconds: 60
           periodSeconds: 6
+{{- end }}
         resources:
           limits:
             cpu: 500m
@@ -93,6 +100,7 @@ spec:
             cpu: 100m
             memory: 128Mi
 ---
+{{- if .Values.global.autoscale }}
 #Deploy the autoscaler
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -108,4 +116,5 @@ spec:
   maxReplicas: 10
   minReplicas: {{ .Values.global.replicas }}
   targetCPUUtilizationPercentage: 60
+{{- end }}
 {{- end }}
