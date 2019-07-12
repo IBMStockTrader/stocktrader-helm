@@ -129,7 +129,7 @@ kafka:
   apiKey: <your API key>
 mongo:
   ip: <your Mongo IP>
-  port: <your Mongo port>
+  port: 27017
   user: <your Mongo user>
   password: <your Mongo password>
   database: <your Mongo database>
