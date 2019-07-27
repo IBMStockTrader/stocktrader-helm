@@ -54,6 +54,12 @@ spec:
                 name: {{ .Release.Name }}-config
                 key: portfolio.url
                 optional: true
+          - name: LOOPER_URL
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: looper.url
+                optional: true
 {{- if .Values.global.jsonLogging }}
           - name: WLP_LOGGING_CONSOLE_FORMAT
             value: json
