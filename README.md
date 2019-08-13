@@ -1,5 +1,5 @@
 # Stock Trader
-This repository hold the umbrella helm chart for the IBM Stock Trader sample.  Note that you may wish to also follow along with the blog post I recently made about how to use this helm chart: https://www.ibm.com/developerworks/community/blogs/5092bd93-e659-4f89-8de2-a7ac980487f0/entry/Using_an_umbrella_helm_chart_to_deploy_the_composite_IBM_Stock_Trader_sample
+This repository holds the umbrella helm chart for the IBM Stock Trader sample.  Note that you may wish to also follow along with the blog post I recently made about how to use this helm chart: https://www.ibm.com/developerworks/community/blogs/5092bd93-e659-4f89-8de2-a7ac980487f0/entry/Using_an_umbrella_helm_chart_to_deploy_the_composite_IBM_Stock_Trader_sample
 
 The IBM Stock Trader application is a simple stock trading sample where you can create various stock portfolios and add shares of stock to each for a commission.
 It keeps track of each porfolio's total value and its loyalty level which affects the commission charged per transaction.
@@ -14,6 +14,7 @@ The portfolio microservice sits at the center of the application.  This microser
 * sends messages indicating changes to loyalty level using JMS
 * invokes an API defined in API Connect in the public IBM Cloud to get stock quotes
 * invokes the Tone Analyzer service in the public IBM Cloud to analyze the tone of submitted feedback
+* sends a message about stock purchases to Kafka (which gets consumed by the trade-history microservice)
 
 There is a Message Driven Bean (MDB) which listens for the messages sent from portfolio and which invokes a notification microservice.
 There are 2 notification microservices: 
@@ -222,7 +223,7 @@ Run the following command.
 ## Install stocktrader Helm chart
 
 1. [Set up the Helm CLI to work with IBM Cloud Private.](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_2.1.0.3/app_center/create_helm_cli.html)
-2. Review the values.yaml file.  By default the tradr (node.js application), notification-slack, and notification-twitter projects are not deployed.
+2. Review the values.yaml file.  By default the tradr (node.js application), notification-slack, notification-twitter and trade-history projects are not deployed.
 If you want to deploy any of those projects, you will need to request it via command-line option or via your own values yaml file.
 3. Install the chart.
 Here is a sample helm install command.
