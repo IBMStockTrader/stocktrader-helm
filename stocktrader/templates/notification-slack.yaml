@@ -76,16 +76,16 @@ spec:
 {{- if .Values.global.healthCheck }}
         readinessProbe:
           httpGet:
-            path: /health
+            path: /health/ready
             port: 9080
           initialDelaySeconds: 30
-          periodSeconds: 6
+          periodSeconds: 15
         livenessProbe:
           httpGet:
-            path: /health
+            path: /health/live
             port: 9080
           initialDelaySeconds: 60
-          periodSeconds: 6
+          periodSeconds: 15
 {{- end }}
         resources:
           limits:
