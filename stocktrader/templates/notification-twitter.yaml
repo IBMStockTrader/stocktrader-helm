@@ -94,11 +94,11 @@ spec:
 {{- end }}
         resources:
           limits:
-            cpu: 500m
-            memory: 500Mi
+            cpu: 1000m
+            memory: 1000Mi
           requests:
-            cpu: 100m
-            memory: 128Mi
+            cpu: 250m
+            memory: 256Mi
 ---
 {{- if .Values.global.autoscale }}
 #Deploy the autoscaler
