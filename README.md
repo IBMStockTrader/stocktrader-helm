@@ -1,5 +1,6 @@
 # Stock Trader
-This repository holds the umbrella helm chart for the IBM Stock Trader sample.  Note that you may wish to also follow along with the blog post I recently made about how to use this helm chart: https://www.ibm.com/developerworks/community/blogs/5092bd93-e659-4f89-8de2-a7ac980487f0/entry/Using_an_umbrella_helm_chart_to_deploy_the_composite_IBM_Stock_Trader_sample
+This repository holds the umbrella helm chart for the IBM Stock Trader sample (see the sibling `stocktrader-operator` repository for the equivalent umbrella operator, for use with the OpenShift Container Platform).  Note that you may wish to also follow along with the blog post I recently made about how to use this helm chart:
+https://medium.com/cloud-engagement-hub/using-an-umbrella-helm-chart-to-deploy-the-composite-ibm-stock-trader-sample-3b8b69af900d
 
 The IBM Stock Trader application is a simple stock trading sample where you can create various stock portfolios and add shares of stock to each for a commission.
 It keeps track of each porfolio's total value and its loyalty level which affects the commission charged per transaction.
