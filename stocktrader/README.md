@@ -20,7 +20,7 @@ The user must create and configure the following services in the IBM Cloud:
 * API Connect
 * Cloud Functions
 
-The [stocktrader project](../README.md) provides instructions for setting up these dependencies.
+The [stocktrader-helm project](../README.md) provides instructions for setting up these dependencies.
 
 ## Configuration
 
