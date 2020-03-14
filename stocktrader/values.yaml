@@ -45,9 +45,10 @@ stockQuote:
   iexApiKey: <your IEX API key>
 trader:
   enabled: true
+  auth: basic
   image:
     repository: ibmstocktrader/trader
-    tag: basicregistry
+    tag: latest
 tradr:
   enabled: false
   image:
