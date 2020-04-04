@@ -14,7 +14,7 @@
 
 {{- if .Values.trader.enabled }}
 #Deploy the pod
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-trader
@@ -24,6 +24,9 @@ metadata:
     prism.subkind: Liberty
 spec:
   replicas: {{ .Values.global.replicas }}
+  selector:
+    matchLabels:
+      app: trader
   template:
     metadata:
       labels:
@@ -200,8 +203,8 @@ spec:
         backend:
           serviceName: {{ .Release.Name }}-trader-service
           servicePort: 9443
-{{- end }}
 ---
+{{- end }}
 {{- if .Values.global.route }}
 apiVersion: route.openshift.io/v1
 kind: Route
@@ -219,5 +222,6 @@ spec:
     name: {{ .Release.Name }}-trader-service
     weight: 100
   wildcardPolicy: None
+---
 {{- end }}
 {{- end }}

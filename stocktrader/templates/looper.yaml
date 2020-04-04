@@ -14,7 +14,7 @@
 
 {{- if .Values.looper.enabled }}
 #Deploy the pod
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-looper
@@ -24,6 +24,9 @@ metadata:
     prism.subkind: Liberty
 spec:
   replicas: {{ .Values.global.replicas }}
+  selector:
+    matchLabels:
+      app: looper
   template:
     metadata:
       labels:
@@ -152,8 +155,8 @@ spec:
         backend:
           serviceName: {{ .Release.Name }}-looper-service
           servicePort: 9080
-{{- end }}
 ---
+{{- end }}
 {{- if .Values.global.route }}
 apiVersion: route.openshift.io/v1
 kind: Route
