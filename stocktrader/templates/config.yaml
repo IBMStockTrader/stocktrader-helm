@@ -27,7 +27,12 @@ data:
   iex.url: {{ .Values.stockQuote.iexTrading }}
   odm.url: {{ .Values.odm.url }}
   openwhisk.url: {{ .Values.openwhisk.url }}
+{{- if Values.tradr.enabled }}
   ingress.address: {{ .Values.ingress.address }}
+{{- end }}
+{{- if Values.trader.enabled }}
+  trader.auth: {{ .Values.trader.auth }}
+{{- end }}
   kafka.address: {{ .Values.kafka.address }}
   kafka.topic: {{ .Values.kafka.topic }}
   database.kind: {{ .Values.database.kind }}

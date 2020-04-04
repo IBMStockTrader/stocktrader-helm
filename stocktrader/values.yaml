@@ -135,3 +135,5 @@ mongo:
   password: <your Mongo password>
   database: <your Mongo database>
   authDB: <your Mongo auth database>
+ingress:
+  address: <address for the ingress>

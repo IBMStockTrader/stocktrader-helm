@@ -158,8 +158,8 @@ spec:
         backend:
           serviceName: {{ .Release.Name }}-tradr-service
           servicePort: 3000
-{{- end }}
 ---
+{{- end }}
 {{- if .Values.global.route }}
 apiVersion: route.openshift.io/v1
 kind: Route
@@ -177,5 +177,6 @@ spec:
     name: {{ .Release.Name }}-tradr-service
     weight: 100
   wildcardPolicy: None
+---
 {{- end }}
 {{- end }}
