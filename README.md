@@ -91,7 +91,7 @@ Change values if necessary.
 
 ## Install and configure ODM
 
-**NOTE**: Currently only OCM version between 1.1.2 and 2.0.0 are supported.
+**NOTE**: Currently only OCM version between 1.1.0 and 2.1.0 are supported.
 
 1. Log in to your IBM Cloud Private management console.
 2. Click the `Catalog` button.
