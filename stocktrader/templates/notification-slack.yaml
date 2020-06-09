@@ -99,8 +99,8 @@ spec:
           requests:
             cpu: 100m
             memory: 128Mi
----
 {{- if .Values.global.autoscale }}
+---
 #Deploy the autoscaler
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
