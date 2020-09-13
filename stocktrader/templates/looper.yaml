@@ -14,7 +14,7 @@
 
 {{- if .Values.looper.enabled }}
 #Deploy the pod
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-looper
@@ -24,6 +24,9 @@ metadata:
     prism.subkind: Liberty
 spec:
   replicas: {{ .Values.global.replicas }}
+  selector:
+    matchLabels:
+      app: looper
   template:
     metadata:
       labels:
@@ -143,7 +146,7 @@ spec:
 {{- if .Values.global.ingress }}
 ---
 #Configure the ingress
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
 # annotations:
