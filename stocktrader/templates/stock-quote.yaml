@@ -40,6 +40,11 @@ spec:
       - name: stock-quote
         image: "{{ .Values.stockQuote.image.repository }}:{{ .Values.stockQuote.image.tag }}"
         env:
+          - name: AUTH_TYPE
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: auth.type
           - name: REDIS_URL
             valueFrom:
               secretKeyRef:
@@ -104,8 +109,8 @@ spec:
           requests:
             cpu: 100m
             memory: 128Mi
----
 {{- if .Values.global.autoscale }}
+---
 #Deploy the autoscaler
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -121,8 +126,8 @@ spec:
   maxReplicas: 10
   minReplicas: {{ .Values.global.replicas }}
   targetCPUUtilizationPercentage: 60
----
 {{- end }}
+---
 #Deploy the service
 apiVersion: v1
 kind: Service

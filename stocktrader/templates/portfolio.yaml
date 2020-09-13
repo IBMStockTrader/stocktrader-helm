@@ -40,6 +40,11 @@ spec:
       - name: portfolio
         image: "{{ .Values.portfolio.image.repository }}:{{ .Values.portfolio.image.tag }}"
         env:
+          - name: AUTH_TYPE
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: auth.type
           - name: JDBC_KIND
             valueFrom:
               configMapKeyRef:
@@ -185,6 +190,10 @@ spec:
                 name: {{ .Release.Name }}-config
                 key: tradeHistory.url
                 optional: true
+          - name: TRADE_HISTORY_ENABLED
+            value: {{ quote .Values.tradeHistory.enabled }}
+          - name: MESSAGING_ENABLED
+            value: {{ quote .Values.messaging.enabled }}
 {{- if .Values.global.jsonLogging }}
           - name: WLP_LOGGING_CONSOLE_FORMAT
             value: json
@@ -216,8 +225,8 @@ spec:
           requests:
             cpu: 100m
             memory: 128Mi
----
 {{- if .Values.global.autoscale }}
+---
 #Deploy the autoscaler
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -233,8 +242,8 @@ spec:
   maxReplicas: 10
   minReplicas: {{ .Values.global.replicas }}
   targetCPUUtilizationPercentage: 60
----
 {{- end }}
+---
 #Deploy the service
 apiVersion: v1
 kind: Service
@@ -260,8 +269,8 @@ spec:
       targetPort: 9443
   selector:
     app: portfolio
----   
 {{- if .Values.global.ingress }}
+---   
 #Configure the ingress 
 apiVersion: extensions/v1beta1
 kind: Ingress

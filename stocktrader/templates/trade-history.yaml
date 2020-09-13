@@ -41,6 +41,11 @@ spec:
       - name: trade-history
         image: "{{ .Values.tradeHistory.image.repository }}:{{ .Values.tradeHistory.image.tag }}"
         env:
+          - name: AUTH_TYPE
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: auth.type
           - name: JWT_AUDIENCE
             valueFrom:
               configMapKeyRef:
@@ -136,8 +141,8 @@ spec:
           requests:
             cpu: 100m
             memory: 128Mi
----
 {{- if .Values.global.autoscale }}
+---
 #Deploy the autoscaler
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -153,8 +158,8 @@ spec:
   maxReplicas: 10
   minReplicas: {{ .Values.global.replicas }}
   targetCPUUtilizationPercentage: 60
----
 {{- end }}
+---
 #Deploy the service
 apiVersion: v1
 kind: Service
@@ -178,5 +183,4 @@ spec:
     port: 9443
   selector:
     app: trade-history
----
 {{- end }}

@@ -38,6 +38,11 @@ spec:
       - name: tradr
         image: "{{ .Values.tradr.image.repository }}:{{ .Values.tradr.image.tag }}"
         env:
+          - name: AUTH_TYPE
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: auth.type
           - name: JWT_ISSUER
             valueFrom:
               configMapKeyRef:
@@ -104,8 +109,8 @@ spec:
           requests:
             cpu: 100m
             memory: 128Mi
----
 {{- if .Values.global.autoscale }}
+---
 #Deploy the autoscaler
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -121,8 +126,8 @@ spec:
   maxReplicas: 10
   minReplicas: {{ .Values.global.replicas }}
   targetCPUUtilizationPercentage: 60
----
 {{- end }}
+---
 #Deploy the service
 apiVersion: v1
 kind: Service
@@ -136,10 +141,10 @@ spec:
     - port: 3000
   selector:
     app: tradr
----
 {{- if .Values.global.ingress }}
+---
 #Configure the ingress
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
 # annotations:
@@ -162,9 +167,9 @@ spec:
         backend:
           serviceName: {{ .Release.Name }}-tradr-service
           servicePort: 3000
----
 {{- end }}
 {{- if .Values.global.route }}
+---
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:

@@ -1,4 +1,4 @@
-#       Copyright 2017-2019 IBM Corp All Rights Reserved
+#       Copyright 2017-2020 IBM Corp All Rights Reserved
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -41,6 +41,11 @@ spec:
       - name: notification-twitter
         image: "{{ .Values.notificationTwitter.image.repository }}:{{ .Values.notificationTwitter.image.tag }}"
         env:
+          - name: AUTH_TYPE
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: auth.type
           - name: TWITTER_CONSUMER_KEY
             valueFrom:
               secretKeyRef:
@@ -102,8 +107,8 @@ spec:
           requests:
             cpu: 250m
             memory: 256Mi
----
 {{- if .Values.global.autoscale }}
+---
 #Deploy the autoscaler
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler

@@ -45,7 +45,7 @@ spec:
             valueFrom:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config
-                key: trader.auth
+                key: auth.type
           - name: JWT_AUDIENCE
             valueFrom:
               configMapKeyRef:
@@ -135,8 +135,8 @@ spec:
           requests:
             cpu: 100m
             memory: 128Mi
----
 {{- if .Values.global.autoscale }}
+---
 #Deploy the autoscaler
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -152,8 +152,8 @@ spec:
   maxReplicas: 10
   minReplicas: {{ .Values.global.replicas }}
   targetCPUUtilizationPercentage: 60
----
 {{- end }}
+---
 #Deploy the service
 apiVersion: v1
 kind: Service
@@ -179,10 +179,10 @@ spec:
       targetPort: 9443
   selector:
     app: trader
----
 {{- if .Values.global.ingress }}
+---
 #Configure the ingress
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: {{ .Release.Name }}-trader-ingress
@@ -203,9 +203,9 @@ spec:
         backend:
           serviceName: {{ .Release.Name }}-trader-service
           servicePort: 9443
----
 {{- end }}
 {{- if .Values.global.route }}
+---
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
