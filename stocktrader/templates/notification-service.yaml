@@ -1,4 +1,4 @@
-#       Copyright 2017-2020 IBM Corp All Rights Reserved
+#       Copyright 2017-2021 IBM Corp All Rights Reserved
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -35,5 +35,10 @@ spec:
       port: 9443
       targetPort: 9443
   selector:
-    app: notification
+{{- if .Values.notificationSlack.enabled }}
+    app: notification-slack
+{{- end }}
+{{- if .Values.notificationTwitter.enabled }}
+    app: notification-twitter
+{{- end }}
 {{- end }}
