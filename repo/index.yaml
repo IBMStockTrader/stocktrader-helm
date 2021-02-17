@@ -2,17 +2,17 @@ apiVersion: v1
 entries:
   stocktrader:
   - apiVersion: v1
-    created: "2020-09-13T18:20:11.609843-05:00"
+    created: "2021-02-17T11:31:03.50942-06:00"
     description: Umbrella Helm chart for the IBM Stock Trader sample
-    digest: c2d06450536759b88e4baf637ff623114e87b4ad15150abb5733f35c1ddc1fbe
+    digest: fb380476b6c358505a5a9a6e78cd1956b61519d83473798da3e684f5cb054a52
     icon: https://raw.githubusercontent.com/IBMStockTrader/stocktrader-helm/master/stock-trader-icon.png
     maintainers:
-    - name: John W. Alcorn
     - email: jalcorn@us.ibm.com
+      name: John W. Alcorn
     name: stocktrader
     sources:
     - http://github.com/IBMStockTrader
     urls:
-    - https://raw.githubusercontent.com/IBMStockTrader/stocktrader/master/repo/stocktrader-1.0.0.tgz
-    version: 1.0.0
-generated: "2020-09-13T18:20:11.608347-05:00"
+    - https://raw.githubusercontent.com/IBMStockTrader/stocktrader/master/repo/stocktrader-1.1.0.tgz
+    version: 1.1.0
+generated: "2021-02-17T11:31:03.504484-06:00"
