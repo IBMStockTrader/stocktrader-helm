@@ -12,7 +12,9 @@ The user must install and configure (or point to existing installations of) the 
 The following dependencies are optional:
 * IBM MQ Advanced for Developers (enables notifications)
 * IBM Operational Decision Manager (enables loyalty level determination)
+* IBM Cloudant (enables account metadata)
 * IBM Event Streams (enables Trade History and its return-on-investment calculation)
+* Mongo DB (enables Trade History and its return-on-investment calculation)
 * Redis (enables stock quote caching)
 
 The user must create and configure the following services in the IBM Cloud:
