@@ -21,4 +21,4 @@ sources:
   - http://github.com/IBMStockTrader
 maintainers:
   - name: John W. Alcorn
-  - email: jalcorn@us.ibm.com
+    email: jalcorn@us.ibm.com
