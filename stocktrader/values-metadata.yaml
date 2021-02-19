@@ -617,15 +617,25 @@ cloudant:
       label: "URL"
       description: "URL for Cloudant.  Use the Kube DNS service name and port in it if using an intra-cluster deployment of Cloudant"
       type: string
-  apiKey:
+  id:
     __metadata:
-      label: "API Key"
-      description: "API Key for Cloudant"
+      label: "ID"
+      description: "User ID for Cloudant"
+      type: string
+  password:
+    __metadata:
+      label: "Password"
+      description: "Password for Cloudant"
       type: password
   database:
     __metadata:
-      label: "Database"
-      description: "Database name for Cloudant"
+      label: "Account Database"
+      description: "Account database name for Cloudant"
+      type: string
+  collector:
+    __metadata:
+      label: "Collector Database"
+      description: "Collector database name for Cloudant"
       type: string
 mongo:
   __metadata:
