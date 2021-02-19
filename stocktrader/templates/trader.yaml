@@ -104,6 +104,14 @@ spec:
                 name: {{ .Release.Name }}-config
                 key: broker.url
                 optional: true
+          - name: COLLECTOR_URL
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: collector.url
+                optional: true
+          - name: COLLECTOR_ENABLED
+            value: {{ quote .Values.collector.enabled }}
 {{- if .Values.global.jsonLogging }}
           - name: WLP_LOGGING_CONSOLE_FORMAT
             value: json
