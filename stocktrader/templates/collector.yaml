@@ -75,8 +75,6 @@ spec:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config
                 key: jwt.issuer
-          - name: MESSAGING_ENABLED
-            value: {{ quote .Values.messaging.enabled }}
 {{- if .Values.global.jsonLogging }}
           - name: WLP_LOGGING_CONSOLE_FORMAT
             value: json
@@ -94,12 +92,14 @@ spec:
             port: 9080
           initialDelaySeconds: 60
           periodSeconds: 15
+          failureThreshold: 2
         livenessProbe:
           httpGet:
             path: /health/live
             port: 9080
           initialDelaySeconds: 90
           periodSeconds: 15
+          failureThreshold: 3
 {{- end }}
         resources:
           limits:
