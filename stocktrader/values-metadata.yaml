@@ -366,6 +366,34 @@ tradeHistory:
       label: "Trade History URL"
       description: "URL at which this microservice can be accessed by other microservices"
       type: string
+collector:
+  __metadata:
+    label: "Collector microservice"
+    description: "Settings that apply to the SCC Collector microservice"
+  enabled:
+    __metadata:
+      label: "Enable the Collector microservice"
+      description: "This optional service maintains security and compliance evidence for the IBM Cloud Security and Compliance Center (SCC) to periodically scrape.  Depends on Cloudant as the evidence locker.
+      type: boolean
+  image:
+    __metadata:
+      label: "Docker image settings"
+      description: "How to locate the Docker image for the collector microservice"
+    repository:
+      __metadata:
+        label: "Docker image registry"
+        description: "Path to locate the Docker image for the collector microservice"
+        type: string
+    tag:
+      __metadata:
+        label: "Docker image tag"
+        description: "Tag for the Docker image for the collector microservice"
+        type: string
+  url:
+    __metadata:
+      label: "Collector URL"
+      description: "URL at which this microservice can be accessed by other microservices"
+      type: string
 looper:
   __metadata:
     label: "Looper microservice"
