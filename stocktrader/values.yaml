@@ -88,6 +88,12 @@ tradeHistory:
     repository: ibmstocktrader/trade-history
     tag: latest
   url: http://{{ .Release.Name }}-trade-history-service:9080/trade-history
+collector:
+  enabled: false
+  image:
+    repository: ibmstocktrader/collector
+    tag: latest
+  url: http://{{ .Release.Name }}-collector-service:9080/collector
 looper:
   enabled: false
   image:
