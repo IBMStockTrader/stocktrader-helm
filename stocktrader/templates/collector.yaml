@@ -37,7 +37,7 @@ spec:
 {{- end }}
     spec:
       containers:
-      - name: account
+      - name: collector
         image: "{{ .Values.collector.image.repository }}:{{ .Values.collector.image.tag }}"
         env:
           - name: AUTH_TYPE
