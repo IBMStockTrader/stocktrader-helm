@@ -150,7 +150,7 @@ spec:
             valueFrom:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config
-                key: global.certs
+                key: ssl.certs
                 optional: true
 {{- end }}
 {{- if .Values.global.jsonLogging }}
