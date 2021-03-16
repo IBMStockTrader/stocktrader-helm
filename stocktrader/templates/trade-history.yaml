@@ -92,19 +92,19 @@ spec:
                 name: {{ .Release.Name }}-config
                 key: mongo.port
                 optional: false
-          - name: BOOTSTRAP_SERVER
+          - name: MP_MESSAGING_CONNECTOR_LIBERTY_KAFKA_BOOTSTRAP_SERVERS
             valueFrom:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config
                 key: kafka.address
                 optional: false
-          - name: CONSUMER_API_KEY
+          - name: MP_MESSAGING_CONNECTOR_LIBERTY_KAFKA_SASL_JAAS_CONFIG
             valueFrom:
               secretKeyRef:
                 name: {{ .Release.Name }}-credentials
-                key: kafka.apiKey
+                key: kafka.auth
                 optional: false
-          - name: TOPIC
+          - name: MP_MESSAGING_INCOMING_STOCKTRADER_TOPIC
             valueFrom:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config
