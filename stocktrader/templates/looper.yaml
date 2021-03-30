@@ -41,6 +41,7 @@ spec:
 {{- if .Values.global.istio }}
         maistra.io/expose-route: 'true'
         sidecar.istio.io/inject: 'true'
+{{- end }}
     spec:
       containers:
       - name: looper
