@@ -25,6 +25,7 @@ global:
   healthCheck: true
   jsonLogging: false
   istio: false
+  istioNamespace: istio-system
   specifyCerts: false
   certs: <your SSL certificates>
 database:
