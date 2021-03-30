@@ -9,15 +9,12 @@ It also lets you submit feedback on the application which can result in earning 
 
 ![Architecural Diagram](stock-trader.png)
 
-The portfolio microservice sits at the center of the application.  This microservice 
-* persists portfolios using JDBC
-* drives a business rule in IBM Operational Decision Manager (ODM) to determine a portfolio's loyalty level
-* sends messages indicating changes to loyalty level using JMS
-* invokes an API defined in API Connect in the public IBM Cloud to get stock quotes
-* invokes the Tone Analyzer service in the public IBM Cloud to analyze the tone of submitted feedback
-* sends a message about stock purchases to Kafka (which gets consumed by the trade-history microservice)
+The broker microservice sits at the center of the application.  This microservice 
+* calls the portfolio microservice, which persists portfolios using JDBC and calls the stock-quote microservice
+* calls the account microservice, which persists accounts to Cloudant and drives calls to ODM and JMS 
+* calls the trade-history microservice, which persists trades to Mongo
 
-There is a Message Driven Bean (MDB) which listens for the messages sent from portfolio and which invokes a notification microservice.
+There is a Message Driven Bean (MDB) which listens for the messages sent from account and which invokes a notification microservice.
 There are 2 notification microservices: 
 * notification-slack which sends the notification to a Slack channel (using a "serverless" IBM Cloud Functions action sequence)
 * notification-twitter which sends the notification as a tweet to a Twitter account
