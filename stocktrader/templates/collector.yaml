@@ -32,7 +32,7 @@ spec:
       labels:
         app: collector
       annotations:
-        git-repo: "https://github.com/IBMStockTrader/broker"
+        git-repo: "https://github.com/IBMStockTrader/collector"
 {{- if .Values.global.monitoring }}
         prometheus.io/scrape: 'true'
         prometheus.io/port: "9080"
