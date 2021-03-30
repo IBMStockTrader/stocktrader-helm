@@ -61,6 +61,11 @@ global:
       label: "Enable Istio"
       description: "Enable sidecars for the OpenShift Service Mesh (aka Istio)"
       type: boolean
+  istioNamespace:
+    __metadata:
+      label: "Istio namespace"
+      description: "Namespace for the OpenShift Service Mesh (aka Istio)"
+      type: string
   healthCheck:
     __metadata:
       label: "Enable Readiness and Liveness probes"
