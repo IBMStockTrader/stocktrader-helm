@@ -78,7 +78,7 @@ spec:
     - destination:
         host: {{ .Release.Name }}-tradr
         port:
-          number: 9080
+          number: 3000
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
