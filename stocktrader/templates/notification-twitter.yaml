@@ -121,7 +121,7 @@ spec:
           requests:
             cpu: 250m
             memory: 256Mi
-{{- if .Values.global.autoscale }}
+{{- if .Values.notificationTwitter.autoscale }}
 ---
 #Deploy the autoscaler
 apiVersion: autoscaling/v1
