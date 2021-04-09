@@ -23,7 +23,7 @@ metadata:
   annotations:
     prism.subkind: Liberty
 spec:
-  replicas: {{ .Values.global.replicas }}
+  replicas: {{ .Values.notificationTwitter.replicas }}
   selector:
     matchLabels:
       app: notification-twitter
@@ -135,8 +135,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: {{ .Release.Name }}-notification-twitter
-  maxReplicas: 10
-  minReplicas: {{ .Values.global.replicas }}
-  targetCPUUtilizationPercentage: 60
+  minReplicas: {{ .Values.notificationTwitter.replicas }}
+  maxReplicas: {{ .Values.notificationTwitter.maxReplicas }}
+  targetCPUUtilizationPercentage: {{ .Values.notificationTwitter.cpuThreshold }}
 {{- end }}
 {{- end }}
