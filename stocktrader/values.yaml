@@ -36,7 +36,8 @@ database:
 broker:
   replicas: 1
   autoscale: false
-  cpuThreshold: 80
+  maxReplicas: 10
+  cpuThreshold: 75
   image:
     repository: ibmstocktrader/broker
     tag: latest
@@ -44,7 +45,8 @@ broker:
 portfolio:
   replicas: 1
   autoscale: false
-  cpuThreshold: 80
+  maxReplicas: 10
+  cpuThreshold: 75
   image:
     repository: ibmstocktrader/portfolio
     tag: latest
@@ -52,7 +54,8 @@ portfolio:
 stockQuote:
   replicas: 1
   autoscale: false
-  cpuThreshold: 80
+  maxReplicas: 10
+  cpuThreshold: 75
   image:
     repository: ibmstocktrader/stock-quote
     tag: latest
@@ -64,7 +67,8 @@ trader:
   enabled: true
   replicas: 1
   autoscale: false
-  cpuThreshold: 80
+  maxReplicas: 10
+  cpuThreshold: 75
   image:
     repository: ibmstocktrader/trader
     tag: latest
@@ -72,7 +76,8 @@ tradr:
   enabled: false
   replicas: 1
   autoscale: false
-  cpuThreshold: 80
+  maxReplicas: 10
+  cpuThreshold: 75
   image:
     repository: ibmstocktrader/tradr
     tag: latest
@@ -80,7 +85,8 @@ account:
   enabled: false
   replicas: 1
   autoscale: false
-  cpuThreshold: 80
+  maxReplicas: 10
+  cpuThreshold: 75
   image:
     repository: ibmstocktrader/account
     tag: latest
@@ -89,7 +95,8 @@ messaging:
   enabled: false
   replicas: 1
   autoscale: false
-  cpuThreshold: 80
+  maxReplicas: 10
+  cpuThreshold: 75
   image:
     repository: ibmstocktrader/messaging
     tag: latest
@@ -99,7 +106,8 @@ notificationSlack:
   enabled: false
   replicas: 1
   autoscale: false
-  cpuThreshold: 80
+  maxReplicas: 10
+  cpuThreshold: 75
   image:
     repository: ibmstocktrader/notification-slack
     tag: latest
@@ -107,7 +115,8 @@ notificationTwitter:
   enabled: false
   replicas: 1
   autoscale: false
-  cpuThreshold: 80
+  maxReplicas: 10
+  cpuThreshold: 75
   image:
     repository: ibmstocktrader/notification-twitter
     tag: latest
@@ -115,7 +124,8 @@ tradeHistory:
   enabled: false
   replicas: 1
   autoscale: false
-  cpuThreshold: 80
+  maxReplicas: 10
+  cpuThreshold: 75
   image:
     repository: ibmstocktrader/trade-history
     tag: latest
@@ -124,7 +134,8 @@ collector:
   enabled: false
   replicas: 1
   autoscale: false
-  cpuThreshold: 80
+  maxReplicas: 10
+  cpuThreshold: 75
   image:
     repository: ibmstocktrader/collector
     tag: latest
@@ -133,7 +144,8 @@ looper:
   enabled: false
   replicas: 1
   autoscale: false
-  cpuThreshold: 80
+  maxReplicas: 10
+  cpuThreshold: 75
   image:
     repository: ibmstocktrader/looper
     tag: latest
