@@ -12,6 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
+{{- if .Values.account.enabled }}
 #Deploy the pod
 apiVersion: apps/v1
 kind: Deployment
@@ -22,7 +23,7 @@ metadata:
   annotations:
     prism.subkind: Liberty
 spec:
-  replicas: {{ .Values.global.replicas }}
+  replicas: {{ .Values.account.replicas }}
   selector:
     matchLabels:
       app: account
@@ -30,10 +31,14 @@ spec:
     metadata:
       labels:
         app: account
-{{- if .Values.global.monitoring }}
       annotations:
+        git-repo: "https://github.com/IBMStockTrader/account"
+{{- if .Values.global.monitoring }}
         prometheus.io/scrape: 'true'
         prometheus.io/port: "9080"
+{{- end }}
+{{- if .Values.global.istio }}
+        sidecar.istio.io/inject: 'true'
 {{- end }}
     spec:
       containers:
@@ -112,7 +117,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: {{ .Release.Name }}-credentials
-                key: odm.pwd
+                key: odm.password
                 optional: true
           - name: CLOUDANT_URL
             valueFrom:
@@ -187,7 +192,7 @@ spec:
           requests:
             cpu: 500m
             memory: 512Mi
-{{- if .Values.global.autoscale }}
+{{- if .Values.account.autoscale }}
 ---
 #Deploy the autoscaler
 apiVersion: autoscaling/v1
@@ -201,9 +206,9 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: {{ .Release.Name }}-account
-  maxReplicas: 10
-  minReplicas: {{ .Values.global.replicas }}
-  targetCPUUtilizationPercentage: 60
+  minReplicas: {{ .Values.account.replicas }}
+  maxReplicas: {{ .Values.account.maxReplicas }}
+  targetCPUUtilizationPercentage: {{ .Values.account.cpuThreshold }}
 {{- end }}
 ---
 #Deploy the service
@@ -231,3 +236,4 @@ spec:
       targetPort: 9443
   selector:
     app: account
+{{- end }}

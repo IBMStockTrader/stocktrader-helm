@@ -12,7 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-{{- if .Values.trader.enabled }}
+{{- if .Values.collector.enabled }}
 #Deploy the pod
 apiVersion: apps/v1
 kind: Deployment
@@ -23,7 +23,7 @@ metadata:
   annotations:
     prism.subkind: Liberty
 spec:
-  replicas: {{ .Values.global.replicas }}
+  replicas: {{ .Values.collector.replicas }}
   selector:
     matchLabels:
       app: collector
@@ -31,10 +31,15 @@ spec:
     metadata:
       labels:
         app: collector
-{{- if .Values.global.monitoring }}
       annotations:
+        git-repo: "https://github.com/IBMStockTrader/collector"
+{{- if .Values.global.monitoring }}
         prometheus.io/scrape: 'true'
         prometheus.io/port: "9080"
+{{- end }}
+{{- if .Values.global.istio }}
+        maistra.io/expose-route: 'true'
+        sidecar.istio.io/inject: 'true'
 {{- end }}
     spec:
       containers:
@@ -117,7 +122,7 @@ spec:
           requests:
             cpu: 250m
             memory: 256Mi
-{{- if .Values.global.autoscale }}
+{{- if .Values.collector.autoscale }}
 ---
 #Deploy the autoscaler
 apiVersion: autoscaling/v1
@@ -131,9 +136,9 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: {{ .Release.Name }}-collector
-  maxReplicas: 10
-  minReplicas: {{ .Values.global.replicas }}
-  targetCPUUtilizationPercentage: 60
+  minReplicas: {{ .Values.collector.replicas }}
+  maxReplicas: {{ .Values.collector.maxReplicas }}
+  targetCPUUtilizationPercentage: {{ .Values.collector.cpuThreshold }}
 {{- end }}
 ---
 #Deploy the service

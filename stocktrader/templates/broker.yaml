@@ -12,6 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
+{{- if .Values.collector.enabled }}
 #Deploy the pod
 apiVersion: apps/v1
 kind: Deployment
@@ -23,7 +24,7 @@ metadata:
     app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"{{ .Release.Name }}-portfolio"}{{- if .Values.account.enabled }}, {"apiVersion":"apps/v1","kind":"Deployment","name":"{{ .Release.Name }}-account"}{{- end }}{{- if .Values.tradeHistory.enabled }}, {"apiVersion":"apps/v1","kind":"Deployment","name":"{{ .Release.Name }}-trade-history"}{{- end }}]'
     prism.subkind: Liberty
 spec:
-  replicas: {{ .Values.global.replicas }}
+  replicas: {{ .Values.broker.replicas }}
   selector:
     matchLabels:
       app: broker
@@ -31,10 +32,15 @@ spec:
     metadata:
       labels:
         app: broker
-{{- if .Values.global.monitoring }}
       annotations:
+        git-repo: "https://github.com/IBMStockTrader/broker"
+{{- if .Values.global.monitoring }}
         prometheus.io/scrape: 'true'
         prometheus.io/port: "9080"
+{{- end }}
+{{- if .Values.global.istio }}
+        maistra.io/expose-route: 'true'
+        sidecar.istio.io/inject: 'true'
 {{- end }}
     spec:
       containers:
@@ -119,7 +125,7 @@ spec:
           requests:
             cpu: 250m
             memory: 256Mi
-{{- if .Values.global.autoscale }}
+{{- if .Values.broker.autoscale }}
 ---
 #Deploy the autoscaler
 apiVersion: autoscaling/v1
@@ -133,9 +139,9 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: {{ .Release.Name }}-broker
-  maxReplicas: 10
-  minReplicas: {{ .Values.global.replicas }}
-  targetCPUUtilizationPercentage: 60
+  minReplicas: {{ .Values.broker.replicas }}
+  maxReplicas: {{ .Values.broker.maxReplicas }}
+  targetCPUUtilizationPercentage: {{ .Values.broker.cpuThreshold }}
 {{- end }}
 ---
 #Deploy the service
@@ -207,4 +213,5 @@ spec:
     weight: 100
   wildcardPolicy: None
 ---
+{{- end }}
 {{- end }}
