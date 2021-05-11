@@ -18,6 +18,7 @@ metadata:
   name: {{ .Release.Name }}-config
 data:
   auth.type: {{ .Values.global.auth }}
+  trace.spec: {{ .Values.global.traceSpec }}
   broker.url: {{ tpl .Values.broker.url . }}
   portfolio.url: {{ tpl .Values.portfolio.url . }}
   stockQuote.url: {{ tpl .Values.stockQuote.url . }}
