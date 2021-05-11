@@ -61,11 +61,21 @@ global:
       label: "Enable Readiness and Liveness probes"
       description: "Configure Kubernetes to periodically probe each microservice to determine its health"
       type: boolean
+  writeLogs:
+    __metadata:
+      label: "Write log files to container's /logs directory"
+      description: "Enable to produce logs you can view in or copy out of the container"
+      type: boolean
   jsonLogging:
     __metadata:
       label: "Output pod logs in JSON format"
       description: "Enable to send logs to ElasticSearch so they can be viewed in Kibana"
       type: boolean
+  traceSpec:
+    __metadata:
+      label: "Trace specification"
+      description: "Control logging level for each microservice or for Liberty features"
+      type: string
   specifyCerts:
     __metadata:
       label: "Specify SSL Certificates"
