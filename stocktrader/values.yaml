@@ -21,7 +21,7 @@ global:
   ingress: false
   route: true
   healthCheck: true
-  writeLogs: true
+  disableLogFiles: false
   jsonLogging: false
   traceSpec: *=info
   istio: false
