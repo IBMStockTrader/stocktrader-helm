@@ -61,10 +61,10 @@ global:
       label: "Enable Readiness and Liveness probes"
       description: "Configure Kubernetes to periodically probe each microservice to determine its health"
       type: boolean
-  writeLogs:
+  disableLogFiles:
     __metadata:
-      label: "Write log files to container's /logs directory"
-      description: "Enable to produce logs you can view in or copy out of the container"
+      label: "Disable logging into the container filesystem"
+      description: "Only send logs to stdout - don't mutate the container on each log entry"
       type: boolean
   jsonLogging:
     __metadata:
