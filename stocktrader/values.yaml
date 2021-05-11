@@ -21,7 +21,9 @@ global:
   ingress: false
   route: true
   healthCheck: true
+  writeLogs: true
   jsonLogging: false
+  traceSpec: *=info
   istio: false
   istioNamespace: istio-system
   specifyCerts: false
