@@ -101,6 +101,8 @@ database:
         value: "db2"
       - label: "PostgreSQL"
         value: "postgres"
+      - label: "Cockroach"
+        value: "cockroach"
       - label: "Derby"
         value: "derby"
   host:
