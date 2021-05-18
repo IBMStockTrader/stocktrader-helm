@@ -26,6 +26,7 @@ global:
   traceSpec: *=info
   istio: false
   istioNamespace: istio-system
+  cqrs: false
   specifyCerts: false
   certs: <your SSL certificates>
 database:
