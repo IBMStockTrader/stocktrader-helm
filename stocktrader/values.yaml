@@ -23,7 +23,7 @@ global:
   healthCheck: true
   disableLogFiles: false
   jsonLogging: false
-  traceSpec: *=info
+  traceSpec: "*=info"
   istio: false
   istioNamespace: istio-system
   specifyCerts: false
