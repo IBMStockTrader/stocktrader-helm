@@ -26,7 +26,6 @@ global:
   traceSpec: *=info
   istio: false
   istioNamespace: istio-system
-  cqrs: false
   specifyCerts: false
   certs: <your SSL certificates>
 database:
@@ -84,6 +83,16 @@ tradr:
   image:
     repository: ibmstocktrader/tradr
     tag: 1.0.0
+brokerCQRS:
+  enabled: false
+  replicas: 1
+  autoscale: false
+  maxReplicas: 10
+  cpuThreshold: 75
+  image:
+    repository: ibmstocktrader/broker-cqrs
+    tag: 1.0.0
+  url: http://{{ .Release.Name }}-broker-cqrs-service:9080/broker-cqrs
 account:
   enabled: false
   replicas: 1
