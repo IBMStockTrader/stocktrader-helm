@@ -56,11 +56,6 @@ global:
       label: "Istio namespace"
       description: "Namespace for the OpenShift Service Mesh (aka Istio)"
       type: string
-  cqrs:
-    __metadata:
-      label: "Enable CQRS"
-      description: "Enable optional Command Query Responsibility Segregation support"
-      type: boolean
   healthCheck:
     __metadata:
       label: "Enable Readiness and Liveness probes"
@@ -174,6 +169,49 @@ broker:
   url:
     __metadata:
       label: "Broker URL"
+      description: "URL at which this microservice can be accessed by other microservices"
+      type: string
+brokerCQRS:
+  __metadata:
+    label: "Broker CQRS microservice"
+    description: "Settings that apply to the Broker CQRS microservice"
+  replicas:
+    __metadata:
+      label: "Initial number of pods for this microservice"
+      description: "If auto-scaling is enabled, more may get created if needed"
+      type: number
+  autoscale:
+    __metadata:
+      label: "Enable Auto-scaling"
+      description: "Enable a Horizontal Pod Autoscaler for this microservice"
+      type: boolean
+  maxReplicas:
+    __metadata:
+      label: "Maximum number of pods for this microservice"
+      description: "Only used if auto-scaling is enabled"
+      type: number
+  cpuThreshold:
+    __metadata:
+      label: "CPU Threshold"
+      description: "If auto-scaling is enabled, CPU threshold that results in another replica being created"
+      type: number
+  image:
+    __metadata:
+      label: "Docker image settings"
+      description: "How to locate the Docker image for the broker-cqrs microservice"
+    repository:
+      __metadata:
+        label: "Docker image registry"
+        description: "Path to locate the Docker image for the broker-cqrs microservice"
+        type: string
+    tag:
+      __metadata:
+        label: "Docker image tag"
+        description: "Tag for the Docker image for the broker-cqrs microservice"
+        type: string
+  url:
+    __metadata:
+      label: "Broker CQRS URL"
       description: "URL at which this microservice can be accessed by other microservices"
       type: string
 portfolio:
