@@ -86,11 +86,17 @@ spec:
               secretKeyRef:
                 name: {{ .Release.Name }}-credentials
                 key: database.password
-          - name: KAFKA_TOPIC
+          - name: KAFKA_PORTFOLIO_TOPIC
             valueFrom:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config
-                key: kafka.topic
+                key: kafka.portfolioTopic
+                optional: true
+          - name: KAFKA_HISTORY_TOPIC
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: kafka.historyTopic
                 optional: true
           - name: KAFKA_ADDRESS
             valueFrom:
