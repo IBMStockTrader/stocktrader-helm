@@ -56,6 +56,42 @@ spec:
                 name: {{ .Release.Name }}-config
                 key: trace.spec
                 optional: true
+          - name: KAFKA_PORTFOLIO_TOPIC
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: kafka.portfolioTopic
+                optional: true
+          - name: KAFKA_ACCOUNT_TOPIC
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: kafka.accountTopic
+                optional: true
+          - name: KAFKA_HISTORY_TOPIC
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: kafka.historyTopic
+                optional: true
+          - name: KAFKA_ADDRESS
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-config
+                key: kafka.address
+                optional: true
+          - name: KAFKA_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-credentials
+                key: kafka.user
+                optional: true
+          - name: KAFKA_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-credentials
+                key: kafka.apiKey
+                optional: true
           - name: JWT_AUDIENCE
             valueFrom:
               configMapKeyRef:
