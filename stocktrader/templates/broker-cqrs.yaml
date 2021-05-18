@@ -92,6 +92,11 @@ spec:
                 name: {{ .Release.Name }}-credentials
                 key: kafka.apiKey
                 optional: true
+          - name: REDIS_URL
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-credentials
+                key: redis.url
           - name: JWT_AUDIENCE
             valueFrom:
               configMapKeyRef:
