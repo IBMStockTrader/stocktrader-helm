@@ -56,6 +56,11 @@ global:
       label: "Istio namespace"
       description: "Namespace for the OpenShift Service Mesh (aka Istio)"
       type: string
+  cqrs:
+    __metadata:
+      label: "Enable CQRS"
+      description: "Enable optional Command Query Responsibility Segregation support"
+      type: boolean
   healthCheck:
     __metadata:
       label: "Enable Readiness and Liveness probes"
@@ -881,10 +886,20 @@ kafka:
       label: "Address"
       description: "Specify in ip:port or hostname:port format.  Use the Kube DNS service name and local port when using an intra-cluster deployment of IBM Event Streams"
       type: string
-  topic:
+  accountTopic:
     __metadata:
-      label: "Topic"
-      description: "Kafka topic name"
+      label: "Account topic"
+      description: "Kafka topic for Account updates (for CQRS)"
+      type: string
+  portfolioTopic:
+    __metadata:
+      label: "Portfolio topic"
+      description: "Kafka topic for Portfolio updates (for CQRS)"
+      type: string
+  historyTopic:
+    __metadata:
+      label: "History topic"
+      description: "Kafka topic for Trade History (for ROI calculation)"
       type: string
   user:
     __metadata:
