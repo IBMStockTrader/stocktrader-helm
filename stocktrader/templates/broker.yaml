@@ -81,6 +81,8 @@ spec:
                 optional: true
           - name: ACCOUNT_ENABLED
             value: {{ quote .Values.account.enabled }}
+          - name: CQRS_ENABLED
+            value: {{ quote .Values.brokerCQRS.enabled }}
           - name: TRADE_HISTORY_URL
             valueFrom:
               configMapKeyRef:
