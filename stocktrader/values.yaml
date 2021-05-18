@@ -195,7 +195,9 @@ twitter:
   accessTokenSecret: <your access token secret>
 kafka:
   address: <your Kafka proxy service>:30000
-  topic: stocktrader
+  portfolioTopic: portfolio
+  accountTopic: account
+  historyTopic: history
   user: token
   apiKey: <your API key>
 cloudant:
