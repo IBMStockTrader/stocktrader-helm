@@ -152,7 +152,7 @@ spec:
     kind: Deployment
     name: {{ .Release.Name }}-broker
   minReplicas: {{ .Values.messaging.replicas }}
-  maxReplicas: {{ .Values.messagign.maxReplicas }}
+  maxReplicas: {{ .Values.messaging.maxReplicas }}
   targetCPUUtilizationPercentage: {{ .Values.messaging.cpuThreshold }}
 {{- end }}
 {{- end }}
