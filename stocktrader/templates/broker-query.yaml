@@ -26,11 +26,11 @@ spec:
   replicas: {{ .Values.brokerCQRS.replicas }}
   selector:
     matchLabels:
-      app: broker-cqrs
+      app: broker-query
   template:
     metadata:
       labels:
-        app: broker-cqrs
+        app: broker-query
       annotations:
         git-repo: "https://github.com/IBMStockTrader/broker-query"
 {{- if .Values.global.monitoring }}
