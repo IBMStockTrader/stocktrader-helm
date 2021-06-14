@@ -33,6 +33,18 @@ spec:
         app: portfolio
       annotations:
         git-repo: "https://github.com/IBMStockTrader/portfolio"
+{{- if .Values.vault.enabled }}
+        vault.hashicorp.com/agent-inject: 'true'
+        vault.hashicorp.com/agent-inject-secret-stocktrader-secrets.txt: {{ .Values.vault.path }}
+        vault.hashicorp.com/agent-inject-template-stocktrader-secrets.txt: |
+          {{"{{"}}- with secret "{{ .Values.vault.path }}" -{{"}}"}}
+          export JDBC_ID={{"{{"}} .Data.data.jdbcId {{"}}"}}
+          export JDBC_PASSWORD={{"{{"}} .Data.data.jdbcPassword {{"}}"}}
+          export KAFKA_USER={{"{{"}} .Data.data.kafkaUser {{"}}"}}
+          export KAFKA_API_KEY={{"{{"}} .Data.data.kafkaApiKey {{"}}"}}
+          {{"{{"}}- end -{{"}}"}}
+        vault.hashicorp.com/role: {{ .Values.vault.role }}
+{{- end }}
 {{- if .Values.global.monitoring }}
         prometheus.io/scrape: 'true'
         prometheus.io/port: "9080"
@@ -44,6 +56,12 @@ spec:
       containers:
       - name: portfolio
         image: "{{ .Values.portfolio.image.repository }}:{{ .Values.portfolio.image.tag }}"
+{{- if .Values.vault.enabled }}
+        args:
+          - sh
+          - '-c'
+          - source /vault/secrets/stocktrader-secrets.txt && server run
+{{- end }}
         env:
           - name: AUTH_TYPE
             valueFrom:
@@ -76,6 +94,7 @@ spec:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config
                 key: database.db
+{{- if not .Values.vault.enabled }}
           - name: JDBC_ID
             valueFrom:
               secretKeyRef:
@@ -86,6 +105,19 @@ spec:
               secretKeyRef:
                 name: {{ .Release.Name }}-credentials
                 key: database.password
+          - name: KAFKA_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-credentials
+                key: kafka.user
+                optional: true
+          - name: KAFKA_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-credentials
+                key: kafka.apiKey
+                optional: true
+{{- end }}
           - name: KAFKA_PORTFOLIO_TOPIC
             valueFrom:
               configMapKeyRef:
@@ -103,18 +135,6 @@ spec:
               configMapKeyRef:
                 name: {{ .Release.Name }}-config
                 key: kafka.address
-                optional: true
-          - name: KAFKA_USER
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-credentials
-                key: kafka.user
-                optional: true
-          - name: KAFKA_API_KEY
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Release.Name }}-credentials
-                key: kafka.apiKey
                 optional: true
           - name: JWT_AUDIENCE
             valueFrom:
