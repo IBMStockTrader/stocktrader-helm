@@ -147,7 +147,7 @@ spec:
 {{- if .Values.broker.autoscale }}
 ---
 #Deploy the autoscaler
-apiVersion: autoscaling/v1
+apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ .Release.Name }}-broker-hpa
@@ -160,7 +160,31 @@ spec:
     name: {{ .Release.Name }}-broker
   minReplicas: {{ .Values.broker.replicas }}
   maxReplicas: {{ .Values.broker.maxReplicas }}
-  targetCPUUtilizationPercentage: {{ .Values.broker.cpuThreshold }}
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.broker.cpuThreshold }}
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      selectPolicy: Min
+      policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 15
+        - type: Percent
+          value: 100
+          periodSeconds: 15
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      selectPolicy: Max
+      policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 60
 {{- end }}
 ---
 #Deploy the service
