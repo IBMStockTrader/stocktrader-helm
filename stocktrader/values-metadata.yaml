@@ -86,6 +86,11 @@ global:
       label: "SSL Certificates"
       description: "SSL certs to be trusted by the Liberty-based microservices"
       type: string
+  externalSecrets:
+    __metadata:
+      label: "Use external Kubernetes Secrets"
+      description: "Allow use of a Kubernetes Secret not created by the operator"
+      type: boolean
 database:
   __metadata:
     label: "Database Settings.  Mandatory - required by the portfolio microservice"
@@ -129,6 +134,25 @@ database:
     __metadata:
       label: "Database name"
       description: "Name of the database"
+      type: string
+vault:
+  __metadata:
+    label: "Vault integration"
+    description: "Settings that apply to Vault integration"
+  enabled:
+    __metadata:
+      label: "Enable Vault integration"
+      description: "Enable microservices to pull secrets from Vault"
+      type: boolean
+  path:
+    __metadata:
+      label: "Vault secrets path"
+      description: "The local path in a Vault instance where the secrets are stored"
+      type: string
+  role:
+    __metadata:
+      label: "Vault authentication role"
+      description: "The registered authentication role created in Vault"
       type: string
 broker:
   __metadata:

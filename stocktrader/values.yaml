@@ -28,6 +28,7 @@ global:
   istioNamespace: istio-system
   specifyCerts: false
   certs: <your SSL certificates>
+  externalSecrets: false
 database:
   kind: db2
   host: db2trader1-ibm-db2oltp-dev
@@ -35,6 +36,10 @@ database:
   id: db2inst1
   password: db2inst1
   db: trader
+vault:
+  enabled: false
+  path: <path to Vault secrets>
+  role: <Vault auth role>
 broker:
   replicas: 1
   autoscale: false
