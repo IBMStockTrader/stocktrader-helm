@@ -61,7 +61,7 @@ spec:
         args:
           - sh
           - '-c'
-          - source /vault/secrets/stocktrader-secrets.txt && server run
+          - source /vault/secrets/stocktrader-secrets.txt && /opt/ol/helpers/runtime/docker-server.sh /opt/ol/wlp/bin/server run defaultServer
 {{- end }}
         env:
           - name: AUTH_TYPE
