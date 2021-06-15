@@ -265,7 +265,7 @@ spec:
 {{- if .Values.account.autoscale }}
 ---
 #Deploy the autoscaler
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ .Release.Name }}-account-hpa
@@ -278,31 +278,7 @@ spec:
     name: {{ .Release.Name }}-account
   minReplicas: {{ .Values.account.replicas }}
   maxReplicas: {{ .Values.account.maxReplicas }}
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: {{ .Values.broker.cpuThreshold }}
-  behavior:
-    scaleUp:
-      stabilizationWindowSeconds: 0
-      selectPolicy: Min
-      policies:
-        - type: Pods
-          value: 1
-          periodSeconds: 15
-        - type: Percent
-          value: 100
-          periodSeconds: 15
-    scaleDown:
-      stabilizationWindowSeconds: 300
-      selectPolicy: Max
-      policies:
-        - type: Pods
-          value: 1
-          periodSeconds: 60
+  targetCPUUtilizationPercentage: {{ .Values.account.cpuThreshold }}
 {{- end }}
 ---
 #Deploy the service
