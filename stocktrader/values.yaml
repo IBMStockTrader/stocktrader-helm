@@ -28,8 +28,10 @@ global:
   istioNamespace: istio-system
   specifyCerts: false
   certs: <your SSL certificates>
-  externalSecrets: false
   externalConfigMap: false
+  configMapName: ceh-config
+  externalSecrets: false
+  secretsName: ceh-credentials
 database:
   kind: db2
   host: db2trader1-ibm-db2oltp-dev

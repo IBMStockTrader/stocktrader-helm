@@ -86,16 +86,26 @@ global:
       label: "SSL Certificates"
       description: "SSL certs to be trusted by the Liberty-based microservices"
       type: string
-  externalSecrets:
-    __metadata:
-      label: "Use external Kubernetes Secrets"
-      description: "Allow use of a Kubernetes Secret not created by the operator"
-      type: boolean
   externalConfigMap:
     __metadata:
       label: "Use external Kubernetes ConfigMap"
       description: "Allow use of a Kubernetes ConfigMap not created by the operator"
       type: boolean
+  configMapName:
+    __metadata:
+      label: "Name of external Kubernetes ConfigMap"
+      description: "Name of a pre-existing Kubernetes ConfigMap not created by the operator"
+      type: string
+  externalSecrets:
+    __metadata:
+      label: "Use external Kubernetes Secrets"
+      description: "Allow use of a Kubernetes Secret not created by the operator"
+      type: boolean
+  secretsName:
+    __metadata:
+      label: "Name of external Kubernetes Secrets"
+      description: "Name of a pre-existing Kubernetes Secret not created by the operator"
+      type: string
 database:
   __metadata:
     label: "Database Settings.  Mandatory - required by the portfolio microservice"
