@@ -113,7 +113,7 @@ spec:
           - name: REDIS_URL
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-credentials
+                name: {{ .Values.global.secretName }}
                 key: redis.url
 {{- end }}
 {{- if .Values.global.specifyCerts }}

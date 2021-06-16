@@ -100,12 +100,12 @@ spec:
           - name: OIDC_ID
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-credentials
+                name: {{ .Values.global.secretName }}
                 key: oidc.clientId
           - name: OIDC_SECRET
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-credentials
+                name: {{ .Values.global.secretName }}
                 key: oidc.clientSecret
 {{- end }}
           - name: OIDC_KEY

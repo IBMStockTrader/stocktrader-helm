@@ -78,22 +78,22 @@ spec:
           - name: TWITTER_CONSUMER_KEY
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-credentials
+                name: {{ .Values.global.secretName }}
                 key: twitter.consumerKey
           - name: TWITTER_CONSUMER_SECRET
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-credentials
+                name: {{ .Values.global.secretName }}
                 key: twitter.consumerSecret
           - name: TWITTER_ACCESS_TOKEN
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-credentials
+                name: {{ .Values.global.secretName }}
                 key: twitter.accessToken
           - name: TWITTER_ACCESS_TOKEN_SECRET
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-credentials
+                name: {{ .Values.global.secretName }}
                 key: twitter.accessTokenSecret
 {{- end }}
           - name: JWT_AUDIENCE

@@ -88,25 +88,25 @@ spec:
           - name: MONGO_USER
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-credentials
+                name: {{ .Values.global.secretName }}
                 key: mongo.user
                 optional: false
           - name: MONGO_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-credentials
+                name: {{ .Values.global.secretName }}
                 key: mongo.password
                 optional: false
           - name: KAFKA_USER
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-credentials
+                name: {{ .Values.global.secretName }}
                 key: kafka.user
                 optional: true
           - name: CONSUMER_API_KEY
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-credentials
+                name: {{ .Values.global.secretName }}
                 key: kafka.apiKey
                 optional: false
 {{- end }}

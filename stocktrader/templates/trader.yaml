@@ -153,19 +153,19 @@ spec:
           - name: S3_API_KEY
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-credentials
+                name: {{ .Values.global.secretName }}
                 key: s3.apiKey
                 optional: true
           - name: OIDC_CLIENTID
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-credentials
+                name: {{ .Values.global.secretName }}
                 key: oidc.clientId
                 optional: true
           - name: OIDC_CLIENTSECRET
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-credentials
+                name: {{ .Values.global.secretName }}
                 key: oidc.clientSecret
                 optional: true
 {{- end }}

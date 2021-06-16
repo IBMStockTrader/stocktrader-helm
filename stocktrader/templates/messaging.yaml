@@ -78,12 +78,12 @@ spec:
           - name: MQ_ID
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-credentials
+                name: {{ .Values.global.secretName }}
                 key: mq.id
           - name: MQ_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-credentials
+                name: {{ .Values.global.secretName }}
                 key: mq.password
 {{- end }}
           - name: MQ_HOST
