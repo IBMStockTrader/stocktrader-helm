@@ -29,6 +29,7 @@ global:
   specifyCerts: false
   certs: <your SSL certificates>
   externalSecrets: false
+  externalConfigMap: false
 database:
   kind: db2
   host: db2trader1-ibm-db2oltp-dev

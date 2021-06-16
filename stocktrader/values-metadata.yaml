@@ -91,6 +91,11 @@ global:
       label: "Use external Kubernetes Secrets"
       description: "Allow use of a Kubernetes Secret not created by the operator"
       type: boolean
+  externalConfigMap:
+    __metadata:
+      label: "Use external Kubernetes ConfigMap"
+      description: "Allow use of a Kubernetes ConfigMap not created by the operator"
+      type: boolean
 database:
   __metadata:
     label: "Database Settings.  Mandatory - required by the portfolio microservice"
