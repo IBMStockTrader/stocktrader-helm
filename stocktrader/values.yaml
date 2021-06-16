@@ -30,8 +30,8 @@ global:
   certs: <your SSL certificates>
   externalConfigMap: false
   configMapName: ceh-config
-  externalSecrets: false
-  secretsName: ceh-credentials
+  externalSecret: false
+  secretName: ceh-credentials
 database:
   kind: db2
   host: db2trader1-ibm-db2oltp-dev

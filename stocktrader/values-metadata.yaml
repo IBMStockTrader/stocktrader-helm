@@ -96,12 +96,12 @@ global:
       label: "Name of external Kubernetes ConfigMap"
       description: "Name of a pre-existing Kubernetes ConfigMap not created by the operator"
       type: string
-  externalSecrets:
+  externalSecret:
     __metadata:
       label: "Use external Kubernetes Secrets"
       description: "Allow use of a Kubernetes Secret not created by the operator"
       type: boolean
-  secretsName:
+  secretName:
     __metadata:
       label: "Name of external Kubernetes Secrets"
       description: "Name of a pre-existing Kubernetes Secret not created by the operator"
