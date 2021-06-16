@@ -66,23 +66,23 @@ spec:
           - name: AUTH_TYPE
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: auth.type
           - name: TRACE_SPEC
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: trace.spec
                 optional: true
           - name: JWT_AUDIENCE
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config 
+                name: {{ .Values.global.configMapName }} 
                 key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: jwt.issuer
 {{- if not .Values.vault.enabled }}
           - name: MONGO_USER
@@ -113,31 +113,31 @@ spec:
           - name: MONGO_AUTH_DB
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: mongo.authDB
                 optional: false
           - name: MONGO_DATABASE
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: mongo.database
                 optional: false
           - name: MONGO_IP
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: mongo.ip
                 optional: false
           - name: MONGO_PORT
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: mongo.port
                 optional: false
           - name: MP_MESSAGING_CONNECTOR_LIBERTY_KAFKA_BOOTSTRAP_SERVERS
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: kafka.address
                 optional: false
           - name: MP_MESSAGING_CONNECTOR_LIBERTY_KAFKA_SASL_JAAS_CONFIG
@@ -145,14 +145,14 @@ spec:
           - name: MP_MESSAGING_INCOMING_STOCKTRADER_TOPIC
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: kafka.historyTopic 
                 optional: false
 {{- if .Values.global.specifyCerts }}
           - name: cert_defaultTrustStore
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: ssl.certs
                 optional: true
 {{- end }}

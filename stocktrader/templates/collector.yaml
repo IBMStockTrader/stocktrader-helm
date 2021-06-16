@@ -65,18 +65,18 @@ spec:
           - name: AUTH_TYPE
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: auth.type
           - name: TRACE_SPEC
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: trace.spec
                 optional: true
           - name: CLOUDANT_URL
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: cloudant.url
 {{- if not .Values.vault.enabled }}
           - name: CLOUDANT_ID
@@ -93,23 +93,23 @@ spec:
           - name: CLOUDANT_DATABASE
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: cloudant.collector
           - name: JWT_AUDIENCE
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: jwt.issuer
 {{- if .Values.global.specifyCerts }}
           - name: cert_defaultTrustStore
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: ssl.certs
                 optional: true
 {{- end }}

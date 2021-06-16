@@ -72,12 +72,12 @@ spec:
           - name: AUTH_TYPE
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: auth.type
           - name: TRACE_SPEC
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: trace.spec
                 optional: true
 {{- if not .Values.vault.enabled }}
@@ -140,76 +140,76 @@ spec:
           - name: MQ_HOST
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: mq.host
           - name: MQ_PORT
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: mq.port
           - name: MQ_CHANNEL
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: mq.channel
           - name: MQ_QUEUE_MANAGER
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: mq.queueManager
           - name: MQ_QUEUE
             valueFrom:
                configMapKeyRef:
-                 name: {{ .Release.Name }}-config
+                 name: {{ .Values.global.configMapName }}
                  key: mq.queue
           - name: WATSON_URL
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: watson.url
           - name: ODM_URL
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: odm.url
                 optional: true
           - name: CLOUDANT_URL
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: cloudant.url
           - name: CLOUDANT_DB
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: cloudant.database
           - name: KAFKA_ACCOUNT_TOPIC
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: kafka.accountTopic
                 optional: true
           - name: KAFKA_HISTORY_TOPIC
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: kafka.historyTopic
                 optional: true
           - name: KAFKA_ADDRESS
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: kafka.address
                 optional: true
           - name: JWT_AUDIENCE
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: jwt.issuer
           - name: MESSAGING_ENABLED
             value: {{ quote .Values.messaging.enabled }}
@@ -219,7 +219,7 @@ spec:
           - name: cert_defaultTrustStore
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: ssl.certs
                 optional: true
 {{- end }}

@@ -66,33 +66,33 @@ spec:
           - name: AUTH_TYPE
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: auth.type
           - name: TRACE_SPEC
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: trace.spec
                 optional: true
           - name: JDBC_KIND
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: database.kind
           - name: JDBC_HOST
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: database.host
           - name: JDBC_PORT
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: database.port
           - name: JDBC_DB
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: database.db
 {{- if not .Values.vault.enabled }}
           - name: JDBC_ID
@@ -121,42 +121,42 @@ spec:
           - name: KAFKA_PORTFOLIO_TOPIC
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: kafka.portfolioTopic
                 optional: true
           - name: KAFKA_HISTORY_TOPIC
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: kafka.historyTopic
                 optional: true
           - name: KAFKA_ADDRESS
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: kafka.address
                 optional: true
           - name: JWT_AUDIENCE
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: jwt.issuer
           - name: STOCK_QUOTE_URL
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: stockQuote.url
                 optional: true
 {{- if .Values.global.specifyCerts }}
           - name: cert_defaultTrustStore
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: ssl.certs
                 optional: true
 {{- end }}

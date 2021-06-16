@@ -66,36 +66,36 @@ spec:
           - name: AUTH_TYPE
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: auth.type
           - name: TRACE_SPEC
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: trace.spec
                 optional: true
           - name: KAFKA_PORTFOLIO_TOPIC
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: kafka.portfolioTopic
                 optional: true
           - name: KAFKA_ACCOUNT_TOPIC
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: kafka.accountTopic
                 optional: true
           - name: KAFKA_HISTORY_TOPIC
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: kafka.historyTopic
                 optional: true
           - name: KAFKA_ADDRESS
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: kafka.address
                 optional: true
 {{- if not .Values.vault.enabled }}
@@ -120,12 +120,12 @@ spec:
           - name: JWT_AUDIENCE
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: jwt.issuer
           - name: ACCOUNT_ENABLED
             value: {{ quote .Values.account.enabled }}
@@ -135,7 +135,7 @@ spec:
           - name: cert_defaultTrustStore
             valueFrom:
               configMapKeyRef:
-                name: {{ .Release.Name }}-config
+                name: {{ .Values.global.configMapName }}
                 key: ssl.certs
                 optional: true
 {{- end }}
