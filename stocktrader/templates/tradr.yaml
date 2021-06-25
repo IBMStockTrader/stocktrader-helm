@@ -64,59 +64,59 @@ spec:
           - name: AUTH_TYPE
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: auth.type
           - name: JWT_ISSUER
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: jwt.issuer
           - name: JWT_AUDIENCE
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: jwt.audience
           - name: OIDC_NAME
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: oidc.name
           - name: OIDC_ISSUER
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: oidc.issuer
           - name: OIDC_AUTH
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: oidc.auth
           - name: OIDC_TOKEN
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: oidc.token
 {{- if not .Values.vault.enabled }}
           - name: OIDC_ID
             valueFrom:
               secretKeyRef:
-                name: {{ tpl .Values.global.secretName . }}
+{{ include "external.secret" . | indent 16 }}
                 key: oidc.clientId
           - name: OIDC_SECRET
             valueFrom:
               secretKeyRef:
-                name: {{ tpl .Values.global.secretName . }}
+{{ include "external.secret" . | indent 16 }}
                 key: oidc.clientSecret
 {{- end }}
           - name: OIDC_KEY
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: oidc.key
           - name: PROXY_HOST
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: ingress.address
 {{- if .Values.global.jsonLogging }}
           - name: WLP_LOGGING_CONSOLE_FORMAT

@@ -67,58 +67,58 @@ spec:
           - name: AUTH_TYPE
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: auth.type
           - name: TRACE_SPEC
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: trace.spec
                 optional: true
           - name: JWT_AUDIENCE
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: jwt.issuer
           - name: LDAP_HOST
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }} 
+{{ include "external.configMap" . | indent 16 }} 
                 key: ldap.host
                 optional: true
           - name: LDAP_PORT
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }} 
+{{ include "external.configMap" . | indent 16 }} 
                 key: ldap.port
                 optional: true
           - name: LDAP_BASE_DN
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }} 
+{{ include "external.configMap" . | indent 16 }} 
                 key: ldap.baseDN
                 optional: true
           - name: LDAP_REALM
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }} 
+{{ include "external.configMap" . | indent 16 }} 
                 key: ldap.realm
                 optional: true
           - name: BROKER_URL
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: broker.url
                 optional: true
           - name: COLLECTOR_URL
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: collector.url
                 optional: true
           - name: COLLECTOR_ENABLED
@@ -128,58 +128,58 @@ spec:
           - name: S3_BUCKET
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: s3.bucket
                 optional: true
           - name: S3_LOCATION
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: s3.location
                 optional: true
           - name: S3_ENDPOINT_URL
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: s3.endpointUrl
                 optional: true
           - name: S3_RESOURCE_INSTANCE_ID
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: s3.resourceInstanceId
                 optional: true
 {{- if not .Values.vault.enabled }}
           - name: S3_API_KEY
             valueFrom:
               secretKeyRef:
-                name: {{ tpl .Values.global.secretName . }}
+{{ include "external.secret" . | indent 16 }}
                 key: s3.apiKey
                 optional: true
           - name: OIDC_CLIENTID
             valueFrom:
               secretKeyRef:
-                name: {{ tpl .Values.global.secretName . }}
+{{ include "external.secret" . | indent 16 }}
                 key: oidc.clientId
                 optional: true
           - name: OIDC_CLIENTSECRET
             valueFrom:
               secretKeyRef:
-                name: {{ tpl .Values.global.secretName . }}
+{{ include "external.secret" . | indent 16 }}
                 key: oidc.clientSecret
                 optional: true
 {{- end }}
           - name: OIDC_DISCOVERY_URL
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: oidc.discoveryUrl
                 optional: true
 {{- if .Values.global.specifyCerts }}
           - name: cert_defaultTrustStore
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: ssl.certs
                 optional: true
 {{- end }}

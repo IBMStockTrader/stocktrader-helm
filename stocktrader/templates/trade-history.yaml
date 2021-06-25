@@ -66,78 +66,78 @@ spec:
           - name: AUTH_TYPE
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: auth.type
           - name: TRACE_SPEC
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: trace.spec
                 optional: true
           - name: JWT_AUDIENCE
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }} 
+{{ include "external.configMap" . | indent 16 }} 
                 key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: jwt.issuer
 {{- if not .Values.vault.enabled }}
           - name: MONGO_USER
             valueFrom:
               secretKeyRef:
-                name: {{ tpl .Values.global.secretName . }}
+{{ include "external.secret" . | indent 16 }}
                 key: mongo.user
                 optional: false
           - name: MONGO_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ tpl .Values.global.secretName . }}
+{{ include "external.secret" . | indent 16 }}
                 key: mongo.password
                 optional: false
           - name: KAFKA_USER
             valueFrom:
               secretKeyRef:
-                name: {{ tpl .Values.global.secretName . }}
+{{ include "external.secret" . | indent 16 }}
                 key: kafka.user
                 optional: true
           - name: CONSUMER_API_KEY
             valueFrom:
               secretKeyRef:
-                name: {{ tpl .Values.global.secretName . }}
+{{ include "external.secret" . | indent 16 }}
                 key: kafka.apiKey
                 optional: false
 {{- end }}
           - name: MONGO_AUTH_DB
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: mongo.authDB
                 optional: false
           - name: MONGO_DATABASE
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: mongo.database
                 optional: false
           - name: MONGO_IP
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: mongo.ip
                 optional: false
           - name: MONGO_PORT
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: mongo.port
                 optional: false
           - name: MP_MESSAGING_CONNECTOR_LIBERTY_KAFKA_BOOTSTRAP_SERVERS
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: kafka.address
                 optional: false
           - name: MP_MESSAGING_CONNECTOR_LIBERTY_KAFKA_SASL_JAAS_CONFIG
@@ -145,14 +145,14 @@ spec:
           - name: MP_MESSAGING_INCOMING_STOCKTRADER_TOPIC
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: kafka.historyTopic 
                 optional: false
 {{- if .Values.global.specifyCerts }}
           - name: cert_defaultTrustStore
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: ssl.certs
                 optional: true
 {{- end }}
