@@ -14,3 +14,19 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- $name := default .Chart.Name .Values.nameOverride -}}
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{- define "external.configMap" -}}
+{{- if .Values.global.externalConfigMap -}}
+name: {{ .Values.global.configMapName }}
+{{- else -}}
+name: {{ .Release.Name }}-config
+{{- end -}}
+{{- end -}}
+
+{{- define "external.secret" -}}
+{{- if .Values.global.externalSecret -}}
+name: {{ .Values.global.secretName }}
+{{- else -}}
+name: {{ .Release.Name }}-credentials
+{{- end -}}
+{{- end -}}
