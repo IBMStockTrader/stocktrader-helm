@@ -64,46 +64,46 @@ spec:
           - name: AUTH_TYPE
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: auth.type
           - name: TRACE_SPEC
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: trace.spec
                 optional: true
           - name: OW_URL
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: openwhisk.url
 {{- if not .Values.vault.enabled }}
           - name: OW_ID
             valueFrom:
               secretKeyRef:
-                name: {{ tpl .Values.global.secretName . }}
+{{ include "external.secret" . | indent 16 }}
                 key: openwhisk.id
           - name: OW_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ tpl .Values.global.secretName . }}
+{{ include "external.secret" . | indent 16 }}
                 key: openwhisk.password
 {{- end }}
           - name: JWT_AUDIENCE
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }} 
+{{ include "external.configMap" . | indent 16 }} 
                 key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: jwt.issuer
 {{- if .Values.global.specifyCerts }}
           - name: cert_defaultTrustStore
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: ssl.certs
                 optional: true
 {{- end }}

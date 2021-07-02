@@ -49,34 +49,34 @@ spec:
           - name: AUTH_TYPE
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: auth.type
           - name: TRACE_SPEC
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: trace.spec
                 optional: true
           - name: JWT_AUDIENCE
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: jwt.issuer
           - name: PORTFOLIO_URL
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: portfolio.url
                 optional: true
           - name: ACCOUNT_URL
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: account.url
                 optional: true
           - name: ACCOUNT_ENABLED
@@ -84,7 +84,7 @@ spec:
           - name: CQRS_URL
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: brokerCQRS.url
                 optional: true
           - name: CQRS_ENABLED
@@ -92,7 +92,7 @@ spec:
           - name: TRADE_HISTORY_URL
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: tradeHistory.url
                 optional: true
           - name: TRADE_HISTORY_ENABLED
@@ -101,7 +101,7 @@ spec:
           - name: cert_defaultTrustStore
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: ssl.certs
                 optional: true
 {{- end }}

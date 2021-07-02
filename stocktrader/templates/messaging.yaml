@@ -66,72 +66,72 @@ spec:
           - name: AUTH_TYPE
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: auth.type
           - name: TRACE_SPEC
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: trace.spec
                 optional: true
 {{- if not .Values.vault.enabled }}
           - name: MQ_ID
             valueFrom:
               secretKeyRef:
-                name: {{ tpl .Values.global.secretName . }}
+{{ include "external.secret" . | indent 16 }}
                 key: mq.id
           - name: MQ_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ tpl .Values.global.secretName . }}
+{{ include "external.secret" . | indent 16 }}
                 key: mq.password
 {{- end }}
           - name: MQ_HOST
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: mq.host
           - name: MQ_PORT
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: mq.port
           - name: MQ_CHANNEL
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: mq.channel
           - name: MQ_QUEUE_MANAGER
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: mq.queueManager
           - name: MQ_QUEUE
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: mq.queue
           - name: JWT_AUDIENCE
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: jwt.audience
           - name: JWT_ISSUER
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: jwt.issuer
           - name: NOTIFICATION_URL
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: messaging.notification.url
                 optional: true
 {{- if .Values.global.specifyCerts }}
           - name: cert_defaultTrustStore
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+{{ include "external.configMap" . | indent 16 }}
                 key: ssl.certs
                 optional: true
 {{- end }}

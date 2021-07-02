@@ -29,9 +29,9 @@ global:
   specifyCerts: false
   certs: <your SSL certificates>
   externalConfigMap: false
-  configMapName: "{{ .Release.Name }}-config"
+  configMapName: <your ConfigMap name>
   externalSecret: false
-  secretName: "{{ .Release.Name }}-credentials"
+  secretName: <your Secret name>
 database:
   kind: db2
   host: db2trader1-ibm-db2oltp-dev
@@ -102,7 +102,7 @@ brokerCQRS:
     tag: 1.0.0
   url: http://{{ .Release.Name }}-broker-cqrs-service:9080/broker-cqrs
 account:
-  enabled: false
+  enabled: true
   replicas: 1
   autoscale: false
   maxReplicas: 10
