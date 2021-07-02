@@ -159,8 +159,8 @@ spec:
                 key: mq.queueManager
           - name: MQ_QUEUE
             valueFrom:
-               configMapKeyRef:
-{{ include "external.configMap" . | indent 16 }} 
+              configMapKeyRef:
+                name: {{ tpl .Values.global.configMapName . }}
                 key: mq.queue
           - name: WATSON_URL
             valueFrom:
