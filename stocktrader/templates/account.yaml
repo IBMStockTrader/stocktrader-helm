@@ -159,9 +159,9 @@ spec:
                 key: mq.queueManager
           - name: MQ_QUEUE
             valueFrom:
-               configMapKeyRef:
-                 name: {{ tpl .Values.global.configMapName . }}
-                 key: mq.queue
+              configMapKeyRef:
+                name: {{ tpl .Values.global.configMapName . }}
+                key: mq.queue
           - name: WATSON_URL
             valueFrom:
               configMapKeyRef:

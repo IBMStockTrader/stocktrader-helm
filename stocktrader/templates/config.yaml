@@ -12,11 +12,11 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-{{- if not .Values.vault.externalConfigMap }}
+{{- if not .Values.global.externalConfigMap }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-config
+  name: {{ tpl .Values.global.configMapName . }}
 data:
   auth.type: {{ .Values.global.auth }}
   trace.spec: "{{ .Values.global.traceSpec }}"
