@@ -43,6 +43,7 @@ vault:
   enabled: false
   path: <path to Vault secrets>
   role: <Vault auth role>
+  jwtPath: <path to serviceaccount JWT>
 broker:
   replicas: 1
   autoscale: false

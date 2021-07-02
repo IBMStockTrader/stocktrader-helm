@@ -169,6 +169,11 @@ vault:
       label: "Vault authentication role"
       description: "The registered authentication role created in Vault"
       type: string
+  jwtPath:
+    __metadata:
+      label: "Vault ServiceAccount JWT Path"
+      description: "The container path of the ServiceAccount JWT"
+      type: string
 broker:
   __metadata:
     label: "Broker microservice"
