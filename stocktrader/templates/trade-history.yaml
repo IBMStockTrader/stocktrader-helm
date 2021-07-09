@@ -84,6 +84,12 @@ spec:
               configMapKeyRef:
                 name: {{ tpl .Values.global.configMapName . }}
                 key: jwt.issuer
+          - name: STOCK_QUOTE_URL
+            valueFrom:
+              configMapKeyRef:
+                name: {{ tpl .Values.global.configMapName . }}
+                key: stockQuote.url
+                optional: true
 {{- if not .Values.vault.enabled }}
           - name: MONGO_USER
             valueFrom:
