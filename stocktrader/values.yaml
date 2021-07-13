@@ -43,7 +43,7 @@ vault:
   enabled: false
   path: <path to Vault secrets>
   role: <Vault auth role>
-  jwtPath: <path to serviceaccount JWT>
+  jwtPath: /var/run/secrets/kubernetes.io/serviceaccount
 broker:
   replicas: 1
   autoscale: false
