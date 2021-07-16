@@ -302,9 +302,12 @@ spec:
     http:
       paths:
       - path: /trader
+        pathType: Prefix
         backend:
-          serviceName: {{ .Release.Name }}-trader-service
-          servicePort: 9443
+          service:
+            name: {{ .Release.Name }}-trader-service
+            port:
+              number: 9080
 {{- end }}
 {{- if .Values.global.route }}
 ---
