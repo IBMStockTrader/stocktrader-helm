@@ -161,7 +161,7 @@ spec:
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ .Release.Name }}-broker-hpa
+  name: {{ .Release.Name }}-messaging-hpa
   labels:
     app: stock-trader
 spec:
