@@ -224,9 +224,12 @@ spec:
     http:
       paths:
       - path: /broker
+        pathType: Prefix
         backend:
-          serviceName: {{ .Release.Name }}-broker-service
-          servicePort: 9443
+          service:
+            name: {{ .Release.Name }}-trader-service
+            port:
+              number: 9443
 {{- end }}
 {{- if .Values.global.route }}
 ---
