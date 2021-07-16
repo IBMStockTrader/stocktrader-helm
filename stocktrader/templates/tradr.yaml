@@ -204,9 +204,12 @@ spec:
     http:
       paths:
       - path: /tradr
+        pathType: Prefix
         backend:
-          serviceName: {{ .Release.Name }}-tradr-service
-          servicePort: 3000
+          service:
+            name: {{ .Release.Name }}-tradr-service
+            port:
+              number: 3000
 {{- end }}
 {{- if .Values.global.route }}
 ---
