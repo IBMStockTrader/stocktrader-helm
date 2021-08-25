@@ -52,6 +52,10 @@ spec:
         sidecar.istio.io/inject: 'true'
 {{- end }}
     spec:
+{{- if .Values.global.pullSecret }}
+      imagePullSecrets:
+      - name: {{ tpl .Values.global.pullSecretName . }}
+{{- end }}
       containers:
       - name: stock-quote
         image: "{{ .Values.stockQuote.image.repository }}:{{ .Values.stockQuote.image.tag }}"
