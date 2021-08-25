@@ -51,6 +51,10 @@ spec:
         sidecar.istio.io/inject: 'true'
 {{- end }}
     spec:
+{{- if .Values.global.pullSecret }}
+      imagePullSecrets:
+      - name: {{ tpl .Values.global.pullSecretName . }}
+{{- end }}
       containers:
       - name: notification-slack
         image: "{{ .Values.notificationSlack.image.repository }}:{{ .Values.notificationSlack.image.tag }}"
