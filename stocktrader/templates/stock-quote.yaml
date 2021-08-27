@@ -128,6 +128,12 @@ spec:
                 key: ssl.certs
                 optional: true
 {{- end }}
+{{- if .Values.global.proxyServer }}
+          - name: COM_IBM_HYBRID_CLOUD_SAMPLE_STOCKTRADER_STOCKQUOTE_CLIENT_APICONNECTCLIENT_MP_REST_PROXYADDRESS
+            value: {{ .Values.global.proxyServerAddress }}
+          - name: COM_IBM_HYBRID_CLOUD_SAMPLE_STOCKTRADER_STOCKQUOTE_CLIENT_IEXCLIENT_MP_REST_PROXYADDRESS
+            value: {{ .Values.global.proxyServerAddress }}
+{{- end }}
 {{- if .Values.global.jsonLogging }}
           - name: WLP_LOGGING_CONSOLE_FORMAT
             value: json
