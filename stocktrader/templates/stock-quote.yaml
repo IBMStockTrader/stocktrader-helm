@@ -108,7 +108,7 @@ spec:
           - name: IEX_API_KEY
             valueFrom:
               configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
+                name: {{ tpl .Values.global.secretName . }}
                 key: iex.apiKey
                 optional: true
           - name: COLLECTOR_URL
