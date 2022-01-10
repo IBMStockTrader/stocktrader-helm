@@ -1,4 +1,4 @@
-#       Copyright 2020-2021 IBM Corp All Rights Reserved
+#       Copyright 2020-2022 IBM Corp All Rights Reserved
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -260,7 +260,7 @@ spec:
           httpGet:
             path: /health/started
             port: 9080
-          initialDelaySeconds: 90
+          initialDelaySeconds: 120
           periodSeconds: 15
           failureThreshold: 3
         readinessProbe:
@@ -273,7 +273,6 @@ spec:
           httpGet:
             path: /health/live
             port: 9080
-          initialDelaySeconds: 120
           periodSeconds: 15
           failureThreshold: 3
 {{- end }}
