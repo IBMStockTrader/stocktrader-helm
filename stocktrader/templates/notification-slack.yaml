@@ -137,7 +137,7 @@ spec:
             path: /health/started
             port: 9080
           initialDelaySeconds: 60
-          periodSeconds: 15
+          periodSeconds: 30
           failureThreshold: 3
         readinessProbe:
           httpGet:
@@ -149,7 +149,6 @@ spec:
           httpGet:
             path: /health/live
             port: 9080
-          initialDelaySeconds: 90
           periodSeconds: 15
           failureThreshold: 3
 {{- end }}
