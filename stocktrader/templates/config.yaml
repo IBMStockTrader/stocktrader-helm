@@ -69,4 +69,6 @@ data:
   s3.resourceInstanceId: "{{ .Values.s3.resourceInstanceId }}"
   ssl.certs: |-
 {{ .Values.global.certs | indent 4 }}
+  encryption.password: {{ .Values.encryption.password }}
+  encryption.saltBytes: {{ .Values.encryption.saltBytes }}
 {{- end }}
