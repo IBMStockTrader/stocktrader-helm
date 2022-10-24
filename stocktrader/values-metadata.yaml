@@ -400,7 +400,7 @@ stockQuote:
       label: "Salt bytes text"
       description: "Salt bytes used for encryption and decryption. Allows to create multiple replicas. Optional if encryptor type is noneEncryptor"
       type: string
-  password:
+  encryptionPassword:
     __metadata:
       label: "Encryption password"
       description: "Password using for encryption and decryption"
