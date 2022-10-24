@@ -29,6 +29,7 @@ data:
   looper.url: {{ tpl .Values.looper.url . }}
   apic.url: {{ .Values.stockQuote.apiConnect }}
   iex.url: {{ .Values.stockQuote.iexTrading }}
+  encryption.type: {{ .Values.encryption.type }}
   odm.url: {{ .Values.odm.url }}
   openwhisk.url: {{ .Values.openwhisk.url }}
   account.url: {{ tpl .Values.account.url . }}
@@ -69,6 +70,4 @@ data:
   s3.resourceInstanceId: "{{ .Values.s3.resourceInstanceId }}"
   ssl.certs: |-
 {{ .Values.global.certs | indent 4 }}
-  encryption.password: {{ .Values.encryption.password }}
-  encryption.saltBytes: {{ .Values.encryption.saltBytes }}
 {{- end }}
