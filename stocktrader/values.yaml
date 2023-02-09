@@ -1,4 +1,5 @@
-#       Copyright 2017-2021 IBM Corp All Rights Reserved
+#       Copyright 2017-2021 IBM Corp, All Rights Reserved
+#       Copyright 2022-2023 Kyndryl, All Rights Reserved
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -92,16 +93,16 @@ tradr:
   image:
     repository: ibmstocktrader/tradr
     tag: 1.0.0
-brokerCQRS:
+cashAccount:
   enabled: false
   replicas: 1
   autoscale: false
   maxReplicas: 10
   cpuThreshold: 75
   image:
-    repository: ibmstocktrader/broker-cqrs
+    repository: ibmstocktrader/cash-account
     tag: 1.0.0
-  url: http://{{ .Release.Name }}-broker-cqrs-service:9080/broker-cqrs
+  url: http://{{ .Release.Name }}-cash-account-service:9080/cash-account
 account:
   enabled: false
   replicas: 1
