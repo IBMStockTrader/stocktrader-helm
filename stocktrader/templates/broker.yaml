@@ -21,10 +21,12 @@ metadata:
   labels:
     app: {{ .Release.Name }}-stock-trader
   annotations:
-    app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"{{ .Release.Name }}-portfolio"}{{- if .Values.account.enabled }}, {"apiVersion":"apps/v1","kind":"Deployment","name":"{{ .Release.Name }}-account"}{{- end }}{{- if .Values.tradeHistory.enabled }}, {"apiVersion":"apps/v1","kind":"Deployment","name":"{{ .Release.Name }}-trade-history"}{{- end }}]'
+    app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"{{ .Release.Name }}-portfolio"}{{- if .Values.account.enabled }}, {"apiVersion":"apps/v1","kind":"Deployment","name":"{{ .Release.Name }}-account"}{{- end }}{{- if .Values.cashAccount.enabled }}, {"apiVersion":"apps/v1","kind":"Deployment","name":"{{ .Release.Name }}-cash-account"}{{- end }}{{- if .Values.tradeHistory.enabled }}, {"apiVersion":"apps/v1","kind":"Deployment","name":"{{ .Release.Name }}-trade-history"}{{- end }}]'
     prism.subkind: Liberty
 spec:
+{{- if not .Values.broker.autoscale }}
   replicas: {{ .Values.broker.replicas }}
+{{- end }}
   selector:
     matchLabels:
       app: broker
