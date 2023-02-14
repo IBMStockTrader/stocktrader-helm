@@ -501,6 +501,21 @@ spec:
               secretKeyRef:
                 name: jwt
                 key: issuer
+          - name: ENCRYPTION_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: encryption
+                key: password
+          - name: ENCRYPTION_SALT_BYTES
+            valueFrom:
+              secretKeyRef:
+                name: encryption
+                key: saltBytes
+          - name: ENCRYPTION_TYPE
+            valueFrom:
+              configMapKeyRef:
+                name: encryption
+                key: type
         ports:
           - containerPort: 9080
           - containerPort: 9443

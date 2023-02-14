@@ -390,6 +390,26 @@ stockQuote:
       label: "IEX API Key"
       description: "Your API Key for the IEX Cloud.  Optional: Only used if API Connect isn't working"
       type: password
+  encryption:
+    __metadata:
+      label: "Encryption settings"
+      description: "Encryption settings for encrypting data to redis"
+    type:
+      __metadata:
+        label: "Encryption type"
+        description: "Encryptor type used for encrypting data to redis, there are 4 modes: springSecurityBytesEncryptor, noneEncryptor, aesGsmEncryptor, springSecurityTextEncryptor"
+        type: string
+    saltBytes:
+      __metadata:
+        label: "Salt bytes text"
+        description: "Salt bytes used for encryption and decryption. Allows to create multiple replicas. Optional if encryptor type is noneEncryptor"
+        type: string
+    password:
+      __metadata:
+        label: "Encryption password"
+        description: "Password using for encryption and decryption"
+        type: password
+
 trader:
   __metadata:
     label: "Trader simple UI microservice"
