@@ -1,4 +1,5 @@
-#       Copyright 2020-2022 IBM Corp All Rights Reserved
+#       Copyright 2020-2021 IBM Corp, All Rights Reserved
+#       Copyright 2022-2023 Kyndryl, All Rights Reserved
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -85,14 +86,14 @@ spec:
                 optional: true
           - name: ACCOUNT_ENABLED
             value: {{ quote .Values.account.enabled }}
-          - name: CQRS_URL
+          - name: CASH_ACCOUNT_URL
             valueFrom:
               configMapKeyRef:
                 name: {{ tpl .Values.global.configMapName . }}
-                key: brokerCQRS.url
+                key: cashaccount.url
                 optional: true
-          - name: CQRS_ENABLED
-            value: {{ quote .Values.brokerCQRS.enabled }}
+          - name: CASH_ACCOUNT_ENABLED
+            value: {{ quote .Values.cashAccount.enabled }}
           - name: TRADE_HISTORY_URL
             valueFrom:
               configMapKeyRef:
@@ -101,6 +102,62 @@ spec:
                 optional: true
           - name: TRADE_HISTORY_ENABLED
             value: {{ quote .Values.tradeHistory.enabled }}
+          - name: CQRS_ENABLED
+            value: {{ quote .Values.global.cqrs }}
+          - name: REDIS_URL
+            valueFrom:
+              secretKeyRef:
+                name: {{ tpl .Values.global.secretName . }}
+                key: redis.url
+                optional: true
+          - name: CACHE_INTERVAL
+            valueFrom:
+              configMapKeyRef:
+                name: {{ tpl .Values.global.configMapName . }}
+                key: redis.cacheInterval
+                optional: true
+          - name: KAFKA_ADDRESS
+            valueFrom:
+              configMapKeyRef:
+                name: {{ tpl .Values.global.configMapName . }}
+                key: kafka.address
+                optional: true
+          - name: KAFKA_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ tpl .Values.global.secretName . }}
+                key: kafka.user
+                optional: true
+          - name: KAFKA_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ tpl .Values.global.secretName . }}
+                key: kafka.apiKey
+                optional: true
+          - name: KAFKA_BROKER_TOPIC
+            valueFrom:
+              configMapKeyRef:
+                name: {{ tpl .Values.global.configMapName . }}
+                key: kafka.brokerTopic
+                optional: true
+          - name: KAFKA_PORTFOLIO_TOPIC
+            valueFrom:
+              configMapKeyRef:
+                name: {{ tpl .Values.global.configMapName . }}
+                key: kafka.portfolioTopic
+                optional: true
+          - name: KAFKA_ACCOUNT_TOPIC
+            valueFrom:
+              configMapKeyRef:
+                name: {{ tpl .Values.global.configMapName . }}
+                key: kafka.accountTopic
+                optional: true
+          - name: KAFKA_CASH_ACCOUNT_TOPIC
+            valueFrom:
+              configMapKeyRef:
+                name: {{ tpl .Values.global.configMapName . }}
+                key: kafka.cashAccountTopic
+                optional: true
 {{- if .Values.global.specifyCerts }}
           - name: cert_defaultTrustStore
             valueFrom:
