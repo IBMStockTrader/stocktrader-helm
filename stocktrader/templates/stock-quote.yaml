@@ -1,4 +1,5 @@
-#       Copyright 2017-2022 IBM Corp All Rights Reserved
+#       Copyright 2017-2021 IBM Corp, All Rights Reserved
+#       Copyright 202-2023 Kyndryl, All Rights Reserved
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -20,12 +21,11 @@ metadata:
   labels:
     app: {{ .Release.Name }}-stock-trader
   annotations:
-{{- if .Values.collector.enabled }}
-    app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"{{ .Release.Name }}-collector"}]'
-{{- end }}
     prism.subkind: Liberty
 spec:
+{{- if not .Values.stockQuote.autoscale }}
   replicas: {{ .Values.stockQuote.replicas }}
+{{- end }}
   selector:
     matchLabels:
         app: stock-quote
@@ -111,14 +111,6 @@ spec:
                 name: {{ tpl .Values.global.secretName . }}
                 key: iex.apiKey
                 optional: true
-          - name: COLLECTOR_URL
-            valueFrom:
-              configMapKeyRef:
-                name: {{ tpl .Values.global.configMapName . }}
-                key: collector.url
-                optional: true
-          - name: COLLECTOR_ENABLED
-            value: {{ quote .Values.collector.enabled }}
 {{- if not .Values.vault.enabled }}
           - name: REDIS_URL
             valueFrom:
