@@ -159,6 +159,11 @@ spec:
                 name: {{ tpl .Values.global.configMapName . }}
                 key: kafka.address
                 optional: true
+          - name: CURRENCY_API_URL
+            valueFrom:
+              configMapKeyRef:
+                name: {{ tpl .Values.global.configMapName . }}
+                key: cashAccount.exchangeRateUrl
           - name: JWT_AUDIENCE
             valueFrom:
               configMapKeyRef:
