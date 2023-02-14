@@ -91,7 +91,7 @@ After cloning this repository and changing directory into it, just run `helm pac
 
 It is also handy to change directory into the `stocktrader` directory (where the Chart.yaml is) and run `helm lint` to validate the helm chart.
 
-To load it into ICP, first do a `cloudctl login`, then a `cloudctl catalog load-chart --archive stocktrader-1.7.0.tgz --repo local-charts`.
+To load it into ICP, first do a `cloudctl login`, then a `cloudctl catalog load-chart --archive stocktrader-2.0.0.tgz --repo local-charts`.
 
 ## Installing the Chart
 
