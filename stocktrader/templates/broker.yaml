@@ -92,7 +92,7 @@ spec:
             valueFrom:
               configMapKeyRef:
                 name: {{ tpl .Values.global.configMapName . }}
-                key: cashaccount.url
+                key: cashAccount.url
                 optional: true
           - name: CASH_ACCOUNT_ENABLED
             value: {{ quote .Values.cashAccount.enabled }}
