@@ -1,4 +1,5 @@
-#       Copyright 2017-2022 IBM Corp All Rights Reserved
+#       Copyright 2017-2021 IBM Corp, All Rights Reserved
+#       Copyright 2022-2023 Kyndryl, All Rights Reserved
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -29,7 +30,9 @@ metadata:
 {{- end }}
     prism.subkind: Liberty
 spec:
+{{- if not .Values.messaging.autoscale }}
   replicas: {{ .Values.messaging.replicas }}
+{{- end }}
   selector:
     matchLabels:
       app: messaging
