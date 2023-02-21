@@ -223,6 +223,12 @@ spec:
               configMapKeyRef:
                 name: {{ tpl .Values.global.configMapName . }}
                 key: jwt.issuer
+          - name: OIDC_JWKS_URL
+            valueFrom:
+              configMapKeyRef:
+                name: {{ tpl .Values.global.configMapName . }}
+                key: oidc.jwksUrl
+                optional: true
           - name: MESSAGING_ENABLED
             value: {{ quote .Values.messaging.enabled }}
           - name: CQRS_ENABLED
