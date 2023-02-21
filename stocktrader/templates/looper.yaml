@@ -1,4 +1,5 @@
-#       Copyright 2017-2022 IBM Corp All Rights Reserved
+#       Copyright 2017-2021 IBM Corp, All Rights Reserved
+#       Copyright 2022-2023 Kyndryl, All Rights Reserved
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -24,7 +25,9 @@ metadata:
     app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"{{ .Release.Name }}-broker"}]'
     prism.subkind: Liberty
 spec:
+{{- if not .Values.looper.autoscale }}
   replicas: {{ .Values.looper.replicas }}
+{{- end }}
   selector:
     matchLabels:
       app: looper
