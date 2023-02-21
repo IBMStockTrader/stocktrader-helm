@@ -828,6 +828,11 @@ oidc:
       label: "Discovery URL"
       description: "The URL of the discovery endpoint for this OIDC provider"
       type: string
+  jwksUrl:
+    __metadata:
+      label: "JWKS URL"
+      description: "The URL of the JSON Web Key Set endpoint for this OIDC provider"
+      type: string
 ldap:
   __metadata:
     label: "LDAP settings (optional)"
