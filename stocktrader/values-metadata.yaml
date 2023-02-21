@@ -46,6 +46,11 @@ global:
       label: "Enable Route"
       description: "Enable an OpenShift Route for each front-end microservice"
       type: boolean
+  cqrs:
+    __metadata:
+      label: "Enable CQRS"
+      description: "Enable asynchronou interactions (Command Query Responsibility Separation)"
+      type: boolean
   istio:
     __metadata:
       label: "Enable Istio"
@@ -246,49 +251,6 @@ broker:
       label: "Broker URL"
       description: "URL at which this microservice can be accessed by other microservices"
       type: string
-brokerCQRS:
-  __metadata:
-    label: "Broker CQRS microservice"
-    description: "Settings that apply to the Broker CQRS microservice"
-  replicas:
-    __metadata:
-      label: "Initial number of pods for this microservice"
-      description: "If auto-scaling is enabled, more may get created if needed"
-      type: number
-  autoscale:
-    __metadata:
-      label: "Enable Auto-scaling"
-      description: "Enable a Horizontal Pod Autoscaler for this microservice"
-      type: boolean
-  maxReplicas:
-    __metadata:
-      label: "Maximum number of pods for this microservice"
-      description: "Only used if auto-scaling is enabled"
-      type: number
-  cpuThreshold:
-    __metadata:
-      label: "CPU Threshold"
-      description: "If auto-scaling is enabled, CPU threshold that results in another replica being created"
-      type: number
-  image:
-    __metadata:
-      label: "Docker image settings"
-      description: "How to locate the Docker image for the broker-cqrs microservice"
-    repository:
-      __metadata:
-        label: "Docker image registry"
-        description: "Path to locate the Docker image for the broker-cqrs microservice"
-        type: string
-    tag:
-      __metadata:
-        label: "Docker image tag"
-        description: "Tag for the Docker image for the broker-cqrs microservice"
-        type: string
-  url:
-    __metadata:
-      label: "Broker CQRS URL"
-      description: "URL at which this microservice can be accessed by other microservices"
-      type: string
 portfolio:
   __metadata:
     label: "Portfolio microservice"
@@ -409,7 +371,6 @@ stockQuote:
         label: "Encryption password"
         description: "Password using for encryption and decryption"
         type: password
-
 trader:
   __metadata:
     label: "Trader simple UI microservice"
@@ -496,6 +457,59 @@ tradr:
         label: "Docker image tag"
         description: "Tag for the Docker image for the tradr microservice"
         type: string
+cashAccount:
+  __metadata:
+    label: "Cash Account microservice (optional)"
+    description: "Settings that apply to the Cash Account microservice (which depends upon Redis and a relational database)"
+  enabled:
+    __metadata:
+      label: "Enable the Cash Account microservice"
+      description: "This microservice keeps track of the cash spent or gained from buying or selling stock"
+      type: boolean
+  replicas:
+    __metadata:
+      label: "Initial number of pods for this microservice"
+      description: "If auto-scaling is enabled, more may get created if needed"
+      type: number
+  autoscale:
+    __metadata:
+      label: "Enable Auto-scaling"
+      description: "Enable a Horizontal Pod Autoscaler for this microservice"
+      type: boolean
+  maxReplicas:
+    __metadata:
+      label: "Maximum number of pods for this microservice"
+      description: "Only used if auto-scaling is enabled"
+      type: number
+  cpuThreshold:
+    __metadata:
+      label: "CPU Threshold"
+      description: "If auto-scaling is enabled, CPU threshold that results in another replica being created"
+      type: number
+  image:
+    __metadata:
+      label: "Docker image settings"
+      description: "How to locate the Docker image for the cash account microservice"
+    repository:
+      __metadata:
+        label: "Docker image registry"
+        description: "Path to locate the Docker image for the cash account microservice"
+        type: string
+    tag:
+      __metadata:
+        label: "Docker image tag"
+        description: "Tag for the Docker image for the cash account microservice"
+        type: string
+  url:
+    __metadata:
+      label: "Cash Account URL"
+      description: "URL at which this microservice can be accessed by other microservices"
+      type: string
+  exchangeRateUrl:
+    __metadata:
+      label: "Currency Exchange Rate Service URL"
+      description: "URL of the service that converts currency to/from US Dollars"
+      type: string
 account:
   __metadata:
     label: "Account microservice (optional - requires Cloudant)"
@@ -503,7 +517,7 @@ account:
   enabled:
     __metadata:
       label: "Enable the Account microservice"
-      description: "This microservice keeps track of account balance, commissions, sentiment, and free trades
+      description: "This microservice keeps track of account balance, commissions, sentiment, and free trades"
       type: boolean
   replicas:
     __metadata:
@@ -722,54 +736,6 @@ tradeHistory:
   url:
     __metadata:
       label: "Trade History URL"
-      description: "URL at which this microservice can be accessed by other microservices"
-      type: string
-collector:
-  __metadata:
-    label: "Collector microservice"
-    description: "Settings that apply to the SCC Collector microservice"
-  enabled:
-    __metadata:
-      label: "Enable the Collector microservice"
-      description: "This optional service maintains security and compliance evidence for the IBM Cloud Security and Compliance Center (SCC) to periodically scrape.  Depends on Cloudant as the evidence locker.
-      type: boolean
-  replicas:
-    __metadata:
-      label: "Initial number of pods for this microservice"
-      description: "If auto-scaling is enabled, more may get created if needed"
-      type: number
-  autoscale:
-    __metadata:
-      label: "Enable Auto-scaling"
-      description: "Enable a Horizontal Pod Autoscaler for this microservice"
-      type: boolean
-  maxReplicas:
-    __metadata:
-      label: "Maximum number of pods for this microservice"
-      description: "Only used if auto-scaling is enabled"
-      type: number
-  cpuThreshold:
-    __metadata:
-      label: "CPU Threshold"
-      description: "If auto-scaling is enabled, CPU threshold that results in another replica being created"
-      type: number
-  image:
-    __metadata:
-      label: "Docker image settings"
-      description: "How to locate the Docker image for the collector microservice"
-    repository:
-      __metadata:
-        label: "Docker image registry"
-        description: "Path to locate the Docker image for the collector microservice"
-        type: string
-    tag:
-      __metadata:
-        label: "Docker image tag"
-        description: "Tag for the Docker image for the collector microservice"
-        type: string
-  url:
-    __metadata:
-      label: "Collector URL"
       description: "URL at which this microservice can be accessed by other microservices"
       type: string
 looper:
@@ -1077,11 +1043,6 @@ cloudant:
     __metadata:
       label: "Account Database"
       description: "Account database name for Cloudant"
-      type: string
-  collector:
-    __metadata:
-      label: "Collector Database"
-      description: "Collector database name for Cloudant"
       type: string
 mongo:
   __metadata:
