@@ -175,6 +175,7 @@ oidc:
   clientId: <your client id>
   clientSecret: <your client secret>
   discoveryUrl: <your discovery endpoint URL>
+  jwksUrl: <your JSON web key set url>
 ldap:
   host: bluepages.ibm.com
   port: 389
