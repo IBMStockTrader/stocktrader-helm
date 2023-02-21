@@ -120,6 +120,12 @@ spec:
               configMapKeyRef:
                 name: {{ tpl .Values.global.configMapName . }}
                 key: oidc.key
+          - name: BROKER_URL
+            valueFrom:
+              configMapKeyRef:
+                name: {{ tpl .Values.global.configMapName . }}
+                key: broker.url
+                optional: true
           - name: PROXY_HOST
             valueFrom:
               configMapKeyRef:
