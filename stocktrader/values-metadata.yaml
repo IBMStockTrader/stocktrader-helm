@@ -1,4 +1,5 @@
-#       Copyright 2019-2021 IBM Corp All Rights Reserved
+#       Copyright 2019-2021 IBM Corp, All Rights Reserved
+#       Copyright 2022-2023 Kyndryl, All Rights Reserved
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -361,6 +362,15 @@ stockQuote:
         label: "Encryption type"
         description: "Encryptor type used for encrypting data to redis, there are 4 modes: springSecurityBytesEncryptor, noneEncryptor, aesGsmEncryptor, springSecurityTextEncryptor"
         type: string
+      options:
+      - label: "None"
+        value: "noneEncryptor"
+      - label: "Text"
+        value: "springSecurityTextEncryptor"
+      - label: "Bytes"
+        value: "springSecurityBytesEncryptor"
+      - label: "AES GSM"
+        value: "aesGsmEncryptor"
     saltBytes:
       __metadata:
         label: "Salt bytes text"
