@@ -1,4 +1,5 @@
-#       Copyright 2017-2021 IBM Corp All Rights Reserved
+#       Copyright 2017-2021 IBM Corp, All Rights Reserved
+#       Copyright 2022-2023 Kyndryl, All Rights Reserved
 
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -24,7 +25,9 @@ metadata:
     app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"{{ .Release.Name }}-broker"}]'
     prism.subkind: Node.js
 spec:
+{{- if not .Values.tradr.autoscale }}
   replicas: {{ .Values.tradr.replicas }}
+{{- end }}
   selector:
     matchLabels:
       app: tradr
@@ -122,6 +125,12 @@ spec:
               configMapKeyRef:
                 name: {{ tpl .Values.global.configMapName . }}
                 key: ingress.address
+          - name: ACCOUNT_ENABLED
+            value: {{ quote .Values.account.enabled }}
+          - name: CASH_ACCOUNT_ENABLED
+            value: {{ quote .Values.cashAccount.enabled }}
+          - name: TRADE_HISTORY_ENABLED
+            value: {{ quote .Values.tradeHistory.enabled }}
 {{- if .Values.global.jsonLogging }}
           - name: WLP_LOGGING_CONSOLE_FORMAT
             value: json
@@ -179,10 +188,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Release.Name }}-tradr-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+  finalizers:
+  - service.kubernetes.io/load-balancer-cleanup
   labels:
     app: tradr
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - port: 3000
   selector:
