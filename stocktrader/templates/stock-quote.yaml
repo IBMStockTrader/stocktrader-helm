@@ -94,6 +94,12 @@ spec:
               configMapKeyRef:
                 name: {{ tpl .Values.global.configMapName . }}
                 key: jwt.issuer
+          - name: OIDC_JWKS_URL
+            valueFrom:
+              configMapKeyRef:
+                name: {{ tpl .Values.global.configMapName . }}
+                key: oidc.jwksUrl
+                optional: true
           - name: APIC_URL
             valueFrom:
               configMapKeyRef:
