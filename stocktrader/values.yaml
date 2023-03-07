@@ -230,7 +230,6 @@ cloudant:
   id: <your Cloudant ID>
   password: <your Cloudant Password>
   database: <your Cloudant Account database name>
-  collector: <your Cloudant Collector database name>
 mongo:
   ip: <your Mongo IP>
   port: 27017
